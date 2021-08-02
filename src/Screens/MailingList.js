@@ -27,8 +27,8 @@ const MailingList = () => {
                         <span className="input-group-text" id="basic-addon1"><i className="fas fa-envelope"></i></span>
                         <input type="text" className="form-control" placeholder="E-Mail Address" />
                     </div>
-                    <button type="button" className="btn btn-danger my-3" style={{borderRadius:"25px"}}>Subscribe</button>
-                    <p style={{fontSize:"12px",textAlign:"center"}}>By clicking on "SUBSCRIBE" , you agree to WEA wines's Terms of Use and Privacy Policy</p>
+                    <button type="button" className="btn btn-danger my-3" style={{borderRadius:"25px",width:"300px"}}>Subscribe</button>
+                    <p style={{fontSize:"15px",textAlign:"center"}}>By clicking on "SUBSCRIBE" , you agree to WEA wines's <span style={{textDecoration:"underline"}}>Terms of Use</span> and <span style={{textDecoration:"underline"}}>Privacy Policy</span></p>
                 </div>
             </section>
             <Footer/>

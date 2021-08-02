@@ -1,58 +1,70 @@
+@import url('https://fonts.googleapis.com/css2?family=Jost&display=swap');
+
 @keyframes slide-in-right {
   0% {
     transform: translateX(350px);
     opacity: 0;
   }
+
   100% {
     transform: translateX(0);
     opacity: 1;
   }
 }
+
 @keyframes slide-out-right {
   0% {
     transform: translateX(0);
     opacity: 1;
   }
+
   100% {
     transform: translateX(350px);
     opacity: 0;
   }
 }
+
 .slide-in-right {
-	animation: slide-in-right 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+  animation: slide-in-right 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
 }
+
 .slide-out-right {
-	animation: slide-out-right 0.5s cubic-bezier(0.550, 0.085, 0.680, 0.530) both;
+  animation: slide-out-right 0.5s cubic-bezier(0.550, 0.085, 0.680, 0.530) both;
 }
+
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: 'Jost', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
 }
-.bg-danger{
-  background-color:  #9B2120 !important;
-}
-.text-danger{
-  color: #9B2120 !important;
-}
-.btn-danger{
+
+.bg-danger {
   background-color: #9B2120 !important;
 }
-.nav-links{
+
+.text-danger {
+  color: #9B2120 !important;
+}
+
+.btn-danger {
+  background-color: #9B2120 !important;
+}
+
+.nav-links {
   text-decoration: none;
   color: black !important;
   transition: 0.2s ease-in;
 }
-.nav-links:hover{
+
+.nav-links:hover {
   color: #9B2120 !important;
   text-decoration: underline;
   text-underline-position: below;
 }
-.nav-links2{
+
+.nav-links2 {
   text-decoration: none;
   color: white !important;
 }
@@ -86,10 +98,11 @@ code {
   padding-bottom: 150px;
 }
 
-.myp{
+.myp {
   height: auto;
 }
-.op{
+
+.op {
   position: absolute;
   top: 100;
   left: 0;
@@ -99,7 +112,8 @@ code {
   width: 100%;
   opacity: 0.5;
 }
-.op2{
+
+.op2 {
   position: absolute;
   top: 100;
   left: 0;
@@ -109,7 +123,8 @@ code {
   width: 100%;
   opacity: 0.5;
 }
-.op3{
+
+.op3 {
   position: absolute;
   top: 100;
   left: 0;
@@ -119,29 +134,39 @@ code {
   width: 99%;
   opacity: 0.5;
 }
-.aui{
-  background-image:url("https://source.unsplash.com/1600x400/?wine");
-  background-size:cover;
+
+.aui {
+  background-image: url("https://source.unsplash.com/1600x400/?wine");
+  background-size: cover;
   background-position: center;
-  background-repeat:no-repeat;
-  height:50vh;
-  width:100vw;
+  background-repeat: no-repeat;
+  height: 50vh;
+  width: 100vw;
 }
-.aui2{
-  background-image:url("https://source.unsplash.com/1600x400/?wine");
-  background-size:cover;
+
+.aui2 {
+  background-image: url("https://source.unsplash.com/1600x400/?wine");
+  background-size: cover;
   background-position: center;
-  background-repeat:no-repeat;
-  height:30vh;
-  width:100vw;
+  background-repeat: no-repeat;
+  height: 30vh;
+  width: 100vw;
 }
-.aui3{
-  background-image:url("https://source.unsplash.com/1600x400/?wine");
-  background-size:cover;
+
+.aui3 {
+  background-image: url("https://source.unsplash.com/1600x400/?wine");
+  background-size: cover;
   background-position: center;
-  background-repeat:no-repeat;
-  height:100%;
-  width:100%;
+  background-repeat: no-repeat;
+  height: 100%;
+  width: 100%;
+}
+
+.who-are-we {
+  background-color: #eeeeee;
+  border-radius: 25px;
+  height: 300px;
+  width: 300px;
 }
 
 @media only screen and (max-width:576px) {
@@ -150,32 +175,42 @@ code {
   }
 
   .carousel-caption {
-    padding-bottom:0px;
+    padding-bottom: 0px;
   }
-  .myfs2{
+
+  .myfs2 {
     font-size: 13px;
     margin-top: 10px;
   }
-  .ovx{
+
+  .ovx {
     overflow-x: auto;
   }
-  .op3{
+
+  .op3 {
     position: absolute;
-  top: 100;
-  left: 0;
-  z-index: 1;
-  background-color: black;
-  height: 50vh;
-  width: 100%;
-  opacity: 0.5;
+    top: 100;
+    left: 0;
+    z-index: 1;
+    background-color: black;
+    height: 50vh;
+    width: 100%;
+    opacity: 0.5;
   }
-  .aui3{
-    background-image:url("https://source.unsplash.com/1600x400/?wine");
-  background-size:cover;
-  background-position: center;
-  background-repeat:no-repeat;
-  height:50vh;
-  width:100vw;
+
+  .aui3 {
+    background-image: url("https://source.unsplash.com/1600x400/?wine");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 50vh;
+    width: 100vw;
+  }
+
+  .who-are-we {
+    background-color: white;
+    height: auto;
+    width: 300px;
   }
 }
 
@@ -187,29 +222,36 @@ code {
   .carousel-caption {
     padding-bottom: 50px;
   }
-  .ovx{
+
+  .ovx {
     overflow-x: auto;
   }
-  .op3{
+
+  .op3 {
     position: absolute;
-  top: 100;
-  left: 0;
-  z-index: 1;
-  background-color: black;
-  height: 50vh;
-  width: 100%;
-  opacity: 0.5;
-  }
-  .aui3{
-    background-image:url("https://source.unsplash.com/1600x400/?wine");
-  background-size:cover;
-  background-position: center;
-  background-repeat:no-repeat;
-  height:50vh;
-  width:100vw;
+    top: 100;
+    left: 0;
+    z-index: 1;
+    background-color: black;
+    height: 50vh;
+    width: 100%;
+    opacity: 0.5;
   }
 
-  
+  .aui3 {
+    background-image: url("https://source.unsplash.com/1600x400/?wine");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 50vh;
+    width: 100vw;
+  }
+
+  .who-are-we {
+    background-color: white;
+    height: auto;
+    width: 300px;
+  }
 }
 
 @media only screen and (min-width : 768px) and (max-width : 992px) {
@@ -224,12 +266,14 @@ code {
   .carousel-caption {
     padding-bottom: 100px;
   }
-  .ovx{
+
+  .ovx {
     overflow-x: auto;
   }
 }
+
 @media only screen and (min-width : 993px) and (max-width : 1920px) {
-  .ovx{
+  .ovx {
     overflow-x: auto;
   }
 }

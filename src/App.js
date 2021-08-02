@@ -8,12 +8,14 @@ import ContactUs from "./Screens/ContactUs"
 import Cart from './Screens/Cart'
 import Checkout from './Screens/Checkout'
 import Register from "./Screens/Register"
+import PriceList from './Screens/PriceList'
 const App = () => {
   return (
      <Router>
        <div className="position-relative">
          <Route component={Home} path="/" exact />
          <Route component={About} path="/about" exact />
+         <Route component={PriceList} path="/pricelist" exact />
          <Route component={MailingList} path="/mailinglist" exact />
          <Route component={ContactUs} path="/contactus" exact/>
          <Route component={Cart} path="/cart" exact/>

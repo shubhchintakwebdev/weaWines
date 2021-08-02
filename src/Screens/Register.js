@@ -60,9 +60,7 @@ const Register = () => {
                                 style={{borderRadius:"25px",width:'200px'}}>Sign Up</button>
                         </div>
                         <p style={{fontSize:"15px",textAlign:"center"}}>By clicking on "SUBSCRIBE" , you agree to WEA
-                            wines's
-                            <span style={{textDecoration:"underline"}}>Terms of Use</span> and <span
-                                style={{textDecoration:"underline"}}>Privacy Policy</span></p>
+                            wines's <span style={{textDecoration:"underline"}}>Terms of Use</span> and <span style={{textDecoration:"underline"}}>Privacy Policy</span></p>
                     </div>
                     <p className="text-center">
                         If you have an account ? <span className="text-danger cp">Login</span> Here

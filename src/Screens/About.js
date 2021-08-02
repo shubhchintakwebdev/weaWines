@@ -16,10 +16,9 @@ const About = () => {
             </div>
             <section className="plr my-5">
                 <div className="row">
-                    <div className="col-md-4 d-flex flex-column justify-content-center mx-md-1 mx-auto my-2"
-                        style={{backgroundColor:"#eeeeee",borderRadius:"25px",height:"300px",width:"300px"}}>
-                        <h1 className="text-center">Who Are We?</h1>
-                        <h6 className="text-end mt-4">Mission Statement</h6>
+                    <div className="col-md-4 d-flex flex-column justify-content-center mx-md-1 my-2 who-are-we">
+                        <h1 className="text-md-center">Who Are We?</h1>
+                        <h6 className="text-md-end mt-4">Mission Statement</h6>
                     </div>
                     <div className="col-md-8 fwl d-flex flex-column justify-content-center">
                         <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Accusamus, cumque minima repellat

@@ -5,6 +5,7 @@ const Carousel = () => {
         <div id="carouselExampleControls" className="carousel slide" data-bs-ride="carousel">
                 <div className="carousel-inner chgt">
                     <div className="carousel-item active">
+                        <div style={{height:"100%",width:"100%",backgroundColor:"black"}}></div>
                         <img src="https://source.unsplash.com/1600x600/?champagne" className="d-md-block d-none w-100"
                             alt="..." />
                         <img src="https://source.unsplash.com/1600x1000/?champagne" className="d-md-none d-block w-100"

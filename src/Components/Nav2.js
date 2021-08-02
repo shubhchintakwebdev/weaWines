@@ -18,7 +18,7 @@ const Nav2 = () => {
                                 <p>Wineries</p>
                             </li>
                             <li className="cp nav-links">
-                                <p>Price List</p>
+                                <Link to="/pricelist" className="nav-links"><p>Price List</p></Link> 
                             </li>
                             <li className="cp nav-links">
                                 <p>News</p>
@@ -51,7 +51,7 @@ const Nav2 = () => {
                     </li>
                     <hr />
                     <li>
-                        <p>Price List</p>
+                       <Link to="/pricelist" className="nav-links"><p>Price List</p></Link> 
                     </li>
                     <hr />
                     <li>
