@@ -1,25 +1,27 @@
-import logo from './logo.svg';
-import './App.css';
-
-function App() {
+/* eslint-disable no-unused-vars */
+import React from 'react'
+import {BrowserRouter as Router , Route} from "react-router-dom"
+import Home from './Screens/Home'
+import About from './Screens/About'
+import MailingList from "./Screens/MailingList"
+import ContactUs from "./Screens/ContactUs"
+import Cart from './Screens/Cart'
+import Checkout from './Screens/Checkout'
+import Register from "./Screens/Register"
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+     <Router>
+       <div className="position-relative">
+         <Route component={Home} path="/" exact />
+         <Route component={About} path="/about" exact />
+         <Route component={MailingList} path="/mailinglist" exact />
+         <Route component={ContactUs} path="/contactus" exact/>
+         <Route component={Cart} path="/cart" exact/>
+         <Route component={Checkout} path="/checkout" exact/>
+         <Route component={Register} path="/register" exact />
+       </div>
+     </Router>
+  )
 }
 
-export default App;
+export default App
