@@ -37,7 +37,7 @@ const Cart = () => {
                         <p>Measurelt 1er belly</p>
                         <p>Vintage : 2018</p>
                         <p>$S 148</p>
-                        <p className="text-danger">Remove</p>
+                        <p className="text-danger cp"><u>Remove</u></p>
                     </div>
                     <div className="col-4 text-center">
                         - 1 +
@@ -52,7 +52,7 @@ const Cart = () => {
                         <p>Measurelt 1er belly</p>
                         <p>Vintage : 2018</p>
                         <p>$S 148</p>
-                        <p className="text-danger">Remove</p>
+                        <p className="text-danger cp"><u>Remove</u></p>
                     </div>
                     <div className="col-4 text-center">
                         - 1 +

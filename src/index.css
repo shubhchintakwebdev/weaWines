@@ -159,6 +159,24 @@ code {
   .ovx{
     overflow-x: auto;
   }
+  .op3{
+    position: absolute;
+  top: 100;
+  left: 0;
+  z-index: 1;
+  background-color: black;
+  height: 50vh;
+  width: 100%;
+  opacity: 0.5;
+  }
+  .aui3{
+    background-image:url("https://source.unsplash.com/1600x400/?wine");
+  background-size:cover;
+  background-position: center;
+  background-repeat:no-repeat;
+  height:50vh;
+  width:100vw;
+  }
 }
 
 @media only screen and (min-width:576px) and (max-width : 768px) {
@@ -172,6 +190,25 @@ code {
   .ovx{
     overflow-x: auto;
   }
+  .op3{
+    position: absolute;
+  top: 100;
+  left: 0;
+  z-index: 1;
+  background-color: black;
+  height: 50vh;
+  width: 100%;
+  opacity: 0.5;
+  }
+  .aui3{
+    background-image:url("https://source.unsplash.com/1600x400/?wine");
+  background-size:cover;
+  background-position: center;
+  background-repeat:no-repeat;
+  height:50vh;
+  width:100vw;
+  }
+
   
 }
 
@@ -191,7 +228,7 @@ code {
     overflow-x: auto;
   }
 }
-@media only screen and (min-width : 993px) and (max-width : 1919px) {
+@media only screen and (min-width : 993px) and (max-width : 1920px) {
   .ovx{
     overflow-x: auto;
   }
