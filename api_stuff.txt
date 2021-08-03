@@ -1,0 +1,4 @@
+events : https://weawines.shubhchintak.co/wp-json/jet-cct/events/   or /id
+
+
+news : https://weawines.shubhchintak.co/wp-json/wp/v2/posts or /id
