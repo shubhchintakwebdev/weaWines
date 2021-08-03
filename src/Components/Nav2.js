@@ -1,7 +1,6 @@
 import React,{useState} from 'react'
 import logo from "../Images/wea-logo.png"
 import {Link} from "react-router-dom"
-
 const Nav2 = () => {
     const [open,setOpen]=useState(false)
     return (
@@ -21,7 +20,7 @@ const Nav2 = () => {
                                 <Link to="/pricelist" className="nav-links"><p>Price List</p></Link> 
                             </li>
                             <li className="cp nav-links">
-                                <p>News</p>
+                                <Link to={`/news/1`} className="nav-links"><p>News</p></Link> 
                             </li>
                             <li className="cp">
                                <Link to="/mailinglist" className="nav-links"><p>Mailing List</p></Link> 
@@ -81,5 +80,4 @@ const Nav2 = () => {
         </>
     )
 }
-
 export default Nav2

@@ -9,6 +9,7 @@ import Cart from './Screens/Cart'
 import Checkout from './Screens/Checkout'
 import Register from "./Screens/Register"
 import PriceList from './Screens/PriceList'
+import NewsPage from './Screens/NewsPage'
 const App = () => {
   return (
      <Router>
@@ -21,6 +22,7 @@ const App = () => {
          <Route component={Cart} path="/cart" exact/>
          <Route component={Checkout} path="/checkout" exact/>
          <Route component={Register} path="/register" exact />
+         <Route component={NewsPage} path="/news/:id" exact />
        </div>
      </Router>
   )

@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-vars */
 import React,{useEffect, useState} from 'react'
+import { Link } from 'react-router-dom';
 const axios = require('axios');
 const NewsComponent=({image,title,postedBy,date,content,id,index})=>{
     return(
@@ -11,8 +12,8 @@ const NewsComponent=({image,title,postedBy,date,content,id,index})=>{
             <div className="col-md-8 d-flex flex-column justify-content-center p-3">
                 <h4>{title}</h4>
                 <p className="fwl my-2" style={{fontSize:"15px"}}><i className="fas fa-user"></i> {postedBy} <i className="far fa-calendar"></i> {date} </p>
-                <div className="fwl">{content.slice(3,content.length-5)}</div>
-                <p className="text-danger mt-3" id={id}>View Details <i className="fas fa-arrow-right"></i></p>
+                <div className="fwl my-2">{content.replace("<p>","").replace("</p>","")}</div>
+                <Link to={`/news/${id}`} style={{textDecoration:"none"}}><p className="text-danger mt-3" id={id}>View Details <i className="fas fa-arrow-right"></i></p></Link>
             </div></>}
         </>
     )
