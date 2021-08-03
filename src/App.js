@@ -10,6 +10,7 @@ import Checkout from './Screens/Checkout'
 import Register from "./Screens/Register"
 import PriceList from './Screens/PriceList'
 import NewsPage from './Screens/NewsPage'
+import EventsPage from './Screens/EventsPage'
 const App = () => {
   return (
      <Router>
@@ -23,6 +24,7 @@ const App = () => {
          <Route component={Checkout} path="/checkout" exact/>
          <Route component={Register} path="/register" exact />
          <Route component={NewsPage} path="/news/:id" exact />
+         <Route component={EventsPage} path="/event/:id" exact/>
        </div>
      </Router>
   )

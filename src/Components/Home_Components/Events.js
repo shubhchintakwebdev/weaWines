@@ -1,19 +1,20 @@
 /* eslint-disable no-unused-vars */
 import React,{useEffect,useState} from 'react'
+import { Link } from 'react-router-dom';
 const axios = require('axios');
 
-const EventsComponent=({image,address,date,title,content,index})=>{
+const EventsComponent=({image,address,date,title,content,index,id})=>{
     return(
         <>
            {index<3&&<div className="col-4 my-3" style={{marginRight:"40px",height:"auto",width:"420px"}}>
-                <div style={{backgroundImage:`url(${image})`,backgroundSize:"cover",backgroundRepeat:"no-repeat",height:"280px",width:"100%",borderRadius:"25px"}}
+               <Link to={`/event/${id}`}><div style={{backgroundImage:`url(${image})`,backgroundSize:"cover",backgroundRepeat:"no-repeat",height:"280px",width:"100%",borderRadius:"25px"}}
                     className="position-relative">
                     <div className="bg-dark position-absolute bottom-0 start-0 pt-3"
-                        style={{opacity:"0.7",width:"100%",borderBottomLeftRadius:"25px",borderBottomRightRadius:"25px"}}>
+                        style={{opacity:"0.7",width:"100%",borderBottomLeftRadius:"25px",borderBottomRightRadius:"25px",textDecoration:'none'}}>
                         <p className="mx-3"><i className="fas fa-map-marker-alt"></i> {address} </p>
                         <p className="mx-3"><i className="far fa-clock"></i> {date} </p>
                     </div>
-                </div>
+                </div></Link>
                 <div className="text-dark mt-3">
                     <p>{title}</p>
                     <p style={{fontWeight:"lighter"}}>{content}</p>
@@ -66,7 +67,7 @@ const Events = () => {
         </div>
         <div className="d-flex text-light justify-content-xl-between ovx">
             {events.length===0&&<div className="spinner-border" role="status"><span className="sr-only">Loading...</span></div>}
-            {events.length!==0&&events.map((item,index)=>{return <EventsComponent key={index} image={item.featured_image} address={item.location} date={`${formatDate(item.date)} , ${formatTime(item.time)}`} title={item.title} content={item.excerpt_} index={index}/>})}
+            {events.length!==0&&events.map((item,index)=>{return <EventsComponent key={index} image={item.featured_image} address={item.location} date={`${formatDate(item.date)} , ${formatTime(item.time)}`} title={item.title} content={item.excerpt_} index={index} id={item._ID}/>})}
             {/*<EventsComponent index={2} image="https://source.unsplash.com/1600x900/?drinks" address="kolkata" date="23 April 2021 , 4:57" title="Text title 3" content="one two three four"/>*/}
         </div>
     </section>
