@@ -13,7 +13,7 @@ const NewsComponent=({image,title,postedBy,date,content,id,index})=>{
                 <h4>{title}</h4>
                 <p className="fwl my-2" style={{fontSize:"15px"}}><i className="fas fa-user"></i> {postedBy} <i className="far fa-calendar"></i> {date} </p>
                 <div className="fwl my-2">{content.replace("<p>","").replace("</p>","")}</div>
-                <Link to={`/news/${id}`} style={{textDecoration:"none"}}><p className="text-danger mt-3" id={id}>View Details <i className="fas fa-arrow-right"></i></p></Link>
+                <Link to={{pathname:`/news/${id}`,state:index}} style={{textDecoration:"none"}}><p className="text-danger mt-3" id={id}>View Details <i className="fas fa-arrow-right"></i></p></Link>
             </div></>}
         </>
     )
