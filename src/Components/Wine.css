@@ -1,0 +1,95 @@
+.burgundy{
+    background-image: url("Wine_Components/Burgundy.png");
+   
+    background-size: cover;
+    overflow: 'hidden';
+    background-repeat: no-repeat;
+
+}
+
+.wineries{
+  background-image: url("Wine_Components/Wineries.jpg");
+ 
+  background-size: cover;
+  overflow: 'hidden';
+  background-repeat: no-repeat;
+
+}
+
+.image {
+    height: 350px;
+    width: 100%;
+    font-size: x-large;
+    align-content: center;
+    backdrop-filter: brightness(50%);
+ 
+}
+
+.image1{
+  height: 250px;
+  width: 100%;
+  font-size: x-large;
+  align-content: center;
+  backdrop-filter: brightness(50%);
+}
+.content{
+    background-color: #9B2120;
+
+}
+
+.heading{
+  background-color: black;
+  color: white;
+}
+.container-heading{
+ 
+  margin-top: 10px;
+}
+ .container{
+   color:white;
+   margin-top: 10px;
+   margin-bottom: 10px;
+  
+ }
+
+ .champ{
+   height:192px
+ }
+ .mob{
+   width:430px
+ }
+.row{
+    margin-right: 0px;
+    margin-left: 0px ;
+}
+.middle{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.pad{
+  padding-right: 0px!important  ;
+  margin: 0px!important;
+}
+.hidden{
+  display: none;
+}
+
+.select{
+  margin:5px;
+  width:90%;
+  margin-left:27px
+
+}
+.mobileview{
+  display: none;
+}
+
+
+
+@media (max-width: 460px) {
+    .websiteview { display: none; }
+    .mobileview { display: inline-block; }
+  }
+  
