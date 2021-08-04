@@ -53,16 +53,20 @@ const Nav1 = () => {
 		const data = await res.json();
 		setForgotPasswordModalIsOpen(false);
 		console.log(forgotPasswordModalIsOpen);
-		console.log(data);
 		if (data.status) {
+			localStorage.setItem("userdetails", JSON.stringify(data.user));
 			localStorage.setItem("user", data.user.display_name);
+			localStorage.setItem("token", data.letscms_token);
 			// history.push("/");
 			window.location.reload();
+			console.log(data);
 		}
 	};
 
 	const handleLogout = () => {
 		localStorage.removeItem("user");
+		localStorage.removeItem("userdetails");
+		localStorage.removeItem("token");
 		history.push("/");
 		window.location.reload();
 	};
@@ -82,6 +86,14 @@ const Nav1 = () => {
 		if (data.status) setForgotPasswordModalIsOpen(false);
 	};
 
+	const handleLoginWithGoogle = async () => {
+		const res = await fetch(
+			"https://weawines.shubhchintak.co/wp-login.php?loginSocial=google&redirect=https%3A%2F%2Fweawines.shubhchintak.co%2Fwp-admin%2F"
+		);
+		const data = await res.json();
+		console.log(data);
+	};
+
 	return (
 		<>
 			<div
@@ -95,11 +107,14 @@ const Nav1 = () => {
 					<div className="col-6 text-end">
 						{state ? (
 							<p>
-								{state} |{" "}
+								<Link to="/myaccount" className="nav-links2">
+									{state}
+								</Link>
+								|{" "}
 								<Link to="/cart" className="nav-links2">
 									<i className="fas fa-shopping-cart"></i> Cart Items (0)
-								</Link>
-								{" "}|{" "}
+								</Link>{" "}
+								|{" "}
 								<button
 									style={{
 										color: "white",
@@ -218,6 +233,7 @@ const Nav1 = () => {
 						type="button"
 						className="btn btn-light mb-2 shadow"
 						style={{ borderRadius: "25px", width: "300px" }}
+						onClick={handleLoginWithGoogle}
 					>
 						Login with Google
 					</button>

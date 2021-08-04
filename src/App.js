@@ -11,6 +11,7 @@ import Register from "./Screens/Register";
 import PriceList from "./Screens/PriceList";
 import NewsPage from "./Screens/NewsPage";
 import EventsPage from "./Screens/EventsPage";
+import MyAccount from "./Screens/MyAccount";
 import { UserProvider } from "./Components/UserContext";
 const App = () => {
 	return (
@@ -19,6 +20,7 @@ const App = () => {
 				<div className="position-relative">
 					<Route component={Home} path="/" exact />
 					<Route component={About} path="/about" exact />
+					<Route component={MyAccount} path="/myaccount" exact />
 					<Route component={PriceList} path="/pricelist" exact />
 					<Route component={MailingList} path="/mailinglist" exact />
 					<Route component={ContactUs} path="/contactus" exact />
