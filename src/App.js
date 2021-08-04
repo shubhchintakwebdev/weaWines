@@ -13,6 +13,8 @@ import NewsPage from "./Screens/NewsPage";
 import EventsPage from "./Screens/EventsPage";
 import MyAccount from "./Screens/MyAccount";
 import { UserProvider } from "./Components/UserContext";
+import Wine from "./Components/Wine";
+import Postpage from "./Components/Postpage";
 const App = () => {
 	return (
 		<UserProvider>
@@ -29,6 +31,8 @@ const App = () => {
 					<Route component={Register} path="/register" exact />
 					<Route component={NewsPage} path="/news/:id" exact />
 					<Route component={EventsPage} path="/event/:id" exact />
+					<Route component={Wine} path="/winelist" exact />
+					<Route component={Postpage} path="/postpage/:id" exact />
 				</div>
 			</Router>
 		</UserProvider>

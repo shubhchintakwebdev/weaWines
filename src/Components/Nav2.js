@@ -14,7 +14,7 @@ const Nav2 = () => {
                         <ul style={{listStyle:"none",fontWeight:"lighter"}}
                             className="d-md-flex justify-content-evenly d-none myfs">
                             <li className="cp nav-links">
-                                <p>Wineries</p>
+                             <Link to="/winelist" className="nav-links"><p>Wineries</p></Link>
                             </li>
                             <li className="cp nav-links">
                                 <Link to="/pricelist" className="nav-links"><p>Price List</p></Link> 
