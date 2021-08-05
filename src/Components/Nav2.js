@@ -20,7 +20,7 @@ const Nav2 = () => {
                                 <Link to="/pricelist" className="nav-links"><p>Price List</p></Link> 
                             </li>
                             <li className="cp nav-links">
-                                <Link to={`/news/1`} className="nav-links"><p>News</p></Link> 
+                                <Link to={`/news/29`} className="nav-links"><p>News</p></Link> 
                             </li>
                             <li className="cp">
                                <Link to="/mailinglist" className="nav-links"><p>Mailing List</p></Link> 
@@ -46,7 +46,7 @@ const Nav2 = () => {
                     style={{fontSize:"50px"}}></i>
                 <ul style={{listStyle:"none"}} className="fs-3 w-75 mt-4 cp">
                     <li>
-                        <p>Wineries</p>
+                        <Link to="/winelist" className="nav-links"><p>Wineries</p></Link>
                     </li>
                     <hr />
                     <li>
@@ -54,7 +54,7 @@ const Nav2 = () => {
                     </li>
                     <hr />
                     <li>
-                        <p>News</p>
+                        <Link to="/news/29" className="nav-links"><p>News</p></Link>
                     </li>
                     <hr />
                     <li>
