@@ -53,13 +53,13 @@ const Nav1 = () => {
 		const data = await res.json();
 		setForgotPasswordModalIsOpen(false);
 		console.log(forgotPasswordModalIsOpen);
+		console.log(data);
 		if (data.status) {
 			localStorage.setItem("userdetails", JSON.stringify(data.user));
 			localStorage.setItem("user", data.user.display_name);
 			localStorage.setItem("token", data.letscms_token);
 			// history.push("/");
 			window.location.reload();
-			console.log(data);
 		}
 	};
 
