@@ -3,7 +3,7 @@ import {Link} from "react-router-dom"
 import Nav1 from "../Components/Nav1.js"
 import Nav2 from "../Components/Nav2"
 import Footer from "../Components/Footer"
-
+import CheckoutScreen from "../Components/Chechout_Components/CheckOut"
 const Checkout = () => {
     return (
         <>
@@ -17,8 +17,15 @@ const Checkout = () => {
             </div>
             <section className="plr my-5">
               <h3 className="text-danger fwl py-4">Checkout</h3>
+            </section>
+            <section className="my-5">
+            <CheckoutScreen/>
+            </section>
+            <section className="plr my-5">
               <div className="row">
+              
                   <div className="col-12 d-flex justify-content-end">
+                  
                   <Link to="/cart"><button type="button" className="btn btn-secondary my-4" style={{borderRadius:"25px",width:"200px",margin:"20px"}}>Back To Cart</button></Link>
                   <button type="button" className="btn btn-danger my-4" style={{borderRadius:"25px",width:"200px",margin:"20px"}}>Order Now</button>
                   </div>
