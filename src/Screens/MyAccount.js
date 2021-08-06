@@ -145,8 +145,10 @@ const MyAccount = () => {
 		// const address = await resAddress.json();
 		// console.log(address);
 		const resOrders = await fetch(
-			"https://weawines.shubhchintak.co/wp-json/letscms/v1/orders",
+			"/wp-json/letscms/v1/orders",
 			{
+				
+				
 				headers: {
 					letscms_token: token,
 				},

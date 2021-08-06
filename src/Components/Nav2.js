@@ -8,7 +8,7 @@ const Nav2 = () => {
             <div className="plr" style={{paddingTop:"20px",paddingBottom:"20px"}}>
                 <div className="row">
                     <div className="col-4">
-                       <Link to="/"><img src={logo} alt="" style={{height:"80px",width:"180px"}} /></Link> 
+                       <Link to="/"><img src="https://weawines.shubhchintak.co/wp-content/uploads/2021/08/wea-logo-300x126.png" alt="" style={{height:"80px",width:"180px", objectFit:"contain"}} /></Link> 
                     </div>
                     <div className="col-8 mt-4">
                         <ul style={{listStyle:"none",fontWeight:"lighter"}}
@@ -20,7 +20,7 @@ const Nav2 = () => {
                                 <Link to="/pricelist" className="nav-links"><p>Price List</p></Link> 
                             </li>
                             <li className="cp nav-links">
-                                <Link to={`/news/1`} className="nav-links"><p>News</p></Link> 
+                                <Link to={`/news/29`} className="nav-links"><p>News</p></Link> 
                             </li>
                             <li className="cp">
                                <Link to="/mailinglist" className="nav-links"><p>Mailing List</p></Link> 
@@ -46,16 +46,16 @@ const Nav2 = () => {
                     style={{fontSize:"50px"}}></i>
                 <ul style={{listStyle:"none"}} className="fs-3 w-75 mt-4 cp">
                     <li>
-                        <p>Wineries</p>
+                    <Link to="/winelist" className="nav-links"><p>Wineries</p></Link>
                     </li>
                     <hr />
                     <li>
                        <Link to="/pricelist" className="nav-links"><p>Price List</p></Link> 
                     </li>
                     <hr />
-                    <li>
-                        <p>News</p>
-                    </li>
+                    <li className="cp nav-links">
+                                <Link to={`/news/29`} className="nav-links"><p>News</p></Link> 
+                            </li>
                     <hr />
                     <li>
                        <Link to="/mailinglist"><p>Mailing List</p></Link> 
