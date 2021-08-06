@@ -107,6 +107,7 @@ const Nav1 = () => {
 					<div className="col-6 text-end">
 						{state ? (
 							<p>
+								<i className="fas fa-user"></i>{" "}{" "}
 								<Link to="/myaccount" className="nav-links2">
 									{state}
 								</Link>{" "}

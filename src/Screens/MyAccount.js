@@ -17,7 +17,6 @@ import "antd/dist/antd.css";
 import { LogoutOutlined, ArrowRightOutlined } from "@ant-design/icons";
 import Nav1 from "../Components/Nav1.js";
 import Nav2 from "../Components/Nav2";
-// import Carousel from "../Components/Home_Components/Carousel";
 import Footer from "../Components/Footer";
 import { useHistory } from "react-router-dom";
 
@@ -152,47 +151,98 @@ const MyAccount = () => {
 		console.log(ordersjson.data.orders);
 		const sampleorders = [];
 		let key = 0;
-		ordersjson.data.orders.forEach((order) => {
-			order.items.forEach((item) => {
-				key++;
-				sampleorders.push({
-					key,
-					items: item.item_name,
-					order: order.order_id,
-					quantity: item.quantity,
-					amount: `$ ${order.total}`,
-					tags: [order.order_status],
-				});
+		// ordersjson.data.orders.forEach((order) => {
+		// 	order.items.forEach((item) => {
+		// 		key++;
+		// 		sampleorders.push({
+		// 			key,
+		// 			items: item.item_name,
+		// 			order: order.order_id,
+		// 			quantity: item.quantity,
+		// 			amount: `$ ${order.total}`,
+		// 			tags: [order.order_status],
+		// 		});
+		// 	});
+		// });
+		// console.log(sampleorders);
+		// setOrders(sampleorders);
+
+		const sampleOrders2 = [];
+		ordersjson.data.orders.map((order) => {
+			sampleOrders2.push({
+				key: order.order_id,
+				order: order.order_id,
+				date: order.date_modified.date.substring(0, 10),
+				total: order.items.length,
+				tags: [order.order_status],
+				actions: order.order_id,
 			});
 		});
-		// console.log(sampleorders);
-		setOrders(sampleorders);
+		console.log(sampleOrders2);
+		setOrders(sampleOrders2);
 	};
 	useEffect(() => {
 		handleFetch();
 	}, []);
 
 	const { Option } = Select;
-	const columns = [
-		{
-			title: "Items & Details",
-			dataIndex: "items",
-			key: "items",
-		},
+	// const columns = [
+	// 	{
+	// 		title: "Items & Details",
+	// 		dataIndex: "items",
+	// 		key: "items",
+	// 	},
+	// 	{
+	// 		title: "Order No",
+	// 		dataIndex: "order",
+	// 		key: "order",
+	// 	},
+	// 	{
+	// 		title: "Quantity",
+	// 		dataIndex: "quantity",
+	// 		key: "quantity",
+	// 	},
+	// 	{
+	// 		title: "Amount",
+	// 		dataIndex: "amount",
+	// 		key: "amount",
+	// 	},
+	// 	{
+	// 		title: "Tags",
+	// 		key: "tags",
+	// 		dataIndex: "tags",
+	// 		render: (tags) => (
+	// 			<>
+	// 				{tags.map((tag) => {
+	// 					let color = tag.length > 7 ? "green" : "yellow";
+	// 					if (tag === "cancelled") {
+	// 						color = "red";
+	// 					}
+	// 					return (
+	// 						<Tag color={color} key={tag}>
+	// 							{tag.toUpperCase()}
+	// 						</Tag>
+	// 					);
+	// 				})}
+	// 			</>
+	// 		),
+	// 	},
+	// ];
+	const columns2 = [
 		{
 			title: "Order No",
 			dataIndex: "order",
 			key: "order",
 		},
 		{
-			title: "Quantity",
-			dataIndex: "quantity",
-			key: "quantity",
+			title: "Date",
+			dataIndex: "date",
+			key: "date",
 		},
 		{
-			title: "Amount",
-			dataIndex: "amount",
-			key: "amount",
+			title: "Total Items",
+			dataIndex: "total",
+			key: "total",
 		},
 		{
 			title: "Tags",
@@ -213,6 +263,12 @@ const MyAccount = () => {
 					})}
 				</>
 			),
+		},
+		{
+			title: "Actions",
+			dataIndex: "actions",
+			key: "actions",
+			render: (id) => <button onClick={() => console.log(id)}>View</button>,
 		},
 	];
 	// const orders = [
@@ -648,7 +704,7 @@ const MyAccount = () => {
 							</TabPane>
 							<TabPane tab="My Orders" key="3">
 								<h2>My Orders</h2>
-								<Table columns={columns} dataSource={orders} />
+								<Table columns={columns2} dataSource={orders} />
 							</TabPane>
 							<TabPane tab="My Rewards" key="4">
 								<h2 style={{ marginLeft: 0 }}>My Rewards</h2>
