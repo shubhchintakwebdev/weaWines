@@ -1,9 +1,11 @@
-import React from 'react'
+import React,{useEffect,useState} from 'react'
 import { render } from 'react-dom';
 import { Row, Col, Form, Input, Button, Select, Checkbox } from 'antd';
 import 'antd/dist/antd.css';
-import {Link} from "react-router-dom"
+import "../../App.css"
+import { message } from 'antd';
 
+import { Link, useHistory } from "react-router-dom";
 
 // const Checkout = () => {
 //     return (
@@ -34,6 +36,74 @@ import {Link} from "react-router-dom"
 
         const { Option } = Select;
         const CheckoutScreen = () => {
+            const history = useHistory();
+            const userdetails = JSON.parse(localStorage.getItem("userdetails"));
+            const displayName = userdetails.display_name;
+            const token = localStorage.getItem("token");
+            const [firstName, setFirstName] = useState(userdetails.first_name);
+            const [lastName, setLastName] = useState(userdetails.last_name);
+            const [email, setEmail] = useState(userdetails.user_email);
+            const [phone, setPhone] = useState("");
+            const [bCity, setBCity] = useState("");
+            const [bState, setBState] = useState("");
+            const [bCountry, setBCountry] = useState("");
+            const [bZip, setBZip] = useState("");
+            const [bAddress1, setBAddress1] = useState("");
+            const [bddress2, setBAddress2] = useState("");
+            const [Address1, setAddress1] = useState("");
+            const [Address2, setAddress2] = useState("");
+            const [sCity, setSCity] = useState("");
+            const [sState, setSState] = useState("");
+            const [sCountry, setSCountry] = useState("Country");
+            const [sZip, setSZip] = useState("");
+            const [billing, setBilling] = useState(false);
+            const handleCheckout = async () => {
+                const res = await fetch(
+                    "/wp-json/letscms/v1/order/create",
+                    {
+                        method: "post",
+                        headers: {
+                            "Content-Type": "application/json",
+                            "letscms_token":token
+                        },
+                        body: JSON.stringify({
+                            first_name: firstName,
+                            last_name: lastName,
+                            country:sCountry,
+                            country:sCountry,       
+                            city:sCity,
+                            state:sState,
+                            postcode:sZip,
+                            phone:phone,
+                            email:email,
+                            payment_method:'cod',
+                            payment_method_title:'Cash on Delivery',
+                            address_1:Address1,
+                            address_2:Address2
+                        }),
+                    }
+                );
+                const data = await res.json();
+                message.success({
+                    content: 'Order Placed Successfully!',
+                    className: 'custom-class',
+                    style: {
+                      marginTop: '5vh',
+                    },
+                  });
+                 console.log(data)
+                 history.push("/");
+
+            };
+
+
+            function onChange(e) {
+                setBilling(e.target.checked)
+                if(billing===true){
+                    setBCity(sCity)
+                }
+               }
+           
         return(
             <>
             <Row>
@@ -48,34 +118,56 @@ import {Link} from "react-router-dom"
                 >
                 <Row>
 
-                <Col span={7} >
+                <Col span={5} >
 
-                            <Form.Item 
-                                name="First_Name" 
-                                label="First Name"
-                            >
-                                <Input placeholder="input placeholder" />
-                            </Form.Item>
+                <Form.Item name="First_Name" label="First Name">
+				<Input
+					placeholder="First Name"
+                    defaultValue={firstName}
+        			onChange={(e) => setFirstName(e.target.value)}
+				/>
+				</Form.Item>
                         </Col>
-                        <Col span={7} offset={1} >
+                        <Col span={5} offset={1} >
+
+                    <Form.Item name="Last_Name" label="Last Name">
+                    <Input
+                        placeholder="Last Name"
+                        defaultValue={lastName}
+                        onChange={(e) => setLastName(e.target.value)}
+                    />
+                    </Form.Item>
+                            </Col>
+                        <Col span={5} offset={1} >
                             <Form.Item 
                                 name="contact" 
                                 label="Contact Number"
                             >
-                                <Input placeholder="input placeholder" />
+                                <Input placeholder="Contact No." 
+                                    defaultValue={phone}
+                                    rules={[
+                                            {
+                                                required: 'true',
+                                            },
+                                            ]}
+                                     onChange={(e) => setPhone(e.target.value)}   
+                                />
                             </Form.Item>
                         </Col>
-                        <Col span={7} offset={1}>
+                        <Col span={5} offset={1}>
                             <Form.Item
                                 name="email"
                                 label="E-mail"
+                            >
+                                <Input placeholder="Email" 
+                                defaultValue={email}
+                                onChange={(e) => setEmail(e.target.value)}
                                 rules={[
                                 {
                                     type: 'email',
                                 },
                                 ]}
-                            >
-                                <Input placeholder="input placeholder" />
+                                />
                             </Form.Item>
                         </Col>
                                 
@@ -94,22 +186,47 @@ import {Link} from "react-router-dom"
                         >
                             <Form.Item 
                                 name="street" 
-                                label="Unit and Street No."
+                                label="Address Line 1"
                             >
-                                <Input placeholder="input placeholder" />
+                                <Input 
+                                  defaultValue={Address1}
+                                onChange={(e) => setAddress1(e.target.value)}
+                                placeholder="Address Line 1" />
                             </Form.Item>
                             <Form.Item 
                                 name="building" 
-                                label="Building (if any)"
+                                label="Address Line 2"
                             >
-                                <Input placeholder="input placeholder" />
+                                <Input 
+                                  defaultValue={Address2}
+                                onChange={(e) => setAddress2(e.target.value)}
+                                placeholder="Address Line 2" />
                             </Form.Item>
-                            <Form.Item 
-                                name="city" 
-                                label="City"
-                            >
-                                <Input placeholder="input placeholder" />
-                            </Form.Item>
+                            
+                            <Row>
+                                <Col span={12}>
+                                        <Form.Item 
+                                        name="city" 
+                                        label="City"
+                                    >
+                                        <Input 
+                                        defaultValue={sCity}
+                                        onChange={(e) => setSCity(e.target.value)}
+                                        placeholder="City" />
+                                    </Form.Item>
+                                </Col>
+                                <Col span={12}>
+                                <Form.Item 
+                                        name="State" 
+                                        label="State"
+                                    >
+                                        <Input 
+                                        defaultValue={sState}
+                                        onChange={(e) => setSState(e.target.value)}
+                                        placeholder="State" />
+                                    </Form.Item>
+                                </Col>
+                            </Row>
                             <Row>
                                 <Col span={12}>
                                     <Form.Item
@@ -117,7 +234,10 @@ import {Link} from "react-router-dom"
                                         label="Country"
                                         hasFeedback
                                     >
-                                        <Select placeholder="Please select a country">
+                                        <Select
+                                          defaultValue={sCountry}
+                                          onChange={(value) => setSCountry(value)}
+                                         placeholder="Country">
                                             <Option value="china">China</Option>
                                             <Option value="usa">U.S.A</Option>
                                         </Select>
@@ -128,7 +248,10 @@ import {Link} from "react-router-dom"
                                         name="postal" 
                                         label="Postal/Zip Code"
                                     >
-                                        <Input placeholder="input placeholder" />
+                                        <Input 
+                                           defaultValue={sZip}
+                                        onChange={(e) => setSZip(e.target.value)}
+                                        placeholder="input placeholder" />
                                     </Form.Item>
                                 </Col>
                             </Row>
@@ -137,7 +260,7 @@ import {Link} from "react-router-dom"
                                 valuePropName="checked" 
                                 noStyle
                             >
-                                <Checkbox>Same as Biling Address</Checkbox>
+                                <Checkbox onChange={onChange}>Same as Biling Address</Checkbox>
                             </Form.Item>
                         </Form>
                     </Col>
@@ -145,31 +268,56 @@ import {Link} from "react-router-dom"
                         <h3>
                             Billing Address
                         </h3>
-                        <Form
+                               <Form
                             layout="vertical"
-                            name="Billing_add"
+                            name="Shipping_add"
                             initialValues={{
                                 remember: true,
                             }}
                         >
                             <Form.Item 
                                 name="street" 
-                                label="Unit and Street No."
+                                label="Address Line 1"
                             >
-                                <Input placeholder="input placeholder" />
+                                <Input 
+                                  defaultValue={bAddress1}
+                                onChange={(e) => setBAddress1(e.target.value)}
+                                placeholder="Address Line 1" />
                             </Form.Item>
                             <Form.Item 
                                 name="building" 
-                                label="Building (if any)"
+                                label="Address Line 2"
                             >
-                                <Input placeholder="input placeholder" />
+                                <Input 
+                                  defaultValue={bddress2}
+                                onChange={(e) => setBAddress2(e.target.value)}
+                                placeholder="Address Line 2" />
                             </Form.Item>
-                            <Form.Item 
-                                name="city" 
-                                label="City"
-                            >
-                                <Input placeholder="input placeholder" />
-                            </Form.Item>
+                            
+                            <Row>
+                                <Col span={12}>
+                                        <Form.Item 
+                                        name="city" 
+                                        label="City"
+                                    >
+                                        <Input 
+                                        defaultValue={bCity}
+                                        onChange={(e) => setBCity(e.target.value)}
+                                        placeholder="City" />
+                                    </Form.Item>
+                                </Col>
+                                <Col span={12}>
+                                <Form.Item 
+                                        name="State" 
+                                        label="State"
+                                    >
+                                        <Input 
+                                        defaultValue={bState}
+                                        onChange={(e) => setBState(e.target.value)}
+                                        placeholder="State" />
+                                    </Form.Item>
+                                </Col>
+                            </Row>
                             <Row>
                                 <Col span={12}>
                                     <Form.Item
@@ -177,7 +325,10 @@ import {Link} from "react-router-dom"
                                         label="Country"
                                         hasFeedback
                                     >
-                                        <Select placeholder="Please select a country">
+                                        <Select
+                                          defaultValue={bCountry}
+                                          onChange={(value) => setBCountry(value)}
+                                         placeholder="Country">
                                             <Option value="china">China</Option>
                                             <Option value="usa">U.S.A</Option>
                                         </Select>
@@ -188,30 +339,33 @@ import {Link} from "react-router-dom"
                                         name="postal" 
                                         label="Postal/Zip Code"
                                     >
-                                        <Input placeholder="input placeholder" />
+                                        <Input 
+                                           defaultValue={bZip}
+                                        onChange={(e) => setBZip(e.target.value)}
+                                        placeholder="input placeholder" />
                                     </Form.Item>
                                 </Col>
                             </Row>
-                            {/* <Row>
-                                <Col span={6} offset={11}>
-                            <Form.Item>
-                            <Link to="/cart"><button type="button" className="btn btn-secondary my-4" style={{borderRadius:"25px",width:"200px",margin:"20px"}}>Back To Cart</button></Link>
-                            </Form.Item>
-                            </Col>
-                            <Col span={6} offset={1}>
-                            <Form.Item>
-                            <button type="button" className="btn btn-danger my-4" style={{borderRadius:"25px",width:"200px",margin:"20px"}}>Order Now</button>
-
-                            </Form.Item>
-                            </Col>
-                            </Row> */}
+                             
                         </Form>
                     </Col>
+                    
                 </Row>
                 </Col>
+                
             </Row>
+            <section className="plr my-5">
+              <div className="row">
+              
+                  <div className="col-12 d-flex justify-content-end">
+                  
+                  <Link to="/cart"><button type="button" className="btn btn-secondary my-4" style={{borderRadius:"25px",width:"200px",margin:"20px"}}>Back To Cart</button></Link>
+                  <button type="button" onClick={handleCheckout} className="btn btn-danger my-4" style={{borderRadius:"25px",width:"200px",margin:"20px"}}>Order Now</button>
+                  </div>
+              </div>
+            </section>
          </>
         );
-                        }
+        }
 
 export default CheckoutScreen;

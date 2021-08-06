@@ -22,8 +22,8 @@ const RelatedNewsComponent=({id,content,cid,index})=>{
     }
 }
 const NewsPage = ({location}) => {
+     let {id}=useParams()
 
-    let {id}=useParams()
     const [news,setNews]=useState()
     const [newsArray,setNewsArray]=useState([])
     const months=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"]
@@ -34,16 +34,12 @@ const NewsPage = ({location}) => {
         let m2=months[Number(m)-1] 
         return `${d} ${m2} ${y}`
     }
+    
 
-    useEffect(() => {
-        axios.get(`https://weawines.shubhchintak.co/wp-json/wp/v2/posts/${id}`).then(function (response){
-                setNews(response.data)
-            })
-            .catch(function (error){
-                console.log(error);
-            })
-    }, [id])
-    useEffect(() => {
+      useEffect(() => {
+        window.scrollTo(0, 0);
+      },[]); 
+      useEffect(() => {
         axios.get(`https://weawines.shubhchintak.co/wp-json/wp/v2/posts`).then(function (response){
                 setNewsArray(response.data)
             })
@@ -51,6 +47,16 @@ const NewsPage = ({location}) => {
                 console.log(error);
             })
     }, [id,newsArray])
+    useEffect(() => {
+        // scrollToTop()
+         axios.get(`https://weawines.shubhchintak.co/wp-json/wp/v2/posts/${id}`).then(function (response){
+                setNews(response.data)
+            })
+            .catch(function (error){
+                console.log(error);
+            })
+    }, [id])
+   
 
     return (
         <>

@@ -33,58 +33,33 @@ import axios from "axios";
 // }
 
 // export default PriceList
-
+ 
 var FormData = require("form-data");
-const list = [
-	{
-		key: "1",
-		wine: "John Brown",
-		price: 32,
-		vintage: "New York",
-	},
-	{
-		key: "2",
-		wine: "Joe Black",
-		price: 42,
-		vintage: "London",
-	},
-	{
-		key: "3",
-		wine: "Jim Green",
-		price: 32,
-		vintage: "Sidney",
-	},
-	{
-		key: "4",
-		wine: "Jim Red",
-		price: 32,
-		vintage: "London",
-	},
-];
-
 var quant = [];
+const token = localStorage.getItem("token");
 
-function handleCart(value) {
+ function handleCart(value) {
 	var data = new FormData();
 	data.append("product_id", value[1]);
 	data.append("quantity", value[0]);
 	console.log(data);
-	// var config = {
-	//   method: 'post',
-	//   url: 'https://weawines.shubhchintak.co/wp-json/letscms/v1/cart/add-item',
-	//   headers: {
-	//     ...data.getHeaders()
-	//   },
-	//   data : data
-	// };
+	var config = {
+	  method: 'post',
+	  url: '/wp-json/letscms/v1/cart/add-item',
+	  headers: {
+		letscms_token: token,
+		"Content-Type": "application/json",
+	},
+	  data : data
+	};
 
-	// axios(config)
-	// .then(function (response) {
-	//   console.log(JSON.stringify(response.data));
-	// })
-	// .catch(function (error) {
-	//   console.log(error);
-	// });
+	axios(config)
+	.then(function (response) {
+	  console.log(JSON.stringify(response.data));
+	})
+	.catch(function (error) {
+	  console.log(error);
+	});
 }
 
 class PriceListing extends React.Component {
@@ -110,53 +85,54 @@ class PriceListing extends React.Component {
 		const onChangeQuantity = (value) => {
 			console.log(value);
 		};
-		// axios.get("/wp-json/letscms/v1/products").then((response) => {
-			// console.log(response.data.data.products)
-      // console.log(list);
-			// list = [];
-			// for (let i = 0; i < response.data.data.products.length; i++) {
-			// 	list.push({
-			// 		key: response.data.data.products[i].id,
-			// 		wine: response.data.data.products[i].name,
-			// 		price: response.data.data.products[i].price,
-			// 		vintage: response.data.data.products[i].type,
-			// 	});
-			// }
+		axios.get("/wp-json/letscms/v1/products").then((response) => {
+     //   console.log(list);
+			const list = []
+			for (let i = 0; i < response.data.data.products.length; i++) {
+				list.push({
+					key: response.data.data.products[i].id,
+					wine: response.data.data.products[i].name,
+					price: response.data.data.products[i].price,
+					vintage: response.data.data.products[i].type,
+				});
+			}
 			// console.log(list);
 			// this.setState({ wine: list });
-		// });
-		Object.keys(list).map(function (object) {
-			list[object]["quantity"] = (
-				<InputNumber
-					size="small"
-					min={0}
-					defaultValue={0}
-					onChange={(value) => (quant = [value, list[object]["key"]])}
-				/>
-			);
-			list[object]["cart"] = (
-				<button
-					type="button"
-					onClick={() => handleCart(quant)}
-					className="btn btn-danger my-4"
-					style={{
-						backgroundColor: "#9b2120",
-						color: "#ffffff",
-						border: 0,
-						borderRadius: "25px",
-						width: "150px",
-						margin: "20px",
-					}}
-				>
-					Add to Cart
-				</button>
-			);
-		});
-		// console.log(list);
+			Object.keys(list).map(function (object) {
+				list[object]["quantity"] = (
+					<InputNumber
+						size="small"
+						min={0}
+						defaultValue={0}
+						onChange={(value) => (quant = [value, list[object]["key"]])}
+					/>
+				);
+				list[object]["cart"] = (
+					<button
+						type="button"
+						onClick={() => handleCart(quant)}
+						className="btn btn-danger my-4"
+						style={{
+							backgroundColor: "#9b2120",
+							color: "#ffffff",
+							border: 0,
+							borderRadius: "25px",
+							width: "150px",
+							margin: "20px",
+						}}
+					>
+						Add to Cart
+					</button>
+				);
+			});
+			console.log(list);
 		this.setState({
-			wine: list,
+			wine: list
 		});
-		// console.log(this.state.wine);
+		console.log(this.state.wine);
+		});
+	
+		
 	}
 	getColumnSearchProps = (dataIndex) => ({
 		filterDropdown: ({
@@ -264,6 +240,8 @@ class PriceListing extends React.Component {
 				key: "vintage",
 				//   width: '30%',
 				//   ...this.getColumnSearchProps('name'),
+				responsive: ["sm"]
+
 			},
 			{
 				title: "Wine",
@@ -271,6 +249,8 @@ class PriceListing extends React.Component {
 				key: "wine",
 				//   width: '20%',
 				...this.getColumnSearchProps("wine"),
+				responsive: ["sm"]
+
 			},
 			{
 				title: "Net Price",
@@ -278,28 +258,49 @@ class PriceListing extends React.Component {
 				key: "price",
 				sorter: (a, b) => a.price - b.price,
 				sortDirections: ["descend", "ascend"],
+				responsive: ["sm"]
+
+			},
+			{
+				title: "Wines",
+				render: (record) => (
+				<React.Fragment>
+					{record.vintage}<br/>
+					{record.wine}<br/>
+					{record.price}<br/>
+					{record.quantity}
+					<br />
+					{record.cart}
+				</React.Fragment>
+				),
+				align: 'center',
+				responsive: ["xs"]
 			},
 			{
 				title: "Quantity",
 				dataIndex: "quantity",
 				key: "quantity",
+				responsive: ["sm"]
+
 			},
 			{
 				title: "",
 				dataIndex: "cart",
 				key: "cart",
+				responsive: ["sm"]
+
 				// render: (text,record) => <a>{record.quantity.value}</a>,
 			},
 		];
 		return (
 			<>
 				<Row>
-					<Col span={4} offset="3" className="filter">
-						<h2 style={{ fontFamily: "Jost", fontWeight: 500, float: "left" }}>
+					<Col lg={{span:4, offset:3}} sm={8} className="filter">
+						<h5 style={{ fontFamily: "Jost", fontWeight: 500, float: "left" }}>
 							Filters
-						</h2>
+						</h5>
 						<Divider />
-						<h3 style={{ fontFamily: "Jost", fontWeight: 400 }}>Wines</h3>
+						<h6 style={{ fontFamily: "Jost", fontWeight: 400 }}>Wines</h6>
 						<Collapse bordered={false} accordion>
 							<Panel header="Burgundy" key="1">
 								<Checkbox> Antoine Jobard</Checkbox>
@@ -322,7 +323,7 @@ class PriceListing extends React.Component {
 							<Panel header="Rhone" key="5"></Panel>
 							<Panel header="The New Spain" key="6"></Panel>
 						</Collapse>
-						<h3 style={{ fontFamily: "Jost", fontWeight: 400 }}>Vintage</h3>
+						<h6 style={{ fontFamily: "Jost", fontWeight: 400, paddingTop:"25px" }}>Vintage</h6>
 						<Checkbox>2015</Checkbox>
 						<br />
 						<Checkbox>2016</Checkbox>
@@ -333,7 +334,7 @@ class PriceListing extends React.Component {
 						<br />
 						<Checkbox>2019</Checkbox>
 					</Col>
-					<Col span={14}>
+					<Col lg={14} sm={16}>
 						<Table columns={columns} dataSource={this.state.wine} />
 					</Col>
 				</Row>

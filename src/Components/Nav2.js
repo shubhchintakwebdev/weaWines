@@ -1,8 +1,19 @@
-import React,{useState} from 'react'
+import React,{useState,useEffect} from 'react'
 import logo from "../Images/wea-logo.png"
 import {Link} from "react-router-dom"
+const axios = require('axios');
+
 const Nav2 = () => {
     const [open,setOpen]=useState(false)
+    const [id,setId]=useState('')
+      useEffect(() => {
+        axios.get('https://weawines.shubhchintak.co/wp-json/wp/v2/posts').then(function (response){
+                 setId(response.data[0].id);
+             })
+            .catch(function (error){
+                console.log(error);
+            })
+    },[])
     return (
         <>
             <div className="plr" style={{paddingTop:"20px",paddingBottom:"20px"}}>
@@ -20,7 +31,7 @@ const Nav2 = () => {
                                 <Link to="/pricelist" className="nav-links"><p>Price List</p></Link> 
                             </li>
                             <li className="cp nav-links">
-                                <Link to={`/news/29`} className="nav-links"><p>News</p></Link> 
+                                 <Link to={{pathname:`/news/${id}`,state:0}} className="nav-links"><p>News</p></Link> 
                             </li>
                             <li className="cp">
                                <Link to="/mailinglist" className="nav-links"><p>Mailing List</p></Link> 

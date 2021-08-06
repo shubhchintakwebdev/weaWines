@@ -2,8 +2,6 @@ import React, { useContext, useState } from "react";
 import { UserContext } from "./UserContext";
 import { Link, useHistory } from "react-router-dom";
 import Modal from "react-modal";
-import Login from "../Components/Login.js";
-import CartItem from '../Components/Cart_Components/items'
 const customStyles = {
 	content: {
 		top: "50%",
@@ -17,7 +15,7 @@ const customStyles = {
 	},
 };
 Modal.setAppElement("#root");
-const Nav1 = () => {
+const Login = () => {
 	const history = useHistory();
 	const [modalIsOpen, setIsOpen] = React.useState(false);
 	const [passVisible, setPassVisible] = React.useState(false);
@@ -60,18 +58,11 @@ const Nav1 = () => {
 			localStorage.setItem("userdetails", JSON.stringify(data.user));
 			localStorage.setItem("user", data.user.display_name);
 			localStorage.setItem("token", data.letscms_token);
-			// history.push("/");
+			history.push("/");
 			window.location.reload();
 		}
 	};
-
-	const handleLogout = () => {
-		localStorage.removeItem("user");
-		localStorage.removeItem("userdetails");
-		localStorage.removeItem("token");
-		history.push("/");
-		window.location.reload();
-	};
+ 
 
 	const handleForgotPassword = async () => {
 		const res = await fetch(
@@ -98,57 +89,11 @@ const Nav1 = () => {
 
 	return (
 		<>
-			<div
-				className="bg-danger text-light plr d-md-block d-none "
-				style={{ height: "30px" }}
-			>
-				<div className="row fwl">
-					<div className="col-6">
-						<p>Free Delivery for $300 and above, till 13th July 2021 only</p>
-					</div>
-					<div className="col-6 text-end">
-						{state ? (
-							<p>
-							<i className="fas fa-user"></i>{" "}{" "}
-								<Link to="/myaccount" className="nav-links2">
-									{state}
-								</Link>{" "}
-								|{" "}
-								<Link to="/cart" className="nav-links2">
-									<i className="fas fa-shopping-cart"></i> Cart Items (<CartItem/>)
-								</Link>{" "}
-								|
-								<button
-									style={{
-										color: "white",
-										height: "30px",
-										background: "transparent",
-										border: "none",
-									}}
-									onClick={handleLogout}
-								>
-									Logout
-								</button>
-							</p>
-						) : (
-							<p>
-								<i className="fas fa-user"></i>
-								<Link to="/register" className="nav-links2">
-									{" "}
-									Register
-								</Link>
-								/
-								<Login />
-								{" "}
-								|{" "}
-								<Link to="/cart" className="nav-links2">
-									<i className="fas fa-shopping-cart"></i> Cart Items (0)
-								</Link>
-							</p>
-						)}
-					</div>
-				</div>
-			</div>
+		 
+								<span onClick={openModal} className="cp">
+									Login
+								</span>{" "}
+				 
 			<Modal
 				isOpen={modalIsOpen}
 				onRequestClose={closeModal}
@@ -230,7 +175,7 @@ const Nav1 = () => {
 					>
 						Log In
 					</button>
-					<p>or</p>
+					{/* <p>or</p>
 					<button
 						type="button"
 						className="btn btn-light mb-2 shadow"
@@ -245,7 +190,7 @@ const Nav1 = () => {
 						style={{ borderRadius: "25px", width: "300px" }}
 					>
 						Login with Facebook
-					</button>
+					</button> */}
 					<p className="text-center mt-4">
 						If you don't have an account ?{" "}
 						<Link to="/register" style={{ textDecoration: "none" }}>
@@ -301,4 +246,4 @@ const Nav1 = () => {
 		</>
 	);
 };
-export default Nav1;
+export default Login;

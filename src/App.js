@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React from "react";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route,Switch } from "react-router-dom";
+import ScrollToTopRoute from './ScrollToTop';
 import Home from "./Screens/Home";
 import About from "./Screens/About";
 import MailingList from "./Screens/MailingList";
@@ -19,21 +20,23 @@ const App = () => {
 	return (
 		<UserProvider>
 			<Router>
-				<div className="position-relative">
-					<Route component={Home} path="/" exact />
-					<Route component={About} path="/about" exact />
-					<Route component={MyAccount} path="/myaccount" exact />
-					<Route component={PriceList} path="/pricelist" exact />
-					<Route component={MailingList} path="/mailinglist" exact />
-					<Route component={ContactUs} path="/contactus" exact />
-					<Route component={Cart} path="/cart" exact />
-					<Route component={Checkout} path="/checkout" exact />
-					<Route component={Register} path="/register" exact />
-					<Route component={NewsPage} path="/news/:id" exact />
-					<Route component={EventsPage} path="/event/:id" exact />
-					<Route component={Wine} path="/winelist" exact />
-					<Route component={Postpage} path="/postpage/:id" exact />
+			<Switch>
+				<div className="">
+					<ScrollToTopRoute component={Home} path="/" exact />
+					<ScrollToTopRoute component={About} path="/about" exact />
+					<ScrollToTopRoute component={MyAccount} path="/myaccount" exact />
+					<ScrollToTopRoute component={PriceList} path="/pricelist" exact />
+					<ScrollToTopRoute component={MailingList} path="/mailinglist" exact />
+					<ScrollToTopRoute component={ContactUs} path="/contactus" exact />
+					<ScrollToTopRoute component={Cart} path="/cart" exact />
+					<ScrollToTopRoute component={Checkout} path="/checkout" exact />
+					<ScrollToTopRoute component={Register} path="/register" exact />
+					<ScrollToTopRoute component={NewsPage} path={["/news", "/news/:id"]}  exact />
+					<ScrollToTopRoute component={EventsPage} path="/event/:id" exact />
+					<ScrollToTopRoute component={Wine} path="/winelist" exact />
+					<ScrollToTopRoute component={Postpage} path="/postpage/:id" exact />
 				</div>
+				</Switch>
 			</Router>
 		</UserProvider>
 	);

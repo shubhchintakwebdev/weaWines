@@ -3,6 +3,7 @@ import React,{useEffect, useState} from 'react'
 import { Link } from 'react-router-dom';
 const axios = require('axios');
 const NewsComponent=({image,title,postedBy,date,content,id,index})=>{
+    console.log("index",index)
     return(
        <>
             {index<3&&<><div className="col-md-4 my-3">

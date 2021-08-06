@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Footer from "./Footer";
 import Nav1 from "./Nav1";
 import Nav2 from "./Nav2";
+import { Link } from "react-router-dom";
 import "./Postpage.css";
 import axios from "axios";
 class Postpage extends Component {
@@ -39,7 +40,11 @@ class Postpage extends Component {
                         this.state.title
                     }
                 </div>
+               
                 <div dangerouslySetInnerHTML={this.createMarkup()} className="dangeroushtml"/>
+                <div className="" style={{ }}>
+                    <Link to={{pathname:`/winelist`}} style={{textDecoration:"none"}}><p className="text-danger mt-3" ><i className="fas fa-arrow-left"></i> Go Back </p></Link> 
+                </div>
                 <Footer/>
             </div>
         )

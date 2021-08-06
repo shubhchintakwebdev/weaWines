@@ -1,39 +1,39 @@
 /* .App {
-  text-align: center;
+  text-align: center!important;
 }
 
 .App-logo {
-  height: 40vmin;
-  pointer-events: none;
+  height: 40vmin!important;
+  pointer-events: none!important;
 }
 
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+    animation: App-logo-spin infinite 20s linear!important;
   }
 }
 
 .App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  background-color: #282c34!important;
+  min-height: 100vh!important;
+  display: flex!important;
+  flex-direction: column!important;
+  align-items: center!important;
+  justify-content: center!important;
+  font-size: calc(10px + 2vmin)!important;
+  color: white!important;
 }
 
 .App-link {
-  color: #61dafb;
+  color: #61dafb!important;
 }
 
 @keyframes App-logo-spin {
   from {
-    transform: rotate(0deg);
+    transform: rotate(0deg)!important;
   }
   to {
-    transform: rotate(360deg);
+    transform: rotate(360deg)!important;
   }
 }
 
@@ -41,55 +41,134 @@
  */
 
  .App {
-  text-align: center;
+  text-align: center!important;
 }
 
 .App-logo {
-  height: 40vmin;
-  pointer-events: none;
+  height: 40vmin!important;
+  pointer-events: none!important;
 }
 
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+    animation: App-logo-spin infinite 20s linear!important;
   }
 }
 
 .App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  background-color: #282c34!important;
+  min-height: 100vh!important;
+  display: flex!important;
+  flex-direction: column!important;
+  align-items: center!important;
+  justify-content: center!important;
+  font-size: calc(10px + 2vmin)!important;
+  color: white!important;
 }
 
 .App-link {
-  color: #61dafb;
+  color: #61dafb!important;
 }
 
 @keyframes App-logo-spin {
   from {
-    transform: rotate(0deg);
+    transform: rotate(0deg)!important;
   }
   to {
-    transform: rotate(360deg);
+    transform: rotate(360deg)!important;
   }
 }
 
 .ant-tabs-nav-list{
-  background-color: #f8f8f8;
-  color: #acacac;
+  background-color: #f8f8f8 !important;
+  color: #acacac !important;
+  font-family: Jost !important;
 }
-
+label{
+  font-family: Jost!important;
+}
 .ant-tabs-tab:hover{
   color: #2e2e2e !important;
 }
 
 .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
   color: #2e2e2e !important; 
-  background-color: #f8f8f8;
-  font-weight: 400;
+  background-color: #f8f8f8!important;
+  font-weight: 400!important;
+}
+
+.filter{
+  background-color: #f8f8f8!important;
+  padding: 20px!important;
+}
+.ant-collapse-header{
+  font-family: jost!important;
+  font-weight: 400!important;
+  font-size: 14px !important;
+}
+
+.ant-collapse-content-box{
+  font-family: jost!important;
+  font-weight: 400!important;
+  font-size: 16px!important;
+}
+
+.ant-collapse .ant-collapse-borderless .ant-collapse-icon-position-left{
+  background-color: #f8f8f8 !important;
+}
+
+.ant-tabs-ink-bar {
+  position: absolute!important;
+  background: #9B2120!important;
+  pointer-events: none!important;
+}
+
+.ant-input:hover, .ant-input-password:hover{
+  border-color: #9B2120 !important;
+}
+
+
+.ant-input:focus, .ant-input-password:focus {
+  border-color: #9b2120 !important;
+   outline: 0!important; 
+  -webkit-box-shadow: 0 0 0 2px rgba(155,33,32, 0.2) !important; 
+  box-shadow: 0 0 0 2px rgba(155,33,32, 0.2) !important;
+}
+
+.ant-select-selector:hover{
+  border-color: #9B2120 !important;
+}
+
+.ant-select-selector:focus {
+  border-color: #9b2120!important;
+   outline: 0!important; 
+  -webkit-box-shadow: 0 0 0 2px rgba(155,33,32, 0.2) !important; 
+  box-shadow: 0 0 0 2px rgba(155,33,32, 0.2) !important;
+}
+
+.mobile{
+  display: none !important;
+}
+
+@media only screen and (max-width: 768px) {
+  .desktop{
+    display: none !important;
+  }
+  .mobile{
+    display: block !important;
+  }
+}
+
+.ant-checkbox-checked .ant-checkbox-inner {
+  background-color: #9b2120!important;
+  border-color: #9b2120!important;
+}
+
+.ant-checkbox-checked .ant-checkbox-inner:hover{
+  border-color: #9b2120!important;
+}
+
+.ant-input-number:hover{
+  border-color: #9b2120!important;
+
 }

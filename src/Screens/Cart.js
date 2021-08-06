@@ -192,10 +192,8 @@ const Cart = () => {
 											+
 										</button>
 									</div>
-									<div className="col-3 text-end">$ {item.total}</div>
-									<div className="col-2">
-										<p></p>
-									</div>
+									<div className="col-3 text-center" style={{paddingLeft:'20%'}}>$ {item.total}</div>
+								 
 								</>
 							);
 						})}

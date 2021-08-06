@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link, Router, Redirect, useHistory } from "react-router-dom";
 import logo from "../Images/nav_logo.png";
+import Login from "../Components/Login"
 const Register = () => {
 	const history = useHistory();
 	const [firstName, setFirstName] = useState("");
@@ -159,7 +160,8 @@ const Register = () => {
 					</div>
 					<p className="text-center">
 						If you have an account ?{" "}
-						<span className="text-danger cp">Login</span> Here
+ 						<span className="text-danger cp"><Login /></span>
+ 						 Here
 					</p>
 				</div>
 			</div>

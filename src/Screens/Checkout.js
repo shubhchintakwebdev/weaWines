@@ -21,16 +21,7 @@ const Checkout = () => {
             <section className="my-5">
             <CheckoutScreen/>
             </section>
-            <section className="plr my-5">
-              <div className="row">
-              
-                  <div className="col-12 d-flex justify-content-end">
-                  
-                  <Link to="/cart"><button type="button" className="btn btn-secondary my-4" style={{borderRadius:"25px",width:"200px",margin:"20px"}}>Back To Cart</button></Link>
-                  <button type="button" className="btn btn-danger my-4" style={{borderRadius:"25px",width:"200px",margin:"20px"}}>Order Now</button>
-                  </div>
-              </div>
-            </section>
+           
             <Footer/>
         </>
     )
