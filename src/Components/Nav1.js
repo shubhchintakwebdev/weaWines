@@ -109,12 +109,12 @@ const Nav1 = () => {
 							<p>
 								<Link to="/myaccount" className="nav-links2">
 									{state}
-								</Link>
+								</Link>{" "}
 								|{" "}
 								<Link to="/cart" className="nav-links2">
 									<i className="fas fa-shopping-cart"></i> Cart Items (0)
 								</Link>{" "}
-								|{" "}
+								|
 								<button
 									style={{
 										color: "white",
