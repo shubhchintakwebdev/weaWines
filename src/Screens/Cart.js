@@ -7,6 +7,8 @@ import Footer from "../Components/Footer";
 const Cart = () => {
 	const token = localStorage.getItem("token");
 	const [cart, setCart] = useState([]);
+	const [notAllowed,setnotAllowed] = useState(true);
+
 	const handleFetch = async () => {
 		const res = await fetch(
 			"/wp-json/letscms/v1/cart?coupons[]=GET15&coupons[]=GET50",
@@ -17,6 +19,9 @@ const Cart = () => {
 			}
 		);
 		const cartjson = await res.json();
+		if(cartjson.status === false){
+			setnotAllowed(false)
+		}
 		if (cartjson.data == undefined) return;
 		// console.log(cartjson.data.cart_items);
 		const newCart = cartjson.data.cart_items.map((item) => {
@@ -25,6 +30,7 @@ const Cart = () => {
 				total: (Number(item.product_price) * Number(item.quantity)).toString(),
 			};
 		});
+		
 		// setCart(cartjson.data.cart_items);
 		console.log(newCart);
 		setCart(newCart);
@@ -32,6 +38,9 @@ const Cart = () => {
 
 	useEffect(() => {
 		handleFetch();
+		if(token==null){
+			setnotAllowed(false)
+		}
 	}, []);
 
 	const handleIncrement = async (Item) => {
@@ -223,6 +232,7 @@ const Cart = () => {
 						>
 							Continue Shopping
 						</button>
+					{notAllowed &&
 						<Link to="/checkout">
 							<button
 								type="button"
@@ -232,6 +242,17 @@ const Cart = () => {
 								Proceed To Checkout
 							</button>
 						</Link>
+					 }
+					 {!notAllowed &&
+							<button
+								type="button"
+								disabled
+								className="btn btn-danger my-4"
+								style={{ borderRadius: "25px", width: "200px", margin: "20px" }}
+							>
+								Proceed To Checkout
+							</button>
+					 }
 					</div>
 				</div>
 			</section>

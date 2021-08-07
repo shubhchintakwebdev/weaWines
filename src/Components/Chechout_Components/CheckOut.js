@@ -38,7 +38,6 @@ import { Link, useHistory } from "react-router-dom";
         const CheckoutScreen = () => {
             const history = useHistory();
             const userdetails = JSON.parse(localStorage.getItem("userdetails"));
-            const displayName = userdetails.display_name;
             const token = localStorage.getItem("token");
             const [firstName, setFirstName] = useState(userdetails.first_name);
             const [lastName, setLastName] = useState(userdetails.last_name);

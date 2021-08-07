@@ -40,9 +40,9 @@ class Postpage extends Component {
                         this.state.title
                     }
                 </div>
-               
+                
                 <div dangerouslySetInnerHTML={this.createMarkup()} className="dangeroushtml"/>
-                <div className="" style={{ }}>
+                <div className="goBack" style={{ }}>
                     <Link to={{pathname:`/winelist`}} style={{textDecoration:"none"}}><p className="text-danger mt-3" ><i className="fas fa-arrow-left"></i> Go Back </p></Link> 
                 </div>
                 <Footer/>

@@ -15,30 +15,13 @@ import {
 } from "antd";
 import "antd/dist/antd.css";
 import axios from "axios";
-
-// const PriceList = () => {
-//     return (
-//        <>
-//            <Nav1 />
-//            <Nav2 />
-//            <div className="position-relative">
-//                <div className="op"></div>
-//                <div className="aui d-flex justify-content-center align-items-center">
-//                    <h1 className="text-uppercase text-light fwl" style={{zIndex:5}}>Price List</h1>
-//                </div>
-//            </div>
-//            <Footer />
-//        </>
-//     )
-// }
-
-// export default PriceList
- 
-var FormData = require("form-data");
+import { message } from 'antd';
+import Login from '../Login'
+ var FormData = require("form-data");
 var quant = [];
 const token = localStorage.getItem("token");
-
  function handleCart(value) {
+
 	var data = new FormData();
 	data.append("product_id", value[1]);
 	data.append("quantity", value[0]);
@@ -54,8 +37,30 @@ const token = localStorage.getItem("token");
 	};
 
 	axios(config)
-	.then(function (response) {
-	  console.log(JSON.stringify(response.data));
+	.then(function (res) {
+	//   console.log(JSON.stringify(response.data));
+	  const result = res.data;
+	  console.log(result)
+
+	  if(result.status===true){
+		quant = 0
+		message.success({
+			content: `Item added to cart!`,
+			className: 'custom-class',
+			style: {
+			  marginTop: '5vh',
+			},
+		  });
+	  }
+	  if(result.status===false){
+		message.error({
+			content: `Add Quantity!`,
+			className: 'custom-class',
+			style: {
+			  marginTop: '5vh',
+			},
+		  });
+	  }
 	})
 	.catch(function (error) {
 	  console.log(error);
@@ -70,6 +75,7 @@ class PriceListing extends React.Component {
 			searchedColumn: "",
 			wine: [],
 			value: 0,
+			setLogin:true
 		};
 	}
 
@@ -81,10 +87,24 @@ class PriceListing extends React.Component {
 		this.setState({ value: this.state.value + 1 });
 	};
 
+
 	componentDidMount() {
 		const onChangeQuantity = (value) => {
 			console.log(value);
 		};
+		const setCart = (value) =>{
+			console.log(value)
+			if(token===null){
+				message.error({
+                    content: `Please Login!`,
+                    className: 'custom-class',
+                    style: {
+                      marginTop: '5vh',
+                    },
+                  });
+			}
+			handleCart(value)
+		}
 		axios.get("/wp-json/letscms/v1/products").then((response) => {
      //   console.log(list);
 			const list = []
@@ -104,14 +124,15 @@ class PriceListing extends React.Component {
 						size="small"
 						min={0}
 						defaultValue={0}
-						onChange={(value) => (quant = [value, list[object]["key"]])}
+						onChange={(value) => (quant = [value, list[object]["key"]], console.log(quant))}
 					/>
 				);
 				list[object]["cart"] = (
-					<button
+ 					<button
 						type="button"
-						onClick={() => handleCart(quant)}
+						onClick={() => setCart(quant)}
 						className="btn btn-danger my-4"
+						// disabled={quant[0]===0 ? true :console.log(quant)}
 						style={{
 							backgroundColor: "#9b2120",
 							color: "#ffffff",

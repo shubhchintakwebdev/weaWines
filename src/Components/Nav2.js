@@ -65,8 +65,8 @@ const Nav2 = () => {
                     </li>
                     <hr />
                     <li className="cp nav-links">
-                                <Link to={`/news/29`} className="nav-links"><p>News</p></Link> 
-                            </li>
+                           <Link to={{pathname:`/news/${id}`,state:0}} className="nav-links"><p>News</p></Link> 
+                   </li>
                     <hr />
                     <li>
                        <Link to="/mailinglist"><p>Mailing List</p></Link> 
