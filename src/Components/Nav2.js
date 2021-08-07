@@ -32,7 +32,7 @@ const Nav2 = () => {
                                 <Link to="/pricelist" className="nav-links"><p>Price List</p></Link> 
                             </li>
                             <li className="cp nav-links">
-                                 <Link to={{pathname:`/news/${id}`,state:0}} className="nav-links"><p>News</p></Link> 
+                                 <Link to={{pathname:`/news`,state:0}} className="nav-links"><p>News</p></Link> 
                             </li>
                             <li className="cp">
                                <Link to="/mailinglist" className="nav-links"><p>Mailing List</p></Link> 
@@ -66,7 +66,7 @@ const Nav2 = () => {
                     </li>
                     <hr />
                     <li className="cp nav-links">
-                           <Link to={{pathname:`/news/${id}`,state:0}} className="nav-links"><p>News</p></Link> 
+                           <Link to={{pathname:`/news`,state:0}} className="nav-links"><p>News</p></Link> 
                    </li>
                     <hr />
                     <li>

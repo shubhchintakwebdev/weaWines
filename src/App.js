@@ -31,7 +31,7 @@ const App = () => {
 					<ScrollToTopRoute component={Cart} path="/cart" exact />
 					<ScrollToTopRoute component={Checkout} path="/checkout" exact />
 					<ScrollToTopRoute component={Register} path="/register" exact />
-					<ScrollToTopRoute component={NewsPage} path={["/news", "/news/:id"]}  exact />
+					<ScrollToTopRoute component={NewsPage} path={["/news"]}  exact />
 					<ScrollToTopRoute component={EventsPage} path="/event/:id" exact />
 					<ScrollToTopRoute component={Wine} path="/winelist" exact />
 					<ScrollToTopRoute component={Postpage} path="/postpage/:id" exact />
