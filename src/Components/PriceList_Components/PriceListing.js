@@ -20,26 +20,38 @@ import Login from '../Login'
  var FormData = require("form-data");
 var quant = [];
 const token = localStorage.getItem("token");
- function handleCart(value) {
+ const handleCart = async (value) => {
 
-	var data = new FormData();
-	data.append("product_id", value[1]);
-	data.append("quantity", value[0]);
-	console.log(data);
-	var config = {
-	  method: 'post',
-	  url: '/wp-json/letscms/v1/cart/add-item',
-	  headers: {
-		letscms_token: token,
-		"Content-Type": "application/json",
-	},
-	  data : data
-	};
-
-	axios(config)
-	.then(function (res) {
-	//   console.log(JSON.stringify(response.data));
-	  const result = res.data;
+	// var data = new FormData();
+	// data.append("product_id", value[1]);
+	// data.append("quantity", value[0]);
+	// console.log(data);
+	// var config = {
+	//   method: 'post',
+	//   url: '/wp-json/letscms/v1/cart/add-item',
+	//   headers: {
+	// 	letscms_token: token,
+	// 	"Content-Type": "application/json",
+	// },
+	//   data : data
+	// };
+	const res = await fetch(
+		"/wp-json/letscms/v1/cart/add-item",
+		{
+			method: "post",
+			headers: {
+				"Content-Type": "application/json",
+				letscms_token: token,
+			},
+			body: JSON.stringify({
+				product_id:  value[1],
+				quantity:value[0],
+			}),
+		}
+	);
+	const data = await res.json();
+ 
+	  const result = data;
 	  console.log(result)
 
 	  if(result.status===true){
@@ -61,10 +73,7 @@ const token = localStorage.getItem("token");
 			},
 		  });
 	  }
-	})
-	.catch(function (error) {
-	  console.log(error);
-	});
+ 
 }
 
 const setCart = (value) =>{
