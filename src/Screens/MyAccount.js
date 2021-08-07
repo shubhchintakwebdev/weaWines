@@ -649,7 +649,7 @@ const MyAccount = () => {
 							<h2 style={{fontFamily:"Jost",fontWeight:800,fontSize:"20px"}}>Orders</h2>
 								<Table columns={columns} dataSource={orders} />
 							</TabPane>
-							<TabPane tab="My Rewards" key="4">
+							{/* <TabPane tab="My Rewards" key="4">
 								<h2 style={{ marginLeft: 0,fontFamily:"Jost",fontWeight:800,fontSize:"20px" }}>My Rewards</h2>
 								<Row style={{ float: "right" }}>
 									<div>
@@ -667,7 +667,7 @@ const MyAccount = () => {
 										<p>reward points</p>
 									</Card>
 								</Row>
-							</TabPane>
+							</TabPane> */}
 							<TabPane
 								tab={
 									<span onClick={handleLogout}>
@@ -1064,7 +1064,7 @@ const MyAccount = () => {
 							<h2 style={{fontFamily:"Jost",fontWeight:800,fontSize:"20px"}}>Orders</h2>
 								<Table columns={columns} dataSource={orders} />
 							</TabPane>
-							<TabPane tab="My Rewards" key="4">
+							{/* <TabPane tab="My Rewards" key="4">
 								<h2 style={{ marginLeft: 0,fontFamily:"Jost",fontWeight:800,fontSize:"20px" }}>My Rewards</h2>
 								<Row style={{ float: "right" }}>
 									<div>
@@ -1082,7 +1082,7 @@ const MyAccount = () => {
 										<p>reward points</p>
 									</Card>
 								</Row>
-							</TabPane>
+							</TabPane> */}
 							<TabPane
 								tab={
 									<span onClick={handleLogout}>

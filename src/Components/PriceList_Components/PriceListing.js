@@ -105,6 +105,8 @@ class PriceListing extends React.Component {
 			}
 			handleCart(value)
 		}
+		fetch("/wp-json/letscms/v1/products")
+		.then((res)=>console.log(res.json() +"result"))
 		axios.get("/wp-json/letscms/v1/products").then((response) => {
      //   console.log(list);
 			const list = []
