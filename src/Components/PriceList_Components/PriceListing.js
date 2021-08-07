@@ -149,7 +149,6 @@ class PriceListing extends React.Component {
 						border: 0,
 						borderRadius: "25px",
 						width: "150px",
-						margin: "20px",
 					}}
 				>
 					Add to Cart

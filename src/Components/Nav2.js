@@ -1,6 +1,7 @@
 import React,{useState,useEffect} from 'react'
 import logo from "../Images/wea-logo.png"
 import {Link} from "react-router-dom"
+import Login from "../Components/Login.js";
 const axios = require('axios');
 
 const Nav2 = () => {
@@ -22,7 +23,7 @@ const Nav2 = () => {
                        <Link to="/"><img src="https://weawines.shubhchintak.co/wp-content/uploads/2021/08/wea-logo-300x126.png" alt="" style={{height:"80px",width:"180px", objectFit:"contain"}} /></Link> 
                     </div>
                     <div className="col-8 mt-4">
-                        <ul style={{listStyle:"none",fontWeight:"lighter"}}
+                        <ul style={{listStyle:"none",fontWeight:"400"}}
                             className="d-md-flex justify-content-evenly d-none myfs">
                             <li className="cp nav-links">
                              <Link to="/winelist" className="nav-links"><p>Wineries</p></Link>
@@ -42,11 +43,11 @@ const Nav2 = () => {
                             <li className="cp">
                                <Link to="/contactus" className="nav-links"><p>Contact</p></Link>
                             </li>
-                            <li className="cp"><i className="fas fa-search fs-3"></i></li>
+                            {/* <li className="cp"><i className="fas fa-search fs-3"></i></li> */}
                         </ul>
                         <ul style={{listStyle:"none",fontWeight:"lighter"}}
                             className="fs-3 d-md-none d-flex justify-content-end">
-                            <li className="cp mx-3"><i className="fas fa-search fs-3"></i></li>
+                            {/* <li className="cp mx-3"><i className="fas fa-search fs-3"></i></li> */}
                             <li className="cp mx-3"><i className="fas fa-bars" onClick={()=>{setOpen(true)}}></i></li>
                         </ul>
                     </div>
@@ -69,22 +70,24 @@ const Nav2 = () => {
                    </li>
                     <hr />
                     <li>
-                       <Link to="/mailinglist"><p>Mailing List</p></Link> 
+                       <Link to="/mailinglist"  className="nav-links"><p>Mailing List</p></Link> 
                     </li>
                     <hr />
                     <li>
-                       <Link to="/about"><p>About</p></Link> 
+                       <Link to="/about"  className="nav-links"><p>About</p></Link> 
                     </li>
                     <hr />
                     <li>
-                       <Link to="/contactus"><p>Contact</p></Link>
+                       <Link to="/contactus"  className="nav-links"><p>Contact</p></Link>
                     </li>
                     <hr />
                 </ul>
                 <div className="d-flex flex-column justify-content-center align-items-center mt-5">
-                    <button type="button" className="btn btn-danger my-2" style={{borderRadius:"25px"}}><i
-                            className="fas fa-user"></i> Register/Login</button>
-                   <Link to="/cart"><button type="button" className="btn btn-danger my-2" style={{borderRadius:"25px"}}><i
+                 <button type="button" onClick={()=>{setOpen(false)}} className="btn btn-danger my-2" style={{borderRadius:"25px", width:'160px'}}><i
+                            className="fas fa-user"></i> <Login/></button>
+							 
+                    
+                   <Link to="/cart"><button type="button" className="btn btn-danger my-2" style={{borderRadius:"25px", width:'160px'}}><i
                             className="fas fa-shopping-cart"></i> Cart Items (0)</button></Link> 
                 </div>
             </div>
