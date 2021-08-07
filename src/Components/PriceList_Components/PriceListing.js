@@ -67,6 +67,20 @@ const token = localStorage.getItem("token");
 	});
 }
 
+const setCart = (value) =>{
+	console.log(value)
+	if(token===null){
+		message.error({
+			content: `Please Login!`,
+			className: 'custom-class',
+			style: {
+			  marginTop: '5vh',
+			},
+		  });
+	}
+	handleCart(value)
+}
+
 class PriceListing extends React.Component {
 	constructor(props) {
 		super(props);
@@ -87,77 +101,67 @@ class PriceListing extends React.Component {
 		this.setState({ value: this.state.value + 1 });
 	};
 
+	
 	 
 	 handleItems = async () => {
+		 
 		const res = await fetch(
 			"https://weawines.shubhchintak.co/wp-json/letscms/v1/products");
 		const data = await res.json();
-		 console.log(data.data.products)
+		const list = []
+		for (let i = 0; i < data.data.products.length; i++) {
+			list.push({
+				key: data.data.products[i].id,
+				wine: data.data.products[i].name,
+				price: data.data.products[i].price,
+				vintage: data.data.products[i].type,
+			});
+		}
+		// console.log(list);
+		// this.setState({ wine: list });
+		Object.keys(list).map(function (object) {
+			list[object]["quantity"] = (
+				<InputNumber
+					size="small"
+					min={0}
+					defaultValue={0}
+					onChange={(value) => (quant = [value, list[object]["key"]])}
+				/>
+			);
+			list[object]["cart"] = (
+				 <button
+					type="button"
+					onClick={() => setCart(quant)}
+					className="btn btn-danger my-4"
+					// disabled={quant[0]===0 ? true :console.log(quant)}
+					style={{
+						backgroundColor: "#9b2120",
+						color: "#ffffff",
+						border: 0,
+						borderRadius: "25px",
+						width: "150px",
+						margin: "20px",
+					}}
+				>
+					Add to Cart
+				</button>
+			);
+		});
+		// console.log(list);
+	this.setState({
+		wine: list
+	});
 	};
 
 	componentDidMount() {
 		const onChangeQuantity = (value) => {
 			console.log(value);
 		};
-		const setCart = (value) =>{
-			console.log(value)
-			if(token===null){
-				message.error({
-                    content: `Please Login!`,
-                    className: 'custom-class',
-                    style: {
-                      marginTop: '5vh',
-                    },
-                  });
-			}
-			handleCart(value)
-		}
+		
 		this.handleItems()
  		axios.get("/wp-json/letscms/v1/products").then((response) => {
      //   console.log(list);
-			const list = []
-			for (let i = 0; i < response.data.data.products.length; i++) {
-				list.push({
-					key: response.data.data.products[i].id,
-					wine: response.data.data.products[i].name,
-					price: response.data.data.products[i].price,
-					vintage: response.data.data.products[i].type,
-				});
-			}
-			// console.log(list);
-			// this.setState({ wine: list });
-			Object.keys(list).map(function (object) {
-				list[object]["quantity"] = (
-					<InputNumber
-						size="small"
-						min={0}
-						defaultValue={0}
-						onChange={(value) => (quant = [value, list[object]["key"]], console.log(quant))}
-					/>
-				);
-				list[object]["cart"] = (
- 					<button
-						type="button"
-						onClick={() => setCart(quant)}
-						className="btn btn-danger my-4"
-						// disabled={quant[0]===0 ? true :console.log(quant)}
-						style={{
-							backgroundColor: "#9b2120",
-							color: "#ffffff",
-							border: 0,
-							borderRadius: "25px",
-							width: "150px",
-							margin: "20px",
-						}}
-					>
-						Add to Cart
-					</button>
-				);
-			});
-			// console.log(list);
-		this.setState({
-			wine: list
-		});
+		
 		// console.log(this.state.wine);
 		});
 	
