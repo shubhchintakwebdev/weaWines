@@ -148,6 +148,7 @@ const MyAccount = () => {
 				letscms_token: token,
 			},
 		});
+		console.log(resOrders)
 		const ordersjson = await resOrders.json();
 		console.log(ordersjson.data.orders);
 		const sampleorders = [];
