@@ -3,6 +3,7 @@ import { useParams,Link } from "react-router-dom";
 import Nav1 from '../Components/Nav1';
 import Nav2 from '../Components/Nav2';
 import Footer from '../Components/Footer';
+ 
 const axios = require('axios');
 
 const RelatedNewsComponent=({id,content,cid,index})=>{
@@ -23,9 +24,10 @@ const RelatedNewsComponent=({id,content,cid,index})=>{
 }
 const NewsPage = ({location}) => {
      let {id}=useParams()
-
+    const [newsImage,setNewsImage]=useState('')
     const [news,setNews]=useState()
     const [newsArray,setNewsArray]=useState([])
+    const [dataHtml, setDataHtml]=useState('')
     const months=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"]
     const formatDate=(date)=>{
         let y=date.slice(0,4)
@@ -50,19 +52,25 @@ const NewsPage = ({location}) => {
     useEffect(() => {
         // scrollToTop()
          axios.get(`https://weawines.shubhchintak.co/wp-json/wp/v2/posts/${id}`).then(function (response){
-                setNews(response.data)
-            })
-            .catch(function (error){
+            setNews(response.data)
+                 axios.get(`https://weawines.shubhchintak.co/wp-json/wp/v2/media?parent=${id}`).then(function (response){
+                    setNewsImage(response.data[0].media_details.sizes.full.source_url)
+                    console.log(response.data[0].media_details.sizes.full.source_url)
+            }).catch(function (error){
                 console.log(error);
             })
-    }, [id])
-   
+          
+    })}, [id])
+    
+    const createMarkup = () =>{
+        return {__html: news.content.rendered};
+      }
 
     return (
         <>
             <Nav1 />
             <Nav2 />
-            <div className="aui"></div>
+            <img className="aui0" style={{backgroundSize:'cover'}} alt="j" src={newsImage}></img>
             {!news&&<div className="spinner-border" role="status"><span className="sr-only">Loading...</span></div>}
             {news&&<section className="plr my-5">
                 <div className="row">
@@ -70,7 +78,7 @@ const NewsPage = ({location}) => {
                         <h4>{news.title.rendered}</h4>
                         <p className="fwl my-4" style={{fontSize:"15px"}}><i className="fas fa-user"></i> Admin <i
                                 className="far fa-calendar"></i> {formatDate(news.date.slice(0,10))} </p>
-                        <div className="fwl">{news.content.rendered.replace("<p>","").replace("</p>","")}</div>
+                        <div className=" " ><div dangerouslySetInnerHTML={createMarkup()} className="dangeroushtml" style={{overflowX:'hidden'}}></div></div>
                         <div className="my-4 fs-4" >Share <i className="fab fa-facebook-square" style={{color:"#3b5998",marginLeft:"30px"}}></i> <i className="fab fa-twitter" style={{color:"#1DA1F2"}}></i> <i className="fab fa-linkedin-in" style={{color:"#0e76a8"}}></i></div>
                         <hr />
                         <div className="d-flex justify-content-between my-3 mt-5" >

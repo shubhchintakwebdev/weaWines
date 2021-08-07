@@ -135,6 +135,13 @@ code {
   opacity: 0.5;
 }
 
+.aui0 {
+  object-fit: cover;
+  height: 50vh!important;
+  width: 100vw!important;
+}
+
+
 .aui {
   background-image: url("https://source.unsplash.com/1600x400/?wine");
   background-size: cover;

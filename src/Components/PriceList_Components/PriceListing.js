@@ -1,6 +1,6 @@
 import React from "react";
 import { render } from "react-dom";
-import { SearchOutlined } from "@ant-design/icons";
+import { SearchOutlined, ShoppingOutlined } from "@ant-design/icons";
 import {
 	Row,
 	Col,
@@ -138,21 +138,17 @@ class PriceListing extends React.Component {
 				/>
 			);
 			list[object]["cart"] = (
-				 <button
-					type="button"
+				 <Button
+				 	type="link"					
 					onClick={() => setCart(quant)}
-					className="btn btn-danger my-4"
+					danger
 					// disabled={quant[0]===0 ? true :console.log(quant)}
 					style={{
-						backgroundColor: "#9b2120",
-						color: "#ffffff",
-						border: 0,
-						borderRadius: "25px",
-						width: "140px",
+						color: "#9b2120",
 					}}
 				>
-					Add to Cart
-				</button>
+				<span><ShoppingOutlined/>	Add to Cart </span>
+				</Button>
 			);
 		});
 		// console.log(list);
@@ -281,7 +277,7 @@ class PriceListing extends React.Component {
 				key: "vintage",
 				//   width: '30%',
 				//   ...this.getColumnSearchProps('name'),
-				// responsive: ["sm"]
+				responsive: ["sm"]
 
 			},
 			{
@@ -290,7 +286,7 @@ class PriceListing extends React.Component {
 				key: "wine",
 				//   width: '20%',
 				...this.getColumnSearchProps("wine"),
-				// responsive: ["sm"]
+				responsive: ["sm"]
 
 			},
 			{
@@ -299,37 +295,49 @@ class PriceListing extends React.Component {
 				key: "price",
 				sorter: (a, b) => a.price - b.price,
 				sortDirections: ["descend", "ascend"],
-				// responsive: ["sm"]
+				responsive: ["sm"]
 
 			},
-			// {
-			// 	title: "Wines",
-			// 	render: (record) => (
-			// 	<React.Fragment>
-			// 		{record.vintage}<br/>
-			// 		{record.wine}<br/>
-			// 		{record.price}<br/>
-			// 		{record.quantity}
-			// 		<br />
-			// 		{record.cart}
-			// 	</React.Fragment>
-			// 	),
-			// 	width:'100%',
-			// 	align: 'center',
-			// 	responsive: ["xs"]
-			// },
+			{
+				title: "Wines",
+				render: (record) => (
+				<React.Fragment>
+					{record.vintage}<br/>
+					{record.wine}<br/>
+					{record.quantity}
+					</React.Fragment>
+				),
+				width:'60%',
+				align: 'left',
+				...this.getColumnSearchProps("wine"),
+				responsive: ["xs"]
+			},
+			{
+				title: "Net Price",
+				render: (record) => (
+				<React.Fragment>
+					{record.price}<br/>
+					{record.cart}
+				</React.Fragment>
+				),
+				sorter: (a, b) => a.price - b.price,
+				sortDirections: ["descend", "ascend"],
+				width:'40%',
+				align: 'right',
+				responsive: ["xs"]
+			},
 			{
 				title: "Quantity",
 				dataIndex: "quantity",
 				key: "quantity",
-				// responsive: ["sm"]
+				responsive: ["sm"]
 
 			},
 			{
 				title: "",
 				dataIndex: "cart",
 				key: "cart",
-				// responsive: ["sm"]
+				responsive: ["sm"]
 
 				// render: (text,record) => <a>{record.quantity.value}</a>,
 			},

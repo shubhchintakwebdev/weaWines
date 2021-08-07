@@ -18,7 +18,7 @@ export default class CheckOutCart extends Component {
     };
   }
    componentDidMount() {
-    this.retrieveOrders();
+         this.retrieveOrders();
   }
  
   retrieveOrders = async () => {
@@ -31,6 +31,9 @@ export default class CheckOutCart extends Component {
             },
         }
     );
+    if(window.location.pathname==='/checkout'){
+        itemsList =[]
+    }
     const cartjson = await res.json();
          const subtotal = '$ ' +cartjson.data.cart_totals.subtotal
     for(var j=0;j<cartjson.data.cart_items.length;j++){
