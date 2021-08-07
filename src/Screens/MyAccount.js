@@ -21,6 +21,7 @@ import Nav2 from "../Components/Nav2";
 // import Carousel from "../Components/Home_Components/Carousel";
 import Footer from "../Components/Footer";
 import { useHistory } from "react-router-dom";
+import { message } from 'antd';
 
 const { TabPane } = Tabs;
 
@@ -55,6 +56,8 @@ const MyAccount = () => {
 	const [orders, setOrders] = useState([]);
 	const [sDisabled, setSDisabled] = useState(true);
 	const [bDisabled, setBDisabled] = useState(true);
+	const [aDisabled, setADisabled] = useState(true);
+	const [error, setError] = useState(true);
 
 	const toggleSame = () => {
 		if (!same) {
@@ -78,25 +81,50 @@ const MyAccount = () => {
 	const handleProfileSubmit = async () => {
 		console.log(firstName, lastName, email, password, oldPassword, displayName);
 		const resData = await fetch(
-			"https://weawines.shubhchintak.co/wp-json/letscms/v1/account-details",
+			"/wp-json/letscms/v1/account-details",
 			{
 				method: "post",
 				headers: {
 					"Content-Type": "application/json",
-				},
+ 					letscms_token: token,
+ 				},
 				body: JSON.stringify({
 					first_name: firstName,
 					last_name: lastName,
 					display_name: displayName,
-					email,
-					password,
+					user_email:email,
+					password:password,
 					old_password: oldPassword,
 				}),
 			}
 		);
 		const data = await resData.json();
+		if(data.status===true){
+			message.success({
+				content: 'Updated Successfully!',
+				className: 'custom-class',
+				style: {
+				  marginTop: '5vh',
+				},
+			  });
+			resetForm()
+			setADisabled(true);
+		
+		}
+		if(data.status===false){
+			setError(data.errors)
+			console.log(data.errors)
+		}
 		console.log(data);
+		// setADisabled(true);
+
 	};
+
+	
+    const resetForm = () => {
+ 		setPassword('');
+		setOldPassword('');
+   }
 
 	const handleSaveAdress = async () => {
 		const res = await fetch("/wp-json/letscms/v1/address/billing", {
@@ -120,7 +148,17 @@ const MyAccount = () => {
 			}),
 		});
 		const data = await res.json();
-		console.log(data);
+		 if(data.status===true){
+			setBDisabled(true);
+			message.success({
+				content: 'Updated Successfully!',
+				className: 'custom-class',
+				style: {
+				  marginTop: '5vh',
+				},
+			  });
+		}
+	 
 	};
 
 	const handleFetch = async () => {
@@ -271,6 +309,19 @@ const MyAccount = () => {
 						>
 							<TabPane tab="Profile" key="1">
 							<h2 style={{fontFamily:"Jost",fontWeight:800,fontSize:"20px"}}>Profile</h2>
+									{aDisabled&&	<Button
+												className="text-danger"
+												style={{
+													border: "none",
+													padding: "0px",
+													marginLeft: "1rem",
+													boxShadow: "none",
+												}}
+												// onClick={handleSaveAdress}
+												onClick={() => setADisabled(false)}
+											>
+												Edit
+											</Button>}
 								<Form
 									layout="vertical"
 									name="Profile_Form"
@@ -298,16 +349,26 @@ const MyAccount = () => {
 								>
 									<Row>
 										<Col span={10}>
-											<Form.Item name="First_Name" label="First Name">
+											<Form.Item 	rules={[												{
+															required: 'true',
+														},
+														]} name="First_Name" label="First Name">
 												<Input
+													disabled={aDisabled}
 													placeholder="First Name"
+												
 													onChange={(e) => setFirstName(e.target.value)}
 												/>
 											</Form.Item>
 										</Col>
 										<Col span={10} offset={2}>
-											<Form.Item name="Last_Name" label="Last Name">
+											<Form.Item 	rules={[												{
+															required: true,
+														},
+														]} name="Last_Name" label="Last Name">
 												<Input
+													disabled={aDisabled}
+												
 													placeholder="Last Name"
 													onChange={(e) => setLastName(e.target.value)}
 												/>
@@ -317,24 +378,31 @@ const MyAccount = () => {
 									<Row>
 										<Col span={10}>
 											<Form.Item
+											
 												name="email"
 												label="E-mail"
 												rules={[
 													{
 														type: "email",
+														required: 'true'
 													},
 												]}
 											>
 												<Input
 													placeholder="email"
+													disabled={aDisabled}
 													onChange={(e) => setEmail(e.target.value)}
 												/>
 											</Form.Item>
 										</Col>
 										<Col span={10} offset={2}>
-											<Form.Item name="phone" label="Phone Number">
+											<Form.Item 	rules={[												{
+															required: 'true',
+														},
+														]} name="phone" label="Phone Number">
 												<Input
 													placeholder="Phone"
+													disabled={aDisabled}
 													style={{ width: "100%" }}
 													onChange={(e) => setPhone(e.target.value)}
 												/>
@@ -346,6 +414,7 @@ const MyAccount = () => {
 											<Form.Item name="password" label="Password" hasFeedback>
 												<Input.Password
 													placeholder="Password"
+													disabled={aDisabled}
 													onChange={(e) => setPassword(e.target.value)}
 												/>
 											</Form.Item>
@@ -358,15 +427,31 @@ const MyAccount = () => {
 											>
 												<Input.Password
 													placeholder="Old Password"
+													disabled={aDisabled}
 													onChange={(e) => setOldPassword(e.target.value)}
 												/>
 											</Form.Item>
 										</Col>
 									</Row>
 									<Form.Item>
-										{/* <Button type="primary" onClick={handleProfileSubmit}>
-											Submit
-										</Button> */}
+									{!aDisabled&&
+												<button
+											type="button"
+											onClick={handleProfileSubmit}
+											className="btn btn-danger"
+											// disabled={quant[0]===0 ? true :console.log(quant)}
+											style={{
+												backgroundColor: "#9b2120",
+												color: "#ffffff",
+												border: 0,
+												borderRadius: "25px",
+												width: "150px",
+												// margin: "20px",
+												 
+											}}
+										>
+											Update
+										</button>}
 									</Form.Item>
 								</Form>
 							</TabPane>
@@ -514,7 +599,7 @@ const MyAccount = () => {
 									<Col span={10} offset={2}>
 										<Row>
 											<h6 style={{ marginRight: "2%",fontFamily:"Jost",fontWeight:800 }}>Billing Address</h6>
-											<Button
+											{bDisabled && <Button
 												// type="primary"
 												// htmlType="submit"
 												// className="add-plot-button"
@@ -529,7 +614,7 @@ const MyAccount = () => {
 												onClick={() => setBDisabled(false)}
 											>
 												Edit
-											</Button>
+											</Button>}
 										</Row>
 										<Form
 											layout="vertical"
@@ -606,7 +691,7 @@ const MyAccount = () => {
 											</Form.Item>
 											<Row>
 												<Col span={12}>
-													<Form.Item name="country" label="Country" hasFeedback>
+													<Form.Item name="country" label="Country" disabled={bDisabled} hasFeedback>
 														<Select
 															placeholder="Please select a country"
 															onChange={(value) => {
@@ -641,8 +726,27 @@ const MyAccount = () => {
 													</Form.Item>
 												</Col>
 											</Row>
-											<Form.Item></Form.Item>
-										</Form>
+											<Form.Item>
+											{!bDisabled&&
+												<button
+											type="button"
+											onClick={handleSaveAdress}
+											className="btn btn-danger my-4"
+											// disabled={quant[0]===0 ? true :console.log(quant)}
+											style={{
+												backgroundColor: "#9b2120",
+												color: "#ffffff",
+												border: 0,
+												borderRadius: "25px",
+												width: "150px",
+												margin: "20px",
+											}}
+										>
+											Update
+										</button>}
+											
+											</Form.Item>
+											</Form>
 									</Col>
 								</Row>
 							</TabPane>
@@ -692,6 +796,19 @@ const MyAccount = () => {
 						>
 							<TabPane tab="Profile" key="1">
 							<h2 style={{fontFamily:"Jost",fontWeight:800,fontSize:"20px"}}>Profile</h2>
+							{aDisabled&&	<Button
+												className="text-danger"
+												style={{
+													border: "none",
+													padding: "0px",
+													marginLeft: "1rem",
+													boxShadow: "none",
+												}}
+												// onClick={handleSaveAdress}
+												onClick={() => setADisabled(false)}
+											>
+												Edit
+											</Button>}
 								<Form
 									layout="vertical"
 									name="Profile_Form"
@@ -785,9 +902,24 @@ const MyAccount = () => {
 										</Col>
 									</Row>
 									<Form.Item>
-										<Button type="primary" onClick={handleProfileSubmit}>
-											Submit
-										</Button>
+									{!aDisabled&&
+												<button
+											type="button"
+											onClick={handleProfileSubmit}
+											className="btn btn-danger"
+											// disabled={quant[0]===0 ? true :console.log(quant)}
+											style={{
+												backgroundColor: "#9b2120",
+												color: "#ffffff",
+												border: 0,
+												borderRadius: "25px",
+												width: "150px",
+												// margin: "20px",
+												 
+											}}
+										>
+											Update
+										</button>}
 									</Form.Item>
 								</Form>
 							</TabPane>
@@ -797,7 +929,7 @@ const MyAccount = () => {
 									<Col span={10}>
 										<Row>
 											<h6 style={{fontFamily:"Jost",fontWeight:800}}>Shipping Address</h6>
-											<Button
+											{bDisabled&&	<Button
 												// type="primary"
 												// htmlType="submit"
 												className="text-danger"
@@ -810,7 +942,7 @@ const MyAccount = () => {
 												onClick={() => setSDisabled(false)}
 											>
 												Edit
-											</Button>
+											</Button>}
 										</Row>
 										<Form
 											layout="vertical"
@@ -932,7 +1064,7 @@ const MyAccount = () => {
 									<Col span={10} offset={2}>
 										<Row>
 											<h6 style={{ marginRight: "2%",fontFamily:"Jost",fontWeight:800 }}>Billing Address</h6>
-											<Button
+											{bDisabled&&	<Button
 												// type="primary"
 												// htmlType="submit"
 												// className="add-plot-button"
@@ -947,7 +1079,7 @@ const MyAccount = () => {
 												onClick={() => setBDisabled(false)}
 											>
 												Edit
-											</Button>
+											</Button>}
 										</Row>
 										<Form
 											layout="vertical"
@@ -1056,7 +1188,25 @@ const MyAccount = () => {
 														/>
 													</Form.Item>
 												
-											<Form.Item></Form.Item>
+											<Form.Item>
+													{!bDisabled&&
+														<button
+													type="button"
+													onClick={handleSaveAdress}
+													className="btn btn-danger my-4"
+													// disabled={quant[0]===0 ? true :console.log(quant)}
+													style={{
+														backgroundColor: "#9b2120",
+														color: "#ffffff",
+														border: 0,
+														borderRadius: "25px",
+														width: "150px",
+														margin: "20px",
+													}}
+												>
+													Update
+												</button>}
+											</Form.Item>
 										</Form>
 									</Col>
 								</Row>

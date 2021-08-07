@@ -3,6 +3,7 @@ import { render } from 'react-dom';
 import { Row, Col, Form, Input, Button, Select, Checkbox } from 'antd';
 import 'antd/dist/antd.css';
 import "../../App.css"
+import CheckOutCart from '../Cart_Components/checkoutCart'
 import { message } from 'antd';
 
 import { Link, useHistory } from "react-router-dom";
@@ -106,9 +107,17 @@ import { Link, useHistory } from "react-router-dom";
         return(
             <>
             <Row>
+            <Col span={18} offset={3}>
+            <h3>Order Information</h3>
+                </Col>
+            </Row>
+            <CheckOutCart/>
+
+            <Row>
                 <Col span={18} offset={3}>
                 <h3>General Information</h3>
                 <Form
+                    className="my-5"
                     layout="vertical"
                     name="Profile_Form"
                     initialValues={{
@@ -172,17 +181,21 @@ import { Link, useHistory } from "react-router-dom";
                                 
                 </Row></Form>
                 <Row>
-                    <Col span={10}>
+                    <Col span={24}>
                         <h3>
                             Shipping Address
                         </h3>
+                     
                         <Form
                             layout="vertical"
                             name="Shipping_add"
+                            className="my-5"
                             initialValues={{
                                 remember: true,
                             }}
                         >
+                        <Row>
+                           <Col span={11} >
                             <Form.Item 
                                 name="street" 
                                 label="Address Line 1"
@@ -201,7 +214,8 @@ import { Link, useHistory } from "react-router-dom";
                                 onChange={(e) => setAddress2(e.target.value)}
                                 placeholder="Address Line 2" />
                             </Form.Item>
-                            
+                            </Col>
+                            <Col span={11} offset={1}>
                             <Row>
                                 <Col span={12}>
                                         <Form.Item 
@@ -254,106 +268,22 @@ import { Link, useHistory } from "react-router-dom";
                                     </Form.Item>
                                 </Col>
                             </Row>
-                            <Form.Item 
+                            </Col>
+                            {/* <Form.Item 
                                 name="same" 
                                 valuePropName="checked" 
                                 noStyle
                             >
                                 <Checkbox onChange={onChange}>Same as Biling Address</Checkbox>
-                            </Form.Item>
-                        </Form>
-                    </Col>
-                    <Col span={10} offset={2}>
-                        <h3>
-                            Billing Address
-                        </h3>
-                               <Form
-                            layout="vertical"
-                            name="Shipping_add"
-                            initialValues={{
-                                remember: true,
-                            }}
-                        >
-                            <Form.Item 
-                                name="street" 
-                                label="Address Line 1"
-                            >
-                                <Input 
-                                  defaultValue={bAddress1}
-                                onChange={(e) => setBAddress1(e.target.value)}
-                                placeholder="Address Line 1" />
-                            </Form.Item>
-                            <Form.Item 
-                                name="building" 
-                                label="Address Line 2"
-                            >
-                                <Input 
-                                  defaultValue={bddress2}
-                                onChange={(e) => setBAddress2(e.target.value)}
-                                placeholder="Address Line 2" />
-                            </Form.Item>
-                            
-                            <Row>
-                                <Col span={12}>
-                                        <Form.Item 
-                                        name="city" 
-                                        label="City"
-                                    >
-                                        <Input 
-                                        defaultValue={bCity}
-                                        onChange={(e) => setBCity(e.target.value)}
-                                        placeholder="City" />
-                                    </Form.Item>
-                                </Col>
-                                <Col span={12}>
-                                <Form.Item 
-                                        name="State" 
-                                        label="State"
-                                    >
-                                        <Input 
-                                        defaultValue={bState}
-                                        onChange={(e) => setBState(e.target.value)}
-                                        placeholder="State" />
-                                    </Form.Item>
-                                </Col>
-                            </Row>
-                            <Row>
-                                <Col span={12}>
-                                    <Form.Item
-                                        name="country"
-                                        label="Country"
-                                        hasFeedback
-                                    >
-                                        <Select
-                                          defaultValue={bCountry}
-                                          onChange={(value) => setBCountry(value)}
-                                         placeholder="Country">
-                                            <Option value="china">China</Option>
-                                            <Option value="usa">U.S.A</Option>
-                                        </Select>
-                                    </Form.Item>
-                                </Col>
-                                <Col span={12}>
-                                    <Form.Item 
-                                        name="postal" 
-                                        label="Postal/Zip Code"
-                                    >
-                                        <Input 
-                                           defaultValue={bZip}
-                                        onChange={(e) => setBZip(e.target.value)}
-                                        placeholder="input placeholder" />
-                                    </Form.Item>
-                                </Col>
-                            </Row>
-                             
-                        </Form>
+                            </Form.Item> */}
+                            </Row> </Form>
                     </Col>
                     
                 </Row>
                 </Col>
                 
             </Row>
-            <section className="plr my-5">
+            <section className="plr  ">
               <div className="row">
               
                   <div className="col-12 d-flex justify-content-end">
