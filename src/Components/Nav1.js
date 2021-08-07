@@ -60,7 +60,7 @@ const Nav1 = () => {
 			localStorage.setItem("userdetails", JSON.stringify(data.user));
 			localStorage.setItem("user", data.user.display_name);
 			localStorage.setItem("token", data.letscms_token);
-			// history.push("/");
+			history.push("/");
 			window.location.reload();
 		}
 	};

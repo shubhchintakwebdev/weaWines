@@ -1,16 +1,31 @@
 import React,{useState,useEffect} from 'react'
 import logo from "../Images/wea-logo.png"
-import {Link} from "react-router-dom"
+import {Link, useHistory } from "react-router-dom"
 import Login from "../Components/Login.js";
 import CartItem from '../Components/Cart_Components/items'
+// import { useHistory } from "react-router-dom";
 
 const axios = require('axios');
 const token = localStorage.getItem("token");
 
+
+
+
+
+
 const Nav2 = () => {
     const [open,setOpen]=useState(false)
     const [id,setId]=useState('')
+    const history = useHistory();
     const [login, setLogin] = useState(true)
+    const handleLogout = () => {
+    
+        localStorage.removeItem("user");
+        localStorage.removeItem("userdetails");
+        localStorage.removeItem("token");
+        history.push("/");
+        window.location.reload();
+    };
       useEffect(() => {
         axios.get('https://weawines.shubhchintak.co/wp-json/wp/v2/posts').then(function (response){
                  setId(response.data[0].id);
@@ -65,7 +80,7 @@ const Nav2 = () => {
                     style={{fontSize:"50px"}}></i>
                 <ul style={{listStyle:"none"}} className="fs-3 w-75 mt-4 cp">
                     <li>
-                    <Link to="/winelist" className="nav-links"><p>Wineries</p></Link>
+                    <Link to="/winelist" className="nav-links"><p style={{marginBottom:"0px!important"}}>Wineries</p></Link>
                     </li>
                     <hr />
                     <li>
@@ -97,6 +112,9 @@ const Nav2 = () => {
                     
                   {login&& <Link to="/cart"><button type="button" className="btn btn-danger my-2" style={{borderRadius:"25px", width:'160px'}}><i
                             className="fas fa-shopping-cart"></i> Cart Items (<CartItem/>)</button></Link> }
+                
+                {login&& <button type="button" className="btn btn-danger my-2" style={{borderRadius:"25px", width:'160px'}} onClick={handleLogout}><i
+                            className="fas fa-sign-out-alt"></i> Logout</button> }
                 </div>
             </div>
         </>
