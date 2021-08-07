@@ -132,7 +132,7 @@ class PriceListing extends React.Component {
 			list[object]["quantity"] = (
 				<InputNumber
 					size="small"
-					min={0}
+						min={0}
 					defaultValue={0}
 					onChange={(value) => (quant = [value, list[object]["key"]])}
 				/>
@@ -148,7 +148,7 @@ class PriceListing extends React.Component {
 						color: "#ffffff",
 						border: 0,
 						borderRadius: "25px",
-						width: "150px",
+						width: "140px",
 					}}
 				>
 					Add to Cart
@@ -281,7 +281,7 @@ class PriceListing extends React.Component {
 				key: "vintage",
 				//   width: '30%',
 				//   ...this.getColumnSearchProps('name'),
-				responsive: ["sm"]
+				// responsive: ["sm"]
 
 			},
 			{
@@ -290,7 +290,7 @@ class PriceListing extends React.Component {
 				key: "wine",
 				//   width: '20%',
 				...this.getColumnSearchProps("wine"),
-				responsive: ["sm"]
+				// responsive: ["sm"]
 
 			},
 			{
@@ -299,36 +299,37 @@ class PriceListing extends React.Component {
 				key: "price",
 				sorter: (a, b) => a.price - b.price,
 				sortDirections: ["descend", "ascend"],
-				responsive: ["sm"]
+				// responsive: ["sm"]
 
 			},
-			{
-				title: "Wines",
-				render: (record) => (
-				<React.Fragment>
-					{record.vintage}<br/>
-					{record.wine}<br/>
-					{record.price}<br/>
-					{record.quantity}
-					<br />
-					{record.cart}
-				</React.Fragment>
-				),
-				align: 'center',
-				responsive: ["xs"]
-			},
+			// {
+			// 	title: "Wines",
+			// 	render: (record) => (
+			// 	<React.Fragment>
+			// 		{record.vintage}<br/>
+			// 		{record.wine}<br/>
+			// 		{record.price}<br/>
+			// 		{record.quantity}
+			// 		<br />
+			// 		{record.cart}
+			// 	</React.Fragment>
+			// 	),
+			// 	width:'100%',
+			// 	align: 'center',
+			// 	responsive: ["xs"]
+			// },
 			{
 				title: "Quantity",
 				dataIndex: "quantity",
 				key: "quantity",
-				responsive: ["sm"]
+				// responsive: ["sm"]
 
 			},
 			{
 				title: "",
 				dataIndex: "cart",
 				key: "cart",
-				responsive: ["sm"]
+				// responsive: ["sm"]
 
 				// render: (text,record) => <a>{record.quantity.value}</a>,
 			},
@@ -336,11 +337,13 @@ class PriceListing extends React.Component {
 		return (
 			<>
 				<Row>
-					<Col lg={{span:4, offset:3}} sm={8} className="filter">
+					<Col xs={24} lg={{span:4, offset:3}}  className="filter">
 						<h5 style={{ fontFamily: "Jost", fontWeight: 500, float: "left" }}>
 							Filters
 						</h5>
 						<Divider />
+						<Row>
+							<Col xs={12} lg={24}>
 						<h6 style={{ fontFamily: "Jost", fontWeight: 400 }}>Wines</h6>
 						<Collapse bordered={false} accordion>
 							<Panel header="Burgundy" key="1">
@@ -364,7 +367,9 @@ class PriceListing extends React.Component {
 							<Panel header="Rhone" key="5"></Panel>
 							<Panel header="The New Spain" key="6"></Panel>
 						</Collapse>
-						<h6 style={{ fontFamily: "Jost", fontWeight: 400, paddingTop:"25px" }}>Vintage</h6>
+						</Col>
+						<Col xs={{span:10, offset:2}} lg={24}>
+						<h6 className="Vintage" style={{ fontFamily: "Jost", fontWeight: 400, paddingTop:"25px" }}>Vintage</h6>
 						<Checkbox>2015</Checkbox>
 						<br />
 						<Checkbox>2016</Checkbox>
@@ -374,9 +379,11 @@ class PriceListing extends React.Component {
 						<Checkbox>2018</Checkbox>
 						<br />
 						<Checkbox>2019</Checkbox>
+						</Col>
+						</Row>
 					</Col>
-					<Col lg={14} sm={16}>
-						<Table columns={columns} dataSource={this.state.wine} />
+					<Col xs={24} lg={14} >
+						<Table className="Pricelist" columns={columns} dataSource={this.state.wine} />
 					</Col>
 				</Row>
 			</>

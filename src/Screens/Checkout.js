@@ -15,8 +15,8 @@ const Checkout = () => {
                     <h1 className="text-uppercase text-light fwl" style={{zIndex:5}}>Checkout</h1>
                 </div>
             </div>
-            <section className="plr my-5">
-              <h3 className="text-danger fwl py-4">Checkout</h3>
+            <section className="plr ">
+              {/* <h3 className="text-danger fwl py-4">Order Details</h3> */}
             </section>
             <section className="my-5">
             <CheckoutScreen/>

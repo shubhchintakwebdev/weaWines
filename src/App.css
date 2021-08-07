@@ -157,6 +157,13 @@ label{
   .mobile{
     display: block !important;
   }
+  .Vintage{
+    padding-top: 0px !important;
+  }
+  .Pricelist{
+    overflow-x: scroll !important;
+    width: 100vw !important;
+  }
 }
 
 .ant-checkbox-checked .ant-checkbox-inner {

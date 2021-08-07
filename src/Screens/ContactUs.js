@@ -9,27 +9,27 @@ const ContactUs = () => {
     const [fullName, setFullname] = useState("");
 	const [email, setEmail] = useState("");
 	const [phone, setPhone] = useState("");
-	const [message, setMessage] = useState("");
+	const [message1, setMessage] = useState("");
 	const [error, setError] = useState("");
 
     const handleContact = async () => {
-		if(fullName === "" ||email === ""|| phone=== ""||message === ""){
+		if(fullName === "" ||email === ""|| phone=== ""||message1 === ""){
                  setError("*All fields are required.")
           }
           else{
            let templateParams = {
-            from_name: 'WeaWines',
-            to_name: `${fullName}`,
+            from_name:  fullName,
+            to_name: `WeaWines`,
             subject: 'Message',
-            message: message,
+            message: message1,
             email:email,
-            number: phone
+            contact_number: phone
            }
            emailjs.send(
-            // 'service_otleyib',
-            // 'template_zwe258l',
-            //  templateParams,
-            // 'user_l8u0Ud4sjZ6UmlchcDqpV',
+            'service_cihny6c',
+            'template_hcerlo8',
+             templateParams,
+            'user_xya4iAgcdHoxm5jtfaRBp',
            ).then(res => {
             setError("")
 
@@ -94,7 +94,7 @@ const ContactUs = () => {
 						onChange={(e) => setPhone(e.target.value)} 
                          placeholder="Contact Number"></input>
                         <textarea className="form-control my-4" rows="8" 
-                           value={message}
+                           value={message1}
 						onChange={(e) => setMessage(e.target.value)} 
                         placeholder="Tell us your comments"
                             style={{resize:"none"}}></textarea>

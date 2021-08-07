@@ -1,0 +1,36 @@
+#title {
+  font-family: arial, sans-serif;
+}
+
+#orders {
+  text-align: center;
+  border-collapse: collapse;
+  border: 1px solid white;
+  width: 100%;
+}
+
+#orders td, #orders th {
+  padding: 6px;
+}
+
+@media only screen and (max-width: 768px) {
+  .smhide{
+    display: none !important;
+  }
+}
+
+@media screen and (max-width: 40em){
+.responsiveTable tbody tr {
+    border: 1px solid #e4e4e4 !important;
+    padding: .25em;
+}}
+ 
+/* #orders tr:hover {background-color: #ddd;} */
+
+#orders th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: center;
+  background-color: #eeeeee;
+  color: black;
+}

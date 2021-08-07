@@ -7,6 +7,7 @@ import CheckOutCart from '../Cart_Components/checkoutCart'
 import { message } from 'antd';
 
 import { Link, useHistory } from "react-router-dom";
+const { TextArea } = Input;
 
 // const Checkout = () => {
 //     return (
@@ -106,195 +107,179 @@ import { Link, useHistory } from "react-router-dom";
            
         return(
             <>
-            <Row>
-            <Col span={18} offset={3}>
-            <h3>Order Information</h3>
-                </Col>
-            </Row>
+         
             <CheckOutCart/>
 
-            <Row>
-                <Col span={18} offset={3}>
-                <h3>General Information</h3>
-                <Form
-                    className="my-5"
-                    layout="vertical"
-                    name="Profile_Form"
-                    initialValues={{
-                        remember: true,
-                    }}
-                >
-                <Row>
-
-                <Col span={5} >
-
-                <Form.Item name="First_Name" label="First Name">
-				<Input
-					placeholder="First Name"
-                    defaultValue={firstName}
-        			onChange={(e) => setFirstName(e.target.value)}
-				/>
-				</Form.Item>
-                        </Col>
-                        <Col span={5} offset={1} >
-
-                    <Form.Item name="Last_Name" label="Last Name">
-                    <Input
-                        placeholder="Last Name"
-                        defaultValue={lastName}
-                        onChange={(e) => setLastName(e.target.value)}
-                    />
-                    </Form.Item>
-                            </Col>
-                        <Col span={5} offset={1} >
-                            <Form.Item 
-                                name="contact" 
-                                label="Contact Number"
-                            >
-                                <Input placeholder="Contact No." 
-                                    defaultValue={phone}
-                                    rules={[
-                                            {
-                                                required: 'true',
-                                            },
-                                            ]}
-                                     onChange={(e) => setPhone(e.target.value)}   
-                                />
-                            </Form.Item>
-                        </Col>
-                        <Col span={5} offset={1}>
-                            <Form.Item
-                                name="email"
-                                label="E-mail"
-                            >
-                                <Input placeholder="Email" 
-                                defaultValue={email}
-                                onChange={(e) => setEmail(e.target.value)}
-                                rules={[
-                                {
-                                    type: 'email',
-                                },
-                                ]}
-                                />
-                            </Form.Item>
-                        </Col>
-                                
-                </Row></Form>
-                <Row>
-                    <Col span={24}>
-                        <h3>
-                            Shipping Address
-                        </h3>
-                     
-                        <Form
-                            layout="vertical"
-                            name="Shipping_add"
-                            className="my-5"
+            <section className="plr  ">
+              <div className="row">
+              <h3  style={{paddingBottom:"10px",fontWeight:"350"}} className="text-dark fwl">General Information</h3>
+ 
+                     <Form
+                             layout="vertical"
+                            name="Profile_Form"
                             initialValues={{
                                 remember: true,
                             }}
                         >
-                        <Row>
-                           <Col span={11} >
-                            <Form.Item 
-                                name="street" 
-                                label="Address Line 1"
-                            >
-                                <Input 
-                                  defaultValue={Address1}
-                                onChange={(e) => setAddress1(e.target.value)}
-                                placeholder="Address Line 1" />
+                        <div className="row">
+
+                        <div className="col-md-3">
+
+                        <Form.Item name="First_Name" label="First Name">
+                        <Input
+                            placeholder="First Name"
+                            defaultValue={firstName}
+                            onChange={(e) => setFirstName(e.target.value)}
+                        />
+                        </Form.Item>
+                                </div>
+                                <div className="col-md-3">
+
+                            <Form.Item name="Last_Name" label="Last Name">
+                            <Input
+                                placeholder="Last Name"
+                                defaultValue={lastName}
+                                onChange={(e) => setLastName(e.target.value)}
+                            />
                             </Form.Item>
-                            <Form.Item 
-                                name="building" 
-                                label="Address Line 2"
-                            >
-                                <Input 
-                                  defaultValue={Address2}
-                                onChange={(e) => setAddress2(e.target.value)}
-                                placeholder="Address Line 2" />
-                            </Form.Item>
-                            </Col>
-                            <Col span={11} offset={1}>
-                            <Row>
-                                <Col span={12}>
-                                        <Form.Item 
-                                        name="city" 
-                                        label="City"
-                                    >
-                                        <Input 
-                                        defaultValue={sCity}
-                                        onChange={(e) => setSCity(e.target.value)}
-                                        placeholder="City" />
-                                    </Form.Item>
-                                </Col>
-                                <Col span={12}>
-                                <Form.Item 
-                                        name="State" 
-                                        label="State"
-                                    >
-                                        <Input 
-                                        defaultValue={sState}
-                                        onChange={(e) => setSState(e.target.value)}
-                                        placeholder="State" />
-                                    </Form.Item>
-                                </Col>
-                            </Row>
-                            <Row>
-                                <Col span={12}>
-                                    <Form.Item
-                                        name="country"
-                                        label="Country"
-                                        hasFeedback
-                                    >
-                                        <Select
-                                          defaultValue={sCountry}
-                                          onChange={(value) => setSCountry(value)}
-                                         placeholder="Country">
-                                            <Option value="china">China</Option>
-                                            <Option value="usa">U.S.A</Option>
-                                        </Select>
-                                    </Form.Item>
-                                </Col>
-                                <Col span={12}>
+                                    </div>
+                                    <div className="col-md-3">                                    
                                     <Form.Item 
-                                        name="postal" 
-                                        label="Postal/Zip Code"
+                                        name="contact" 
+                                        label="Contact Number"
                                     >
-                                        <Input 
-                                           defaultValue={sZip}
-                                        onChange={(e) => setSZip(e.target.value)}
-                                        placeholder="input placeholder" />
+                                        <Input placeholder="Contact No." 
+                                            defaultValue={phone}
+                                            rules={[
+                                                    {
+                                                        required: 'true',
+                                                    },
+                                                    ]}
+                                            onChange={(e) => setPhone(e.target.value)}   
+                                        />
                                     </Form.Item>
-                                </Col>
-                            </Row>
-                            </Col>
-                            {/* <Form.Item 
-                                name="same" 
-                                valuePropName="checked" 
-                                noStyle
+                                </div>
+                                  <div className="col-md-3">                                    
+                                  <Form.Item
+                                        name="email"
+                                        label="E-mail"
+                                    >
+                                        <Input placeholder="Email" 
+                                        defaultValue={email}
+                                        onChange={(e) => setEmail(e.target.value)}
+                                        rules={[
+                                        {
+                                            type: 'email',
+                                        },
+                                        ]}
+                                        />
+                                    </Form.Item>
+                                </div>
+                                        
+                        </div></Form></div>
+                        <h3 style={{paddingBottom:"10px",paddingTop:"30px",fontWeight:"350"}}  className="text-dark fwl">Shipping Address</h3>
+                 <Form
+               layout="vertical"
+               name="Shipping_add"
+               className=""
+               initialValues={{
+               remember: true,
+               }}
+               >
+                <div className="row">
+                <div className="col-md-6" >
+                    <Form.Item 
+                        name="street" 
+                        label="Address Line 1"
+                    >
+                        <Input  
+                        defaultValue={Address1}
+                        onChange={(e) => setAddress1(e.target.value)}
+                        placeholder="Address Line 1" />
+                    </Form.Item>
+                    </div>
+                    <div className="col-md-6" >
+                    <Form.Item 
+                        name="building" 
+                        label="Address Line 2"
+                    >
+                        <Input
+                        defaultValue={Address2}
+                        onChange={(e) => setAddress2(e.target.value)}
+                        placeholder="Address Line 2" />
+                    </Form.Item>
+                    </div>
+                     
+                    <div className="row">
+                        <div className="col-md-3">
+                                <Form.Item 
+                                name="city" 
+                                label="City"
                             >
-                                <Checkbox onChange={onChange}>Same as Biling Address</Checkbox>
-                            </Form.Item> */}
-                            </Row> </Form>
-                    </Col>
-                    
-                </Row>
-                </Col>
+                                <Input 
+                                defaultValue={sCity}
+                                onChange={(e) => setSCity(e.target.value)}
+                                placeholder="City" />
+                            </Form.Item>
+                        </div>
+                        <div className="col-md-3">
+                        <Form.Item 
+                                name="State" 
+                                label="State"
+                            >
+                                <Input 
+                                defaultValue={sState}
+                                onChange={(e) => setSState(e.target.value)}
+                                placeholder="State" />
+                            </Form.Item>
+                        </div>
                 
-            </Row>
-            <section className="plr  ">
-              <div className="row">
-              
+                        <div className="col-md-3">
+                            <Form.Item
+                                name="country"
+                                label="Country"
+                                hasFeedback
+                            >
+                                <Select
+                                defaultValue={sCountry}
+                                onChange={(value) => setSCountry(value)}
+                                placeholder="Country">
+                                    <Option value="china">China</Option>
+                                    <Option value="usa">U.S.A</Option>
+                                </Select>
+                            </Form.Item>
+                        </div>
+                        <div className="col-md-3">
+                            <Form.Item 
+                                name="postal" 
+                                label="Postal/Zip Code"
+                            >
+                                <Input 
+                                defaultValue={sZip}
+                                onChange={(e) => setSZip(e.target.value)}
+                                placeholder="input placeholder" />
+                            </Form.Item>
+                        </div>
+                    </div>
+                     {/* <Form.Item 
+                        name="same" 
+                        valuePropName="checked" 
+                        noStyle
+                    >
+                        <Checkbox onChange={onChange}>Same as Biling Address</Checkbox>
+                    </Form.Item> */}
+                    </div> </Form>
                   <div className="col-12 d-flex justify-content-end">
-                  
                   <Link to="/cart"><button type="button" className="btn btn-secondary my-4" style={{borderRadius:"25px",width:"200px",margin:"20px"}}>Back To Cart</button></Link>
                   <button type="button" onClick={handleCheckout} className="btn btn-danger my-4" style={{borderRadius:"25px",width:"200px",margin:"20px"}}>Order Now</button>
                   </div>
-              </div>
+          
+
             </section>
          </>
         );
         }
 
 export default CheckoutScreen;
+
+ 

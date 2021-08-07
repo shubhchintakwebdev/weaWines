@@ -2,11 +2,15 @@ import React,{useState,useEffect} from 'react'
 import logo from "../Images/wea-logo.png"
 import {Link} from "react-router-dom"
 import Login from "../Components/Login.js";
+import CartItem from '../Components/Cart_Components/items'
+
 const axios = require('axios');
+const token = localStorage.getItem("token");
 
 const Nav2 = () => {
     const [open,setOpen]=useState(false)
     const [id,setId]=useState('')
+    const [login, setLogin] = useState(true)
       useEffect(() => {
         axios.get('https://weawines.shubhchintak.co/wp-json/wp/v2/posts').then(function (response){
                  setId(response.data[0].id);
@@ -14,6 +18,9 @@ const Nav2 = () => {
             .catch(function (error){
                 console.log(error);
             })
+            if(token===null){
+                setLogin(false)
+            }
     },[])
     return (
         <>
@@ -83,12 +90,13 @@ const Nav2 = () => {
                     <hr />
                 </ul>
                 <div className="d-flex flex-column justify-content-center align-items-center mt-5">
-                 <button type="button" onClick={()=>{setOpen(false)}} className="btn btn-danger my-2" style={{borderRadius:"25px", width:'160px'}}><i
-                            className="fas fa-user"></i> <Login/></button>
+                
+                {!login && <button type="button" onClick={()=>{setOpen(false)}} className="btn btn-danger my-2" style={{borderRadius:"25px", width:'160px'}}><i
+                            className="fas fa-user"></i> <Login/></button>}
 							 
                     
-                   <Link to="/cart"><button type="button" className="btn btn-danger my-2" style={{borderRadius:"25px", width:'160px'}}><i
-                            className="fas fa-shopping-cart"></i> Cart Items (0)</button></Link> 
+                  {login&& <Link to="/cart"><button type="button" className="btn btn-danger my-2" style={{borderRadius:"25px", width:'160px'}}><i
+                            className="fas fa-shopping-cart"></i> Cart Items (<CartItem/>)</button></Link> }
                 </div>
             </div>
         </>

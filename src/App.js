@@ -11,6 +11,7 @@ import Checkout from "./Screens/Checkout";
 import Register from "./Screens/Register";
 import PriceList from "./Screens/PriceList";
 import NewsPage from "./Screens/NewsPage";
+import News from "./Screens/News";
 import EventsPage from "./Screens/EventsPage";
 import MyAccount from "./Screens/MyAccount";
 import { UserProvider } from "./Components/UserContext";
@@ -32,6 +33,7 @@ const App = () => {
 					<ScrollToTopRoute component={Checkout} path="/checkout" exact />
 					<ScrollToTopRoute component={Register} path="/register" exact />
 					<ScrollToTopRoute component={NewsPage} path={["/news"]}  exact />
+					<ScrollToTopRoute component={News} path={["/news/:id"]}  exact />
 					<ScrollToTopRoute component={EventsPage} path="/event/:id" exact />
 					<ScrollToTopRoute component={Wine} path="/winelist" exact />
 					<ScrollToTopRoute component={Postpage} path="/postpage/:id" exact />
