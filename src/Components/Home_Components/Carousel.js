@@ -44,7 +44,7 @@ const Carousel = () => {
 										{banner.banner_title}
 									</h2>
 									<p className="myfs2">{banner.banner_description}</p>
-									<Link to={banner.button_link}>
+									<Link to={'/news'}>
 										<button
 											type="button"
 											className="btn btn-light text-danger d-md-inline "
