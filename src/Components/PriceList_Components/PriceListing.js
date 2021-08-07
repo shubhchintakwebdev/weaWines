@@ -87,6 +87,13 @@ class PriceListing extends React.Component {
 		this.setState({ value: this.state.value + 1 });
 	};
 
+	 
+	 handleItems = async () => {
+		const res = await fetch(
+			"https://weawines.shubhchintak.co/wp-json/letscms/v1/products");
+		const data = await res.json();
+		 console.log(data.data.products)
+	};
 
 	componentDidMount() {
 		const onChangeQuantity = (value) => {
@@ -105,9 +112,8 @@ class PriceListing extends React.Component {
 			}
 			handleCart(value)
 		}
-		fetch("/wp-json/letscms/v1/products")
-		.then((res)=>console.log(res.json() +"result"))
-		axios.get("/wp-json/letscms/v1/products").then((response) => {
+		this.handleItems()
+ 		axios.get("/wp-json/letscms/v1/products").then((response) => {
      //   console.log(list);
 			const list = []
 			for (let i = 0; i < response.data.data.products.length; i++) {
@@ -148,11 +154,11 @@ class PriceListing extends React.Component {
 					</button>
 				);
 			});
-			console.log(list);
+			// console.log(list);
 		this.setState({
 			wine: list
 		});
-		console.log(this.state.wine);
+		// console.log(this.state.wine);
 		});
 	
 		
