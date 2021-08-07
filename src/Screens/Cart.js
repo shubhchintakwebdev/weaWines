@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import Nav1 from "../Components/Nav1.js";
 import Nav2 from "../Components/Nav2";
 import Footer from "../Components/Footer";
+import axios from "axios";
 
 const Cart = () => {
 	const token = localStorage.getItem("token");
@@ -10,6 +11,19 @@ const Cart = () => {
 	const [notAllowed,setnotAllowed] = useState(true);
 
 	const handleFetch = async () => {
+		var config = {
+			method: 'post',
+ 			headers: {
+			  letscms_token: token,
+			  "Content-Type": "application/json",
+		  },
+ 		  };
+		axios("/wp-json/letscms/v1/cart?coupons[]=GET15&coupons[]=GET50",config)
+		.then(res => {
+			const result1 = res.data;
+			console.log(result1,"dd")
+		})
+	 
 		const res = await fetch(
 			"/wp-json/letscms/v1/cart?coupons[]=GET15&coupons[]=GET50",
 			{
