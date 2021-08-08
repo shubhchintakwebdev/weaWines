@@ -4,6 +4,7 @@ import Nav1 from "./Nav1";
 import Nav2 from "./Nav2";
 import { Link } from "react-router-dom";
 import "./Postpage.css";
+//import "https://cdn.ckeditor.com/4.16.1/standard/ckeditor.js";
 import axios from "axios";
 class Postpage extends Component {
     constructor(props) {

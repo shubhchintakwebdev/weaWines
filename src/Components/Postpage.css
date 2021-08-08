@@ -16,7 +16,13 @@
     margin-right: 15%;
     margin-top: 3%;
 }
-
+.dangeroushtml p{
+  font-family: "Jost";
+}
+.dangeroushtml2news{
+   margin-top: 3%;
+   font-size: 16px!important;
+}
 .goBack{
     margin-left: 15% !important;
     margin-bottom:8%;

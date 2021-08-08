@@ -78,7 +78,7 @@ const NewsPage = ({location}) => {
                         <h4>{news.title.rendered}</h4>
                         <p className="fwl my-4" style={{fontSize:"15px"}}><i className="fas fa-user"></i> Admin <i
                                 className="far fa-calendar"></i> {formatDate(news.date.slice(0,10))} </p>
-                        <div className=" " ><div dangerouslySetInnerHTML={createMarkup()} className="dangeroushtml" style={{overflowX:'hidden'}}></div></div>
+                        <div className=" " ><div dangerouslySetInnerHTML={createMarkup()} className="dangeroushtml2news" style={{overflowX:'hidden'}}></div></div>
                         <div className="my-4 fs-4" >Share <i className="fab fa-facebook-square" style={{color:"#3b5998",marginLeft:"30px"}}></i> <i className="fab fa-twitter" style={{color:"#1DA1F2"}}></i> <i className="fab fa-linkedin-in" style={{color:"#0e76a8"}}></i></div>
                         <hr />
                         <div className="d-flex justify-content-between my-3 mt-5" >
