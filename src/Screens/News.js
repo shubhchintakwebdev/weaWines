@@ -1,30 +1,47 @@
 import React,{useState,useEffect} from 'react'
-import { useParams,Link } from "react-router-dom";
+import { useParams,Link,useLocation  } from "react-router-dom";
 import Nav1 from '../Components/Nav1';
 import Nav2 from '../Components/Nav2';
 import Footer from '../Components/Footer';
  
 const axios = require('axios');
 
-const RelatedNewsComponent=({id,content,cid,index})=>{
-    if(cid===id)
-    {
-        return (<></>)
+const RelatedNewsComponent=({id,content,cid,fid,index})=>{
+    const [newsImage,setNewsImage]=useState('')
+    useEffect(() => {
+        // scrollToTop()
+        if(fid===""){
+            setNewsImage("https://source.unsplash.com/1600x400/?wine")
+        }
+        else{
+             axios.get(`https://weawines.shubhchintak.co/wp-json/wp/v2/media/${fid}`).then(function (response){
+                     setNewsImage(response.data.media_details.sizes.full.source_url)
+        }).catch(function (error){
+            console.log(error);
+        })
     }
-    else{
+          
+    }, [fid])
+    // if(cid===id)
+    // {
+    //     return (<></>)
+    // }
+    // else{
         return (  <>
             <div className="col-4 mt-2">
-                <img src="https://source.unsplash.com/400x400/?news" alt="" className="img-fluid" />
+                <img src={newsImage} alt="" className="img-fluid" />
             </div>
             <div className="col-8 mt-3">
               <Link to={{pathname:`/news/${id}`,state:index}} style={{textDecoration:"none",color:"black"}}><p style={{fontSize:"14px"}}>{content.slice(0,35)}...</p></Link>
             </div>
             </>)
-    }
+    // }
 }
 const NewsPage = ({location}) => {
      let {id}=useParams()
     const [newsImage,setNewsImage]=useState('')
+    var fid=""
+    const { pathname } = useLocation();
     const [news,setNews]=useState()
     const [newsArray,setNewsArray]=useState([])
     const [dataHtml, setDataHtml]=useState('')
@@ -38,9 +55,10 @@ const NewsPage = ({location}) => {
     }
     
 
-      useEffect(() => {
+    useEffect(() => {
         window.scrollTo(0, 0);
-      },[]); 
+      }, [pathname]);
+
       useEffect(() => {
         axios.get(`https://weawines.shubhchintak.co/wp-json/wp/v2/posts`).then(function (response){
                 setNewsArray(response.data)
@@ -53,13 +71,18 @@ const NewsPage = ({location}) => {
         // scrollToTop()
          axios.get(`https://weawines.shubhchintak.co/wp-json/wp/v2/posts/${id}`).then(function (response){
             setNews(response.data)
-                 axios.get(`https://weawines.shubhchintak.co/wp-json/wp/v2/media?parent=${id}`).then(function (response){
-                    setNewsImage(response.data[0].media_details.sizes.full.source_url)
-                    console.log(response.data[0].media_details.sizes.full.source_url)
+            fid = response.data.featured_media;
+            console.log(fid)
+            if(fid===""){
+                setNewsImage("https://source.unsplash.com/1600x400/?wine")
+            }
+            else{
+                 axios.get(`https://weawines.shubhchintak.co/wp-json/wp/v2/media/${fid}`).then(function (response){
+                         setNewsImage(response.data.media_details.sizes.full.source_url)
             }).catch(function (error){
                 console.log(error);
             })
-          
+        }
     })}, [id])
     
     const createMarkup = () =>{
@@ -70,7 +93,7 @@ const NewsPage = ({location}) => {
         <>
             <Nav1 />
             <Nav2 />
-            <img className="aui0" style={{backgroundSize:'cover'}} alt="j" src={newsImage}></img>
+            <img className="aui0" style={{backgroundSize:'cover'}} alt="" src={newsImage}></img>
             {!news&&<div className="spinner-border" role="status"><span className="sr-only">Loading...</span></div>}
             {news&&<section className="plr my-5">
                 <div className="row">
@@ -83,7 +106,7 @@ const NewsPage = ({location}) => {
                         <hr />
                         <div className="d-flex justify-content-between my-3 mt-5" >
                             {newsArray.length>0&&(location.state!==0)&&<Link to={{pathname:`/news/${newsArray[location.state-1].id}`,state:location.state-1}} style={{textDecoration:'none',color:"#9B2120"}}><h6><i className="fas fa-arrow-left"></i> {newsArray[location.state-1].title.rendered}</h6></Link>}
-                            {newsArray.length>0&&(location.state!==newsArray.length-1)&&<Link to={{pathname:`/news/${newsArray[location.state+1].id}`,state:location.state+1}} style={{textDecoration:'none',color:"#9B2120"}}><h6>{newsArray[location.state+1].title.rendered}<i className="fas fa-arrow-right"></i></h6></Link>}
+                            {newsArray.length>0&&(location.state!==newsArray.length-1)&&<Link to={{pathname:`/news/${newsArray[location.state+1].id}`,state:location.state+1}} style={{textDecoration:'none',color:"#9B2120"}}><h6>{newsArray[location.state+1].title.rendered}  <i className="fas fa-arrow-right"></i></h6></Link>}
                         </div>
                         
                     </div>
@@ -95,7 +118,7 @@ const NewsPage = ({location}) => {
                                 <hr />
                             </div>
                             <div className="row m-1">
-                                {newsArray.length>0&&newsArray.map((item,index)=>{return <RelatedNewsComponent key={index} id={item.id} content={item.title.rendered} cid={id} index={index}/>})}
+                                {newsArray.length>0&&newsArray.map((item,index)=>{return <RelatedNewsComponent key={index} id={item.id} content={item.title.rendered} cid={id} fid={item.featured_media} index={index}/>})}
                             </div>
                         </div>
                     </div>

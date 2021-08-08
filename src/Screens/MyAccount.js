@@ -18,7 +18,7 @@ import "antd/dist/antd.css";
 import { LogoutOutlined, ArrowRightOutlined } from "@ant-design/icons";
 import Nav1 from "../Components/Nav1.js";
 import Nav2 from "../Components/Nav2";
-// import Carousel from "../Components/Home_Components/Carousel";
+import Orders from "../Components/viewOrder";
 import Footer from "../Components/Footer";
 import { useHistory } from "react-router-dom";
 import { message } from 'antd';
@@ -196,16 +196,16 @@ const MyAccount = () => {
 				key++;
 				sampleorders.push({
 					key,
-					items: item.item_name,
-					order: order.order_id,
-					quantity: item.quantity,
-					amount: `$ ${order.total}`,
+ 					order: order.order_id,
+ 					amount: `$ ${order.total}`,
 					tags: [order.order_status],
+					views:<Orders order_id = {order.order_id} />
 				});
 			});
 		});
-		// console.log(sampleorders);
-		setOrders(sampleorders);
+		let orderList = sampleorders.filter( (ele, ind) => ind === sampleorders.findIndex( elem => elem.order === ele.order))
+
+ 		setOrders(orderList);
 	};
 	useEffect(() => {
 		handleFetch();
@@ -214,35 +214,34 @@ const MyAccount = () => {
 	const { Option } = Select;
 	const columns = [
 		{
-			title: "Items & Details",
-			dataIndex: "items",
-			key: "items",
-		},
-		{
 			title: "Order No",
 			dataIndex: "order",
+			width: 20,
 			key: "order",
 		},
 		{
-			title: "Quantity",
-			dataIndex: "quantity",
-			key: "quantity",
-		},
-		{
 			title: "Amount",
+			width: 20,
 			dataIndex: "amount",
 			key: "amount",
 		},
 		{
-			title: "Tags",
+			title: "Status",
 			key: "tags",
+			width: 20,
 			dataIndex: "tags",
 			render: (tags) => (
 				<>
 					{tags.map((tag) => {
-						let color = tag.length > 7 ? "green" : "yellow";
+						let color = tag.length > 7 ? "#77d64f" : "yellow";
+						if(tag==="completed"){
+							color = "#77d64f";
+						}
 						if (tag === "cancelled") {
-							color = "red";
+							color = "#f50";
+						}
+						if(tag==="processing"){
+							color = "#d4d457";	
 						}
 						return (
 							<Tag color={color} key={tag}>
@@ -252,6 +251,12 @@ const MyAccount = () => {
 					})}
 				</>
 			),
+		},
+		{
+			title: "",
+			width: 20,
+			dataIndex: "views",
+			key: "views",
 		},
 	];
 	// const orders = [
@@ -458,145 +463,8 @@ const MyAccount = () => {
 							<TabPane tab="Manage Address" key="2">
 							<h2 style={{fontFamily:"Jost",fontWeight:800,fontSize:"20px"}}>Manage Address</h2>
 								<Row>
+								
 									<Col span={10}>
-										<Row>
-											<h6 style={{fontFamily:"Jost",fontWeight:800}}>Shipping Address</h6>
-											<Button
-												// type="primary"
-												// htmlType="submit"
-												className="text-danger"
-												style={{
-													border: "none",
-													padding: "0px",
-													marginLeft: "1rem",
-													boxShadow: "none",
-												}}
-												onClick={() => setSDisabled(false)}
-											>
-												Edit
-											</Button>
-										</Row>
-										<Form
-											layout="vertical"
-											name="Shipping_add"
-											initialValues={{
-												remember: true,
-											}}
-											fields={[
-												{
-													name: ["street"],
-													value: sStreet,
-												},
-												{
-													name: ["building"],
-													value: sBuilding,
-												},
-												{
-													name: ["city"],
-													value: sCity,
-												},
-												{
-													name: ["state"],
-													value: sState,
-												},
-												{
-													name: ["country"],
-													value: sCountry,
-												},
-												{
-													name: ["postal"],
-													value: sZip,
-												},
-												{
-													name: ["company"],
-													value: sCompany,
-												},
-												{
-													name: ["phone"],
-													value: sPhone,
-												},
-											]}
-										>
-											<Form.Item name="street" label="Unit and Street No.">
-												<Input
-													disabled={sDisabled}
-													placeholder="Unit and Street No."
-													onChange={(e) => setSStreet(e.target.value)}
-												/>
-											</Form.Item>
-											<Form.Item name="building" label="Building (if any)">
-												<Input
-													disabled={sDisabled}
-													placeholder="Building (if any)"
-													onChange={(e) => setSBuilding(e.target.value)}
-												/>
-											</Form.Item>
-											<Form.Item name="city" label="City">
-												<Input
-													disabled={sDisabled}
-													placeholder="City"
-													onChange={(e) => setSCity(e.target.value)}
-												/>
-											</Form.Item>
-											<Form.Item name="company" label="Company">
-												<Input
-													disabled={sDisabled}
-													placeholder="Company"
-													onChange={(e) => setSCompany(e.target.value)}
-												/>
-											</Form.Item>
-											<Form.Item name="phone" label="Phone">
-												<Input
-													disabled={sDisabled}
-													placeholder="Phone"
-													onChange={(e) => setSPhone(e.target.value)}
-												/>
-											</Form.Item>
-											<Row>
-												<Col span={12}>
-													<Form.Item name="country" label="Country" hasFeedback>
-														<Select
-															placeholder="Please select a country"
-															onChange={(value) => {
-																console.log(value);
-																setSCountry(value);
-															}}
-														>
-															<Option value="china">China</Option>
-															<Option value="usa">U.S.A</Option>
-														</Select>
-													</Form.Item>
-													{/* <Form.Item name="state" label="State" hasFeedback>
-														<Select
-															placeholder="Please select a state"
-															onChange={(value) => {
-																console.log(value);
-																setSState(value);
-															}}
-														>
-															<Option value="china">China</Option>
-															<Option value="usa">U.S.A</Option>
-														</Select>
-													</Form.Item> */}
-												</Col>
-												<Col span={12}>
-													<Form.Item name="postal" label="Postal/Zip Code">
-														<Input
-															placeholder="Postal/Zip Code"
-															onChange={(e) => setSZip(e.target.value)}
-														/>
-													</Form.Item>
-												</Col>
-											</Row>
-											<Form.Item name="same" valuePropName="checked" noStyle>
-												<Checkbox onClick={toggleSame}>
-													Same as Shipping Address
-												</Checkbox>
-											</Form.Item>
-											<Form.Item></Form.Item>
-										</Form>
-									</Col>
-									<Col span={10} offset={2}>
 										<Row>
 											<h6 style={{ marginRight: "2%",fontFamily:"Jost",fontWeight:800 }}>Billing Address</h6>
 											{bDisabled && <Button

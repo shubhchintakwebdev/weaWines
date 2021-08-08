@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
 	return (
@@ -24,17 +25,17 @@ const Footer = () => {
 						<h4 className="mb-4" style={{ color: "white" }}>
 							Quick Links
 						</h4>
-						<p>My Acccount</p>
-						<p>My Rewards</p>
-						<p>My Orders</p>
-						<p>Contact Us</p>
+						<Link to=""><p style={{ color: "white" }}>My Acccount</p></Link>
+						<Link to=""><p style={{ color: "white" }}>My Rewards</p></Link>
+						<Link to=""><p style={{ color: "white" }}>My Orders</p></Link>
+						<Link to=""><p style={{ color: "white" }}>Contact Us</p></Link>
 					</div>
 					<div className="col-md-3">
 						<h4 className="mb-4" style={{ color: "white" }}>
-							Contact
+							Policies
 						</h4>
-						<p>Terms and Conditions</p>
-						<p>Privacy Policy</p>
+						<Link to="/terms"><p style={{ color: "white" }}>Terms and Conditions</p></Link>
+						<Link to="/policy" ><p style={{ color: "white" }}>Privacy Policy</p></Link>
 					</div>
 					<div className="col-md-3">
 						<h4 className="mb-4" style={{ color: "white" }}>
@@ -66,9 +67,9 @@ const Footer = () => {
 					</p>
 				</div>
 				<div className="col-md-6 d-md-flex justify-content-end">
-					<i className="fab fa-facebook-f fs-4 px-3"></i>
-					<i className="fab fa-instagram fs-4 px-3"></i>
-					<i className="fab fa-twitter fs-4 px-3"></i>
+					<Link to="https://www.facebook.com/weawines/"><i style={{ color: "white" }} className="fab fa-facebook-f fs-4 px-3"></i></Link>
+					<Link to="https://www.instagram.com/weawines/"></Link><i style={{ color: "white" }} className="fab fa-instagram fs-4 px-3"></i>
+					<Link to="https://twitter.com/weawines"><i style={{ color: "white" }} className="fab fa-twitter fs-4 px-3"></i></Link> 
 				</div>
 			</div>
 		</>

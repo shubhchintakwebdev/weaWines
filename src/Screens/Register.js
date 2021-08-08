@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link, Router, Redirect, useHistory } from "react-router-dom";
 import logo from "../Images/nav_logo.png";
 import Login from "../Components/Login"
+import "./Register.css"
 const Register = () => {
 	const history = useHistory();
 	const [firstName, setFirstName] = useState("");
@@ -10,7 +11,9 @@ const Register = () => {
 	const [username, setUsername] = useState("");
 	const [password, setPassword] = useState("");
 	const [confirmPassword, setConfirmPassword] = useState("");
-
+    const goToPreviousPath = () => {
+        history.goBack()
+    }
 	const handleSignup = async () => {
 		console.log(
 			firstName,
@@ -52,25 +55,53 @@ const Register = () => {
 		<>
 			<div className="row" style={{ height: "100vh" }}>
 				<div className="col-md-6 position-relative">
-					<div className="op3"></div>
+					{/* <div className="op3"></div> */}
 					<div className="aui3 d-flex justify-content-center align-items-center">
-						<h1 className="text-uppercase text-light fwl" style={{ zIndex: 5 }}>
+					<div className="signup d-flex justify-content-center align-items-center">
+						<h1 className="text-uppercase text-light fwl ">
 							Create an Account
 						</h1>
+						</div>
 					</div>
 				</div>
 				<div className="col-md-6 d-flex flex-column justify-content-around">
 					<div className="w-100 d-md-flex justify-content-center d-none">
-						<Link to="/">
+						
+							<div className="back d-flex justify-content-center">
 							<img
-								src={logo}
+								src="https://img.icons8.com/ios/452/long-arrow-left.png"
 								alt=""
-								style={{ height: "80px", width: "180px" }}
+								style={{width:"60px" }}
+								onClick={goToPreviousPath}
 							/>
-						</Link>
+							</div>
+							<Link to="/" className="logo">
+								<img
+									src="https://weawines.shubhchintak.co/wp-content/uploads/2021/08/wea-logo.png"
+									alt=""
+									style={{ height: "80px", width: "180px" }}
+								/>
+							</Link>
+						
 					</div>
-					<div className="form my-5" style={{ width: "98%", padding: "3vw" }}>
-						<h3 className="text-danger mb-5">Signup</h3>
+					<div className="form" style={{ width: "98%", padding: "2vw" }}>
+					<div class="mobile">
+						<div className="row">
+							<div className="col-3">
+								<img
+									src="https://img.icons8.com/ios/452/long-arrow-left.png"
+									alt=""
+									style={{width:"70px" ,height:"50px"}}
+									onClick={goToPreviousPath}
+									className=" mobile  "
+								/>
+							</div>
+							<div className="col-9 middle" style={{marginTop:"2%"}}>
+								<h3 className="text-danger mb-5" >Signup</h3>
+							</div>
+						</div>
+					</div>
+						<h3 className="text-danger mb-5 website">Signup</h3>
 						<div className="row my-4">
 							<div className="col-md-6">
 								<div className="form-group my-3">

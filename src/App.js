@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import React from "react";
-import { BrowserRouter as Router, Route,Switch } from "react-router-dom";
+import { BrowserRouter as Router, Route,Switch,Redirect } from "react-router-dom";
 import ScrollToTopRoute from './ScrollToTop';
 import Home from "./Screens/Home";
 import About from "./Screens/About";
@@ -17,7 +17,22 @@ import MyAccount from "./Screens/MyAccount";
 import { UserProvider } from "./Components/UserContext";
 import Wine from "./Components/Wine";
 import Postpage from "./Components/Postpage";
+import Four04 from "./Screens/404";
+import Terms from "./Components/terms";
+import Policy from "./Components/policy";
+
 const App = () => {
+	window.less
+    .modifyVars({
+        "@primary-color": "#9b2120",
+		"@link-color": "#9b2120"
+     })
+    .then(() => {
+        //do other stuff here
+     })
+     .catch(error => {
+         console.error(error);
+     });
 	return (
 		<UserProvider>
 			<Router>
@@ -36,7 +51,11 @@ const App = () => {
 					<ScrollToTopRoute component={News} path={["/news/:id"]}  exact />
 					<ScrollToTopRoute component={EventsPage} path="/event/:id" exact />
 					<ScrollToTopRoute component={Wine} path="/winelist" exact />
+					<ScrollToTopRoute component={Policy} path="/policy" exact />
+					<ScrollToTopRoute component={Terms} path="/terms" exact />
 					<ScrollToTopRoute component={Postpage} path="/postpage/:id" exact />
+					<ScrollToTopRoute component={Four04} path="/404" exact />
+					<Redirect to="/404"/>
 				</div>
 				</Switch>
 			</Router>

@@ -11,8 +11,11 @@ const MailingList = () => {
             <div className="position-relative">
                 <div className="op"></div>
                 <div className="aui d-flex justify-content-center align-items-center">
-                    <h1 className="text-uppercase text-light fwl" style={{zIndex:5}}>Mailing List</h1>
+                    <div className="create d-flex justify-content-center align-items-center">
+                        <h1 className="text-uppercase text-light fwl">Mailing List</h1>
+                    </div>
                 </div>
+
             </div>
             <section className="plr my-5 fwl">
                 <div style={{backgroundColor:"#eeeeee",height:"auto",maxWidth:"600px",margin:"auto"}} className="p-5 d-flex flex-column justify-content-evenly align-items-center">

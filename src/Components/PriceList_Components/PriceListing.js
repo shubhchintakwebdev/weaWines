@@ -11,6 +11,7 @@ import {
 	Input,
 	Button,
 	Space,
+	Drawer,
 	InputNumber,
 } from "antd";
 import "antd/dist/antd.css";
@@ -98,7 +99,9 @@ class PriceListing extends React.Component {
 			searchedColumn: "",
 			wine: [],
 			value: 0,
-			setLogin:true
+			setLogin:true,
+			visible:false,
+			setVisible:false
 		};
 	}
 
@@ -110,9 +113,15 @@ class PriceListing extends React.Component {
 		this.setState({ value: this.state.value + 1 });
 	};
 
-	
+	showDrawer = () => {
+		this.setState({visible:true});
+	};
+
+	onClose = () => {
+		this.setState({visible:false});
+	};
 	 
-	 handleItems = async () => {
+	handleItems = async () => {
 		 
 		const res = await fetch(
 			"https://weawines.shubhchintak.co/wp-json/letscms/v1/products");
@@ -269,6 +278,7 @@ class PriceListing extends React.Component {
 	};
 
 	render() {
+		const {visible} = this.state;
 		const { Panel } = Collapse;
 		const columns = [
 			{
@@ -346,12 +356,13 @@ class PriceListing extends React.Component {
 			<>
 				<Row>
 					<Col xs={24} lg={{span:4, offset:3}}  className="filter">
+						<Button className="mobile" type="primary" onClick={this.showDrawer}>Filters</Button>
+						<div className="desktop">
 						<h5 style={{ fontFamily: "Jost", fontWeight: 500, float: "left" }}>
 							Filters
 						</h5>
 						<Divider />
-						<Row>
-							<Col xs={12} lg={24}>
+
 						<h6 style={{ fontFamily: "Jost", fontWeight: 400 }}>Wines</h6>
 						<Collapse bordered={false} accordion>
 							<Panel header="Burgundy" key="1">
@@ -375,8 +386,6 @@ class PriceListing extends React.Component {
 							<Panel header="Rhone" key="5"></Panel>
 							<Panel header="The New Spain" key="6"></Panel>
 						</Collapse>
-						</Col>
-						<Col xs={{span:10, offset:2}} lg={24}>
 						<h6 className="Vintage" style={{ fontFamily: "Jost", fontWeight: 400, paddingTop:"25px" }}>Vintage</h6>
 						<Checkbox>2015</Checkbox>
 						<br />
@@ -387,8 +396,47 @@ class PriceListing extends React.Component {
 						<Checkbox>2018</Checkbox>
 						<br />
 						<Checkbox>2019</Checkbox>
-						</Col>
-						</Row>
+						</div>
+						<Drawer title="Filters"
+							placement="left"
+							closable={false}
+							onClose={this.onClose}
+							visible={visible}>
+
+						<h6 style={{ fontFamily: "Jost", fontWeight: 400 }}>Wines</h6>
+						<Collapse bordered={false} accordion>
+							<Panel header="Burgundy" key="1">
+								<Checkbox> Antoine Jobard</Checkbox>
+								<br />
+								<Checkbox> Bachelet-Monnot </Checkbox>
+								<br />
+								<Checkbox> Ballot-Millot </Checkbox>
+								<br />
+								<Checkbox> Bernard Moreau </Checkbox>
+								<br />
+								<Checkbox> Berthaut-Gerbet </Checkbox>
+								<br />
+								<Checkbox> Caroline Morey </Checkbox>
+								<br />
+								<Checkbox> David Duband </Checkbox>
+							</Panel>
+							<Panel header="Champagne" key="2"></Panel>
+							<Panel header="Beaujolais" key="3"></Panel>
+							<Panel header="Loirze" key="4"></Panel>
+							<Panel header="Rhone" key="5"></Panel>
+							<Panel header="The New Spain" key="6"></Panel>
+						</Collapse>
+						<h6 style={{ fontFamily: "Jost", fontWeight: 400, paddingTop:"25px" }}>Vintage</h6>
+						<Checkbox>2015</Checkbox>
+						<br />
+						<Checkbox>2016</Checkbox>
+						<br />
+						<Checkbox>2017</Checkbox>
+						<br />
+						<Checkbox>2018</Checkbox>
+						<br />
+						<Checkbox>2019</Checkbox>
+						</Drawer>
 					</Col>
 					<Col xs={24} lg={14} >
 						<Table className="Pricelist" columns={columns} dataSource={this.state.wine} />

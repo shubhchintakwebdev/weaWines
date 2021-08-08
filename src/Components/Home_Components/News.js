@@ -2,18 +2,24 @@
 import React,{useEffect, useState} from 'react'
 import { Link } from 'react-router-dom';
 const axios = require('axios');
-const NewsComponent=({image,title,postedBy,date,content,id,index})=>{
+const NewsComponent=({image,title,postedBy,date,content,id,fid,index})=>{
     console.log("index",index)
     const [newsImage,setNewsImage]=useState('')
     useEffect(() => {
         // scrollToTop()
-                   axios.get(`https://weawines.shubhchintak.co/wp-json/wp/v2/media?parent=${id}`).then(function (response){
-                    setNewsImage(response.data[0].media_details.sizes.full.source_url)
-             }).catch(function (error){
-                console.log(error);
-            })
+        if(fid===""){
+            setNewsImage("https://source.unsplash.com/1600x400/?wine")
+        }
+        else{
+             axios.get(`https://weawines.shubhchintak.co/wp-json/wp/v2/media/${fid}`).then(function (response){
+                     setNewsImage(response.data.media_details.sizes.full.source_url)
+        }).catch(function (error){
+            console.log(error);
+        })
+    }
           
     }, [id])
+    
     const createMarkup = () =>{
         return {__html: content};
       }
@@ -72,7 +78,7 @@ const News = () => {
                 <h3 className="text-danger fwl">News</h3>
                 <div className="row py-3">
                     {news.length===0&&<div className="spinner-border" role="status"><span className="sr-only">Loading...</span></div>}
-                    {news.length!==0&&news.map((item,index)=>{return <NewsComponent image="https://source.unsplash.com/400x400/?wine" key={index} title={item.title.rendered} postedBy="Admin" date={`${formatDate(item.date.slice(0,10))} , ${formatTime(item.date.slice(11,16))}`} content={item.excerpt.rendered} id={item.id} index={index}/>})}
+                    {news.length!==0&&news.map((item,index)=>{return <NewsComponent image="https://source.unsplash.com/400x400/?wine" key={index} title={item.title.rendered} postedBy="Admin" date={`${formatDate(item.date.slice(0,10))} , ${formatTime(item.date.slice(11,16))}`} content={item.excerpt.rendered} id={item.id}  fid={item.featured_media} index={index}/>})}
                 </div>
             </section>
     )

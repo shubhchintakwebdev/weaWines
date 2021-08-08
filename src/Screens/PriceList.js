@@ -11,7 +11,7 @@ const PriceList = () => {
            <div className="position-relative">
                <div className="op"></div>
                <div className="aui d-flex justify-content-center align-items-center">
-                   <h1 className="text-uppercase text-light fwl" style={{zIndex:5}}>Price List</h1>
+                   <h1 className="text-uppercase text-light fwl">Price List</h1>
                </div>
            </div>
            <PriceListing />

@@ -1,0 +1,19 @@
+
+.image2{
+    height: 350px;
+    width: 100%;
+    font-size: x-large;
+    align-content: center;
+    /* backdrop-filter: brightness(50%); */
+  }
+.content1{
+    background-color: #9B2120;
+
+}
+.wine{
+    background-image: url("../Images/wine.gif");
+    background-size: contain;
+    overflow: 'hidden';
+    background-repeat: no-repeat;
+    
+}

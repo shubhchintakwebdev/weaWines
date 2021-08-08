@@ -67,7 +67,7 @@ const NewsPage = () => {
             <div className="position-relative">
                <div className="op"></div>
                <div className="aui d-flex justify-content-center align-items-center">
-                   <h1 className="text-uppercase text-light fwl" style={{zIndex:5}}>NEWS</h1>
+               <h1 className="text-uppercase text-light fwl">NEWS</h1>
                </div>
            </div>
             <News />

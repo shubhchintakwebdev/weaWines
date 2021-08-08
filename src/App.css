@@ -117,35 +117,6 @@ label{
   background-color: #f8f8f8 !important;
 }
 
-.ant-tabs-ink-bar {
-  position: absolute!important;
-  background: #9B2120!important;
-  pointer-events: none!important;
-}
-
-.ant-input:hover, .ant-input-password:hover{
-  border-color: #9B2120 !important;
-}
-
-
-.ant-input:focus, .ant-input-password:focus {
-  border-color: #9b2120 !important;
-   outline: 0!important; 
-  -webkit-box-shadow: 0 0 0 2px rgba(155,33,32, 0.2) !important; 
-  box-shadow: 0 0 0 2px rgba(155,33,32, 0.2) !important;
-}
-
-.ant-select-selector:hover{
-  border-color: #9B2120 !important;
-}
-
-.ant-select-selector:focus {
-  border-color: #9b2120!important;
-   outline: 0!important; 
-  -webkit-box-shadow: 0 0 0 2px rgba(155,33,32, 0.2) !important; 
-  box-shadow: 0 0 0 2px rgba(155,33,32, 0.2) !important;
-}
-
 .mobile{
   display: none !important;
 }
@@ -164,18 +135,4 @@ label{
     overflow-x: scroll !important;
     width: 100vw !important;
   }
-}
-
-.ant-checkbox-checked .ant-checkbox-inner {
-  background-color: #9b2120!important;
-  border-color: #9b2120!important;
-}
-
-.ant-checkbox-checked .ant-checkbox-inner:hover{
-  border-color: #9b2120!important;
-}
-
-.ant-input-number:hover{
-  border-color: #9b2120!important;
-
 }

@@ -1,9 +1,9 @@
 import React from 'react'
-import Nav1 from "../Components/Nav1.js"
-import Nav2 from "../Components/Nav2"
-import Footer from "../Components/Footer"
+import Nav1 from "./Nav1.js"
+import Nav2 from "./Nav2"
+import Footer from "./Footer"
 
-const About = () => {
+const Policy = () => {
     return (
         <>
         <Nav1/>
@@ -11,24 +11,10 @@ const About = () => {
             <div className="position-relative">
                 <div className="op"></div>
                 <div className="aui d-flex justify-content-center align-items-center">
-                    <div className="create d-flex justify-content-center align-items-center">
-                        <h1 className="text-uppercase text-light fwl" >About</h1>
-                    </div>
+                    <h1 className="text-uppercase text-light fwl" style={{zIndex:3}}>Privacy Policy</h1>
                 </div>
             </div>
-            <section className="plr my-5">
-                <div className="row">
-                    <div className="col-md-4 d-flex flex-column justify-content-center mx-md-1 my-2 who-are-we">
-                        <h1 className="text-md-center">Who Are We?</h1>
-                        <h6 className="text-md-end mt-4">Mission Statement</h6>
-                    </div>
-                    <div className="col-md-8 fwl d-flex flex-column justify-content-center">
-                        <p>WEA Wines is a fine wine merchant started by wine lovers for wine lovers. We dedicate ourselves in wines from various regions in France. We make it our mission to bring you wines which are authentic and with the utmost quality – made by real people not anonymous corporations. ALL the wines we offer are wines which we are happy to drink ourselves, hence our motto: <b>Wines we love to drink!</b></p>
-                        <p className="text-danger" style={{fontStyle:"italic"}}>Lorem ipsum dolor sit amet consectetur
-                            adipisicing elit. Illo, ad.</p>
-                    </div>
-                </div>
-            </section>
+            
             <section className="plr my-5 fwl">
                 <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci, ut debitis culpa non provident
                     illo ea recusandae itaque voluptates, molestiae ipsam quo alias mollitia eius quis? Ipsam, id
@@ -57,4 +43,4 @@ const About = () => {
     )
 }
 
-export default About
+export default Policy

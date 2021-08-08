@@ -1,0 +1,18 @@
+.logo{
+    flex:1;
+    justify-content: flex-end;
+}
+.back{
+  margin-right: 20%;
+  margin-left: 3%;
+  cursor: pointer;
+}
+
+.mobile{
+    display: none;
+}
+@media (max-width: 400px) {
+    .website{display: none;}
+    .mobile { display: inline-block; }
+  }
+  
