@@ -21,10 +21,7 @@ const About = () => {
                         <h6 className="text-md-end mt-4">Mission Statement</h6>
                     </div>
                     <div className="col-md-8 fwl d-flex flex-column justify-content-center">
-                        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Accusamus, cumque minima repellat
-                            dolorem voluptatibus, suscipit vel odio deserunt sint soluta itaque fugit commodi vero rerum
-                            amet repellendus repudiandae atque numquam rem magnam harum? Nulla, itaque impedit.
-                            Consequuntur sed ducimus commodi, laboriosam delectus animi minus a.</p>
+                        <p>WEA Wines is a fine wine merchant started by wine lovers for wine lovers. We dedicate ourselves in wines from various regions in France. We make it our mission to bring you wines which are authentic and with the utmost quality – made by real people not anonymous corporations. ALL the wines we offer are wines which we are happy to drink ourselves, hence our motto: <b>Wines we love to drink!</b></p>
                         <p className="text-danger" style={{fontStyle:"italic"}}>Lorem ipsum dolor sit amet consectetur
                             adipisicing elit. Illo, ad.</p>
                     </div>
