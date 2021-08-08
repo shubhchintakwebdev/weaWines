@@ -67,9 +67,9 @@ const Footer = () => {
 					</p>
 				</div>
 				<div className="col-md-6 d-md-flex justify-content-end">
-					<Link to="https://www.facebook.com/weawines/"><i style={{ color: "white" }} className="fab fa-facebook-f fs-4 px-3"></i></Link>
-					<Link to="https://www.instagram.com/weawines/"></Link><i style={{ color: "white" }} className="fab fa-instagram fs-4 px-3"></i>
-					<Link to="https://twitter.com/weawines"><i style={{ color: "white" }} className="fab fa-twitter fs-4 px-3"></i></Link> 
+					<a href="https://www.facebook.com/weawines/"><i style={{ color: "white" }} className="fab fa-facebook-f fs-4 px-3"></i></a>
+					<a href="https://www.instagram.com/weawines/"><i style={{ color: "white" }} className="fab fa-instagram fs-4 px-3"></i></a>
+					<a href="https://twitter.com/weawines"><i style={{ color: "white" }} className="fab fa-twitter fs-4 px-3"></i></a> 
 				</div>
 			</div>
 		</>

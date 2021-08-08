@@ -37,7 +37,7 @@ const token = localStorage.getItem("token");
 	//   data : data
 	// };
 	const res = await fetch(
-		"/wp-json/letscms/v1/cart/add-item/",
+		"/wp-json/letscms/v1/cart/add-item/?product_id="+value[1]+"&quantity="+value[0],
 		{
 			method: "post",
 			headers: {

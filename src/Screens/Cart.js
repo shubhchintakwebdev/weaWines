@@ -17,14 +17,14 @@ const Cart = () => {
 			  "Content-Type": "application/json",
 		  },
  		  };
-		axios.post( '/wp-json/letscms/v1/cart',config)
+		axios.post( '/wp-json/letscms/v1/cart/',config)
 		.then(res => {
 			const result1 = res.data;
 			console.log(result1,"dd")
 		})
 	 
 		const res = await fetch(
-			"/wp-json/letscms/v1/cart?coupons[]=GET15&coupons[]=GET50",
+			"/wp-json/letscms/v1/cart/",
 			{
 				headers: {
 					letscms_token: token,
