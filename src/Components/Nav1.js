@@ -69,6 +69,7 @@ const Nav1 = () => {
 		localStorage.removeItem("user");
 		localStorage.removeItem("userdetails");
 		localStorage.removeItem("token");
+		localStorage.removeItem("filters");
 		history.push("/");
 		window.location.reload();
 	};

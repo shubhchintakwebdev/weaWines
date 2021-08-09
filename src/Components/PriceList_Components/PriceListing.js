@@ -16,13 +16,12 @@ import {
 } from "antd";
 import "antd/dist/antd.css";
 import axios from "axios";
-import { message } from 'antd';
-import Login from '../Login'
- var FormData = require("form-data");
+import { message } from "antd";
+import Login from "../Login";
+var FormData = require("form-data");
 var quant = [];
 const token = localStorage.getItem("token");
- const handleCart = async (value) => {
-
+const handleCart = async (value) => {
 	// var data = new FormData();
 	// data.append("product_id", value[1]);
 	// data.append("quantity", value[0]);
@@ -37,7 +36,10 @@ const token = localStorage.getItem("token");
 	//   data : data
 	// };
 	const res = await fetch(
-		"/wp-json/letscms/v1/cart/add-item/?product_id="+value[1]+"&quantity="+value[0],
+		"/wp-json/letscms/v1/cart/add-item/?product_id=" +
+			value[1] +
+			"&quantity=" +
+			value[0],
 		{
 			method: "post",
 			headers: {
@@ -45,51 +47,50 @@ const token = localStorage.getItem("token");
 				letscms_token: token,
 			},
 			body: JSON.stringify({
-				product_id:  value[1],
-				quantity:value[0],
+				product_id: value[1],
+				quantity: value[0],
 			}),
 		}
 	);
 	const data = await res.json();
- 
-	  const result = data;
-	  console.log(result)
 
-	  if(result.status===true){
-		quant = 0
+	const result = data;
+	console.log(result);
+
+	if (result.status === true) {
+		quant = 0;
 		message.success({
 			content: `Item added to cart!`,
-			className: 'custom-class',
+			className: "custom-class",
 			style: {
-			  marginTop: '5vh',
+				marginTop: "5vh",
 			},
-		  });
-	  }
-	  if(result.status===false){
+		});
+	}
+	if (result.status === false) {
 		message.error({
 			content: `Add Quantity!`,
-			className: 'custom-class',
+			className: "custom-class",
 			style: {
-			  marginTop: '5vh',
+				marginTop: "5vh",
 			},
-		  });
-	  }
- 
-}
+		});
+	}
+};
 
-const setCart = (value) =>{
-	console.log(value)
-	if(token===null){
+const setCart = (value) => {
+	console.log(value);
+	if (token === null) {
 		message.error({
 			content: `Please Login!`,
-			className: 'custom-class',
+			className: "custom-class",
 			style: {
-			  marginTop: '5vh',
+				marginTop: "5vh",
 			},
-		  });
+		});
 	}
-	handleCart(value)
-}
+	handleCart(value);
+};
 
 class PriceListing extends React.Component {
 	constructor(props) {
@@ -99,9 +100,12 @@ class PriceListing extends React.Component {
 			searchedColumn: "",
 			wine: [],
 			value: 0,
-			setLogin:true,
-			visible:false,
-			setVisible:false
+			setLogin: true,
+			visible: false,
+			setVisible: false,
+			categoriesMap: new Map(),
+			name_idMap: new Map(),
+			vintage: [],
 		};
 	}
 
@@ -114,25 +118,55 @@ class PriceListing extends React.Component {
 	};
 
 	showDrawer = () => {
-		this.setState({visible:true});
+		this.setState({ visible: true });
 	};
 
 	onClose = () => {
-		this.setState({visible:false});
+		this.setState({ visible: false });
 	};
-	 
+
+	handleFilter = (filter) => {
+		let newFilter = localStorage.getItem("filters");
+		if (newFilter == ",") newFilter = "";
+		if (newFilter.includes("," + filter)) {
+			newFilter = newFilter.replace("," + filter, "");
+		} else if (newFilter.includes(filter)) {
+			newFilter = newFilter.replace(filter, "");
+		} else {
+			if (newFilter.length) {
+				newFilter += "," + filter;
+			} else {
+				newFilter = filter;
+			}
+		}
+		if (newFilter == ",") newFilter = "";
+		localStorage.setItem("filters", newFilter);
+		this.handleItems(newFilter);
+	};
+
 	handleItems = async () => {
-		 
-		const res = await fetch(
-			"https://weawines.shubhchintak.co/wp-json/letscms/v1/products");
+		const filter = localStorage.getItem("filters");
+		let url = "https://weawines.shubhchintak.co/wp-json/letscms/v1/products";
+
+		if (filter !== undefined && filter.length) {
+			const newUrl = `https://weawines.shubhchintak.co/wp-json/letscms/v1/products?categories="${filter}"`;
+			url = newUrl;
+		}
+
+		const res = await fetch(url);
 		const data = await res.json();
-		const list = []
+		const list = [];
 		for (let i = 0; i < data.data.products.length; i++) {
+			const name = data.data.products[i].name.split("--");
+			const wine = name[0];
+			const vintage = name[1];
 			list.push({
 				key: data.data.products[i].id,
-				wine: data.data.products[i].name,
+				// wine: data.data.products[i].name,
+				wine,
 				price: data.data.products[i].price,
-				vintage: data.data.products[i].type,
+				// vintage: data.data.products[i].type,
+				vintage,
 			});
 		}
 		// console.log(list);
@@ -141,14 +175,14 @@ class PriceListing extends React.Component {
 			list[object]["quantity"] = (
 				<InputNumber
 					size="small"
-						min={0}
+					min={0}
 					defaultValue={0}
 					onChange={(value) => (quant = [value, list[object]["key"]])}
 				/>
 			);
 			list[object]["cart"] = (
-				 <Button
-				 	type="link"					
+				<Button
+					type="link"
 					onClick={() => setCart(quant)}
 					danger
 					// disabled={quant[0]===0 ? true :console.log(quant)}
@@ -156,29 +190,88 @@ class PriceListing extends React.Component {
 						color: "#9b2120",
 					}}
 				>
-				<span><ShoppingOutlined/>	Add to Cart </span>
+					<span>
+						<ShoppingOutlined /> Add to Cart{" "}
+					</span>
 				</Button>
 			);
 		});
 		// console.log(list);
-	this.setState({
-		wine: list
-	});
+		this.setState({
+			wine: list,
+		});
+	};
+
+	handleCategories = async () => {
+		// const resVintage = await fetch("/wp-json/wp/v2/vintage");
+		// const Vintage = await resVintage.json();
+		// console.log(Vintage);
+		// this.setState({ vintage: Vintage });
+
+		const resCategories = await fetch("/wp-json/wp/v2/product_cat");
+		const categories = await resCategories.json();
+		// console.log(categories);
+
+		const newCategoriesMap = new Map();
+		const newName_idMap = new Map();
+
+		categories.forEach((category) => {
+			newName_idMap.set(category.id, category);
+		});
+		// console.log(newName_idMap);
+
+		categories.forEach((category) => {
+			if (
+				category.parent == 0 &&
+				category.name !== "Uncategorized" &&
+				category.name !== "Vintage"
+			)
+				newCategoriesMap.set(category.id, []);
+		});
+
+		// console.log(categoriesMap);
+		let Vintage = [];
+		categories.forEach((category) => {
+			if (category.parent) {
+				// console.log(category.parent);
+				if (newName_idMap.get(category.parent).name === "Uncategorized") {
+				} else if (newName_idMap.get(category.parent).name === "Vintage") {
+					Vintage.push(category);
+				} else {
+					let list = newCategoriesMap.get(category.parent);
+					list.push(category);
+					newCategoriesMap.set(category.parent, list);
+				}
+			}
+		});
+
+		this.setState({ name_idMap: newName_idMap });
+		this.setState({ categoriesMap: newCategoriesMap });
+		this.setState({ vintage: Vintage });
+		// console.log(Vintage);
+		// console.log(newCategoriesMap);
+		// for (const [key, value] of categoriesMap.entries()) {
+		// 	console.log(key);
+		// 	for (const item in value) console.log(item);
+		// }
+		// Array.from(newCategoriesMap).map(([key, value]) => {
+		// 	console.log(newName_idMap.get(key).name);
+		// 	value.map((x) => console.log(x.name));
+		// 	console.log("---");
+		// });
 	};
 
 	componentDidMount() {
 		const onChangeQuantity = (value) => {
 			console.log(value);
 		};
-		
-		this.handleItems()
- 		axios.get("/wp-json/letscms/v1/products").then((response) => {
-     //   console.log(list);
-		
-		// console.log(this.state.wine);
+
+		this.handleItems();
+		this.handleCategories();
+		axios.get("/wp-json/letscms/v1/products").then((response) => {
+			//   console.log(list);
+			// console.log(this.state.wine);
 		});
-	
-		
 	}
 	getColumnSearchProps = (dataIndex) => ({
 		filterDropdown: ({
@@ -278,7 +371,7 @@ class PriceListing extends React.Component {
 	};
 
 	render() {
-		const {visible} = this.state;
+		const { visible } = this.state;
 		const { Panel } = Collapse;
 		const columns = [
 			{
@@ -287,8 +380,7 @@ class PriceListing extends React.Component {
 				key: "vintage",
 				//   width: '30%',
 				//   ...this.getColumnSearchProps('name'),
-				responsive: ["sm"]
-
+				responsive: ["sm"],
 			},
 			{
 				title: "Wine",
@@ -296,8 +388,7 @@ class PriceListing extends React.Component {
 				key: "wine",
 				//   width: '20%',
 				...this.getColumnSearchProps("wine"),
-				responsive: ["sm"]
-
+				responsive: ["sm"],
 			},
 			{
 				title: "Net Price",
@@ -305,49 +396,50 @@ class PriceListing extends React.Component {
 				key: "price",
 				sorter: (a, b) => a.price - b.price,
 				sortDirections: ["descend", "ascend"],
-				responsive: ["sm"]
-
+				responsive: ["sm"],
 			},
 			{
 				title: "Wines",
 				render: (record) => (
-				<React.Fragment>
-					{record.vintage}<br/>
-					{record.wine}<br/>
-					{record.quantity}
+					<React.Fragment>
+						{record.vintage}
+						<br />
+						{record.wine}
+						<br />
+						{record.quantity}
 					</React.Fragment>
 				),
-				width:'60%',
-				align: 'left',
+				width: "60%",
+				align: "left",
 				...this.getColumnSearchProps("wine"),
-				responsive: ["xs"]
+				responsive: ["xs"],
 			},
 			{
 				title: "Net Price",
 				render: (record) => (
-				<React.Fragment>
-					{record.price}<br/>
-					{record.cart}
-				</React.Fragment>
+					<React.Fragment>
+						{record.price}
+						<br />
+						{record.cart}
+					</React.Fragment>
 				),
 				sorter: (a, b) => a.price - b.price,
 				sortDirections: ["descend", "ascend"],
-				width:'40%',
-				align: 'right',
-				responsive: ["xs"]
+				width: "40%",
+				align: "right",
+				responsive: ["xs"],
 			},
 			{
 				title: "Quantity",
 				dataIndex: "quantity",
 				key: "quantity",
-				responsive: ["sm"]
-
+				responsive: ["sm"],
 			},
 			{
 				title: "",
 				dataIndex: "cart",
 				key: "cart",
-				responsive: ["sm"]
+				responsive: ["sm"],
 
 				// render: (text,record) => <a>{record.quantity.value}</a>,
 			},
@@ -355,91 +447,160 @@ class PriceListing extends React.Component {
 		return (
 			<>
 				<Row>
-					<Col xs={24} lg={{span:4, offset:3}}  className="filter">
-						<Button className="mobile" type="primary" onClick={this.showDrawer}>Filters</Button>
-						<div className="desktop">
-						<h5 style={{ fontFamily: "Jost", fontWeight: 500, float: "left" }}>
+					<Col xs={24} lg={{ span: 4, offset: 3 }} className="filter">
+						<Button className="mobile" type="primary" onClick={this.showDrawer}>
 							Filters
-						</h5>
-						<Divider />
+						</Button>
+						<div className="desktop">
+							<h5
+								style={{ fontFamily: "Jost", fontWeight: 500, float: "left" }}
+							>
+								Filters
+							</h5>
+							<Divider />
 
-						<h6 style={{ fontFamily: "Jost", fontWeight: 400 }}>Wines</h6>
-						<Collapse bordered={false} accordion>
-							<Panel header="Burgundy" key="1">
-								<Checkbox> Antoine Jobard</Checkbox>
-								<br />
-								<Checkbox> Bachelet-Monnot </Checkbox>
-								<br />
-								<Checkbox> Ballot-Millot </Checkbox>
-								<br />
-								<Checkbox> Bernard Moreau </Checkbox>
-								<br />
-								<Checkbox> Berthaut-Gerbet </Checkbox>
-								<br />
-								<Checkbox> Caroline Morey </Checkbox>
-								<br />
-								<Checkbox> David Duband </Checkbox>
-							</Panel>
-							<Panel header="Champagne" key="2"></Panel>
-							<Panel header="Beaujolais" key="3"></Panel>
-							<Panel header="Loirze" key="4"></Panel>
-							<Panel header="Rhone" key="5"></Panel>
-							<Panel header="The New Spain" key="6"></Panel>
-						</Collapse>
-						<h6 className="Vintage" style={{ fontFamily: "Jost", fontWeight: 400, paddingTop:"25px" }}>Vintage</h6>
-						<Checkbox>2015</Checkbox>
-						<br />
-						<Checkbox>2016</Checkbox>
-						<br />
-						<Checkbox>2017</Checkbox>
-						<br />
-						<Checkbox>2018</Checkbox>
-						<br />
-						<Checkbox>2019</Checkbox>
+							<h6 style={{ fontFamily: "Jost", fontWeight: 400 }}>Wines</h6>
+							<Collapse bordered={false} accordion>
+								{this.state.categoriesMap &&
+									Array.from(this.state.categoriesMap).map(
+										([key, value], ind) => {
+											return (
+												<Panel
+													header={this.state.name_idMap.get(key).name}
+													key={ind}
+												>
+													{value.map((item, i) => {
+														return (
+															<div key={i}>
+																<Checkbox
+																	checked={localStorage
+																		.getItem("filters")
+																		.includes(item.name)}
+																	onChange={() => this.handleFilter(item.name)}
+																>
+																	{" "}
+																	{item.name}
+																</Checkbox>
+															</div>
+														);
+													})}
+												</Panel>
+											);
+										}
+									)}
+								{/* <Panel header="Burgundy" key="1">
+									<Checkbox> Antoine Jobard</Checkbox>
+									<br />
+									<Checkbox> Bachelet-Monnot </Checkbox>
+									<br />
+									<Checkbox> Ballot-Millot </Checkbox>
+									<br />
+									<Checkbox> Bernard Moreau </Checkbox>
+									<br />
+									<Checkbox> Berthaut-Gerbet </Checkbox>
+									<br />
+									<Checkbox> Caroline Morey </Checkbox>
+									<br />
+									<Checkbox> David Duband </Checkbox>
+								</Panel> */}
+								{/* <Panel header="Champagne" key="2"></Panel>
+								<Panel header="Beaujolais" key="3"></Panel>
+								<Panel header="Loirze" key="4"></Panel>
+								<Panel header="Rhone" key="5"></Panel>
+								<Panel header="The New Spain" key="6"></Panel> */}
+							</Collapse>
+							<h6
+								className="Vintage"
+								style={{
+									fontFamily: "Jost",
+									fontWeight: 400,
+									paddingTop: "25px",
+								}}
+							>
+								Vintage
+							</h6>
+							{this.state.vintage &&
+								this.state.vintage.map((vin, ind) => {
+									return (
+										<div key={ind}>
+											<Checkbox
+												checked={localStorage
+													.getItem("filters")
+													.includes(vin.name)}
+												onChange={() => this.handleFilter(vin.name)}
+											>
+												{vin.name}
+											</Checkbox>
+											<br />
+										</div>
+									);
+								})}
+							{/* <Checkbox>2015</Checkbox>
+							<br />
+							<Checkbox>2016</Checkbox>
+							<br />
+							<Checkbox>2017</Checkbox>
+							<br />
+							<Checkbox>2018</Checkbox>
+							<br />
+							<Checkbox>2019</Checkbox> */}
 						</div>
-						<Drawer title="Filters"
+						<Drawer
+							title="Filters"
 							placement="left"
 							closable={false}
 							onClose={this.onClose}
-							visible={visible}>
-
-						<h6 style={{ fontFamily: "Jost", fontWeight: 400 }}>Wines</h6>
-						<Collapse bordered={false} accordion>
-							<Panel header="Burgundy" key="1">
-								<Checkbox> Antoine Jobard</Checkbox>
-								<br />
-								<Checkbox> Bachelet-Monnot </Checkbox>
-								<br />
-								<Checkbox> Ballot-Millot </Checkbox>
-								<br />
-								<Checkbox> Bernard Moreau </Checkbox>
-								<br />
-								<Checkbox> Berthaut-Gerbet </Checkbox>
-								<br />
-								<Checkbox> Caroline Morey </Checkbox>
-								<br />
-								<Checkbox> David Duband </Checkbox>
-							</Panel>
-							<Panel header="Champagne" key="2"></Panel>
-							<Panel header="Beaujolais" key="3"></Panel>
-							<Panel header="Loirze" key="4"></Panel>
-							<Panel header="Rhone" key="5"></Panel>
-							<Panel header="The New Spain" key="6"></Panel>
-						</Collapse>
-						<h6 style={{ fontFamily: "Jost", fontWeight: 400, paddingTop:"25px" }}>Vintage</h6>
-						<Checkbox>2015</Checkbox>
-						<br />
-						<Checkbox>2016</Checkbox>
-						<br />
-						<Checkbox>2017</Checkbox>
-						<br />
-						<Checkbox>2018</Checkbox>
-						<br />
-						<Checkbox>2019</Checkbox>
+							visible={visible}
+						>
+							<h6 style={{ fontFamily: "Jost", fontWeight: 400 }}>Wines</h6>
+							<Collapse bordered={false} accordion>
+								<Panel header="Burgundy" key="1">
+									<Checkbox> Antoine Jobard</Checkbox>
+									<br />
+									<Checkbox> Bachelet-Monnot </Checkbox>
+									<br />
+									<Checkbox> Ballot-Millot </Checkbox>
+									<br />
+									<Checkbox> Bernard Moreau </Checkbox>
+									<br />
+									<Checkbox> Berthaut-Gerbet </Checkbox>
+									<br />
+									<Checkbox> Caroline Morey </Checkbox>
+									<br />
+									<Checkbox> David Duband </Checkbox>
+								</Panel>
+								<Panel header="Champagne" key="2"></Panel>
+								<Panel header="Beaujolais" key="3"></Panel>
+								<Panel header="Loirze" key="4"></Panel>
+								<Panel header="Rhone" key="5"></Panel>
+								<Panel header="The New Spain" key="6"></Panel>
+							</Collapse>
+							<h6
+								style={{
+									fontFamily: "Jost",
+									fontWeight: 400,
+									paddingTop: "25px",
+								}}
+							>
+								Vintage
+							</h6>
+							<Checkbox>2015</Checkbox>
+							<br />
+							<Checkbox>2016</Checkbox>
+							<br />
+							<Checkbox>2017</Checkbox>
+							<br />
+							<Checkbox>2018</Checkbox>
+							<br />
+							<Checkbox>2019</Checkbox>
 						</Drawer>
 					</Col>
-					<Col xs={24} lg={14} >
-						<Table className="Pricelist" columns={columns} dataSource={this.state.wine} />
+					<Col xs={24} lg={14}>
+						<Table
+							className="Pricelist"
+							columns={columns}
+							dataSource={this.state.wine}
+						/>
 					</Col>
 				</Row>
 			</>
