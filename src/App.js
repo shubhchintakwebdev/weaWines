@@ -55,7 +55,7 @@ const App = () => {
 					<ScrollToTopRoute component={Terms} path="/terms" exact />
 					<ScrollToTopRoute component={Postpage} path="/postpage/:id" exact />
 					<ScrollToTopRoute component={Four04} path="/404" exact />
-					<Redirect to="/404"/>
+					<Route component={Four04} />
 				</div>
 				</Switch>
 			</Router>
