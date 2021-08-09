@@ -135,4 +135,9 @@ label{
     overflow-x: scroll !important;
     width: 100vw !important;
   }
+  .emptycart{
+      width:100% !important;
+      height: 170px !important;
+  }
 }
+

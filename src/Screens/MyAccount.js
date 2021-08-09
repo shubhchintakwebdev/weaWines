@@ -343,11 +343,11 @@ const MyAccount = () => {
 											value: lastName,
 										},
 										{
-											name: ["email"],
+											name: ["Email"],
 											value: email,
 										},
 										{
-											name: ["phone"],
+											name: ["Phone"],
 											value: phone,
 										},
 									]}
@@ -384,7 +384,7 @@ const MyAccount = () => {
 										<Col span={10}>
 											<Form.Item
 											
-												name="email"
+												name="Email"
 												label="E-mail"
 												rules={[
 													{
@@ -401,10 +401,14 @@ const MyAccount = () => {
 											</Form.Item>
 										</Col>
 										<Col span={10} offset={2}>
-											<Form.Item 	rules={[												{
-															required: 'true',
-														},
-														]} name="phone" label="Phone Number">
+											<Form.Item 	
+												 name="Phone" 
+												 label="Phone Number"
+												 rules={[												
+													{
+													required: 'true'
+													},
+												]}>
 												<Input
 													placeholder="Phone"
 													disabled={aDisabled}
@@ -522,7 +526,7 @@ const MyAccount = () => {
 												},
 											]}
 										>
-											<Form.Item name="street" label="Unit and Street No.">
+											<Form.Item name="street" label="Unit and Street No." >
 												<Input
 													disabled={bDisabled}
 													placeholder="Unit and Street No."

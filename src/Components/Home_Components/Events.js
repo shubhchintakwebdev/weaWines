@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React,{useEffect,useState} from 'react'
 import { Link } from 'react-router-dom';
+import './carousel.css'
 const axios = require('axios');
 
 const EventsComponent=({image,address,date,title,content,index,id})=>{
@@ -11,8 +12,8 @@ const EventsComponent=({image,address,date,title,content,index,id})=>{
                     className="position-relative">
                     <div className="bg-dark position-absolute bottom-0 start-0 pt-3"
                         style={{opacity:"0.7",width:"100%",borderBottomLeftRadius:"25px",borderBottomRightRadius:"25px",textDecoration:'none'}}>
-                        <p className="mx-3"><i className="fas fa-map-marker-alt"></i> {address} </p>
-                        <p className="mx-3"><i className="far fa-clock"></i> {date} </p>
+                        <p className="mx-3 event" ><i className="fas fa-map-marker-alt"></i> {address} </p>
+                        <p className="mx-3 event" style={{color:"#ffffff !important"}}><i className="far fa-clock"></i> {date} </p>
                     </div>
                 </div></Link>
                 <div className="text-dark mt-3">

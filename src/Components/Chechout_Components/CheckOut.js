@@ -5,36 +5,11 @@ import 'antd/dist/antd.css';
 import "../../App.css"
 import CheckOutCart from '../Cart_Components/checkoutCart'
 import { message } from 'antd';
+import Autocomplete, { usePlacesWidget } from "react-google-autocomplete";
 
 import { Link, useHistory } from "react-router-dom";
 const { TextArea } = Input;
-
-// const Checkout = () => {
-//     return (
-//         <>
-//         <Nav1/>
-//         <Nav2/>
-//             <div className="position-relative">
-//                 <div className="op2"></div>
-//                 <div className="aui2 d-flex justify-content-center align-items-center">
-//                     <h1 className="text-uppercase text-light fwl" style={{zIndex:5}}>Checkout</h1>
-//                 </div>
-//             </div>
-//             <section className="plr my-5">
-//               <h3 className="text-danger fwl py-4">Checkout</h3>
-//               <div className="row">
-//                   <div className="col-12 d-flex justify-content-end">
-//                   <Link to="/cart"><button type="button" className="btn btn-secondary my-4" style={{borderRadius:"25px",width:"200px",margin:"20px"}}>Back To Cart</button></Link>
-//                   <button type="button" className="btn btn-danger my-4" style={{borderRadius:"25px",width:"200px",margin:"20px"}}>Order Now</button>
-//                   </div>
-//               </div>
-//             </section>
-//             <Footer/>
-//         </>
-//     )
-// }
-
-// export default Checkout
+ 
 
         const { Option } = Select;
         const CheckoutScreen = () => {
@@ -96,6 +71,12 @@ const { TextArea } = Input;
                  history.push("/");
 
             };
+
+           
+            // const { ref } = usePlacesWidget({
+            //     apiKey: 'AIzaSyCVPebSyN6gZOtLeDTlivIOjJhXhkpKyD4',
+            //     onPlaceSelected: (place) => console.log(place)
+            //   })
 
 
             function onChange(e) {
@@ -255,12 +236,20 @@ const { TextArea } = Input;
                                 label="Postal/Zip Code"
                             >
                                 <Input 
-                                defaultValue={sZip}
-                                onChange={(e) => setSZip(e.target.value)}
-                                placeholder="input placeholder" />
+                                // defaultValue={sZip}
+                                 onChange={(e) => setSZip(e.target.value)}
+                                placeholder="Postal/Zip Code" />
                             </Form.Item>
                         </div>
                     </div>
+                    {/* <Autocomplete
+                    style={{width: '90%'}}
+                    onPlaceSelected={(place) => {
+                    console.log(place);
+                    }}
+                    types={['(regions)']}
+                    componentRestrictions={{country: "ru"}}
+                /> */}
                      {/* <Form.Item 
                         name="same" 
                         valuePropName="checked" 

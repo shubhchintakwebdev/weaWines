@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React from "react";
 import { BrowserRouter as Router, Route,Switch,Redirect } from "react-router-dom";
+import MailchimpSubscribe from "react-mailchimp-subscribe"
 import ScrollToTopRoute from './ScrollToTop';
 import Home from "./Screens/Home";
 import About from "./Screens/About";
@@ -20,6 +21,7 @@ import Postpage from "./Components/Postpage";
 import Four04 from "./Screens/404";
 import Terms from "./Components/terms";
 import Policy from "./Components/policy";
+import Thankyou from "./Screens/Thankyou";
 
 const App = () => {
 	window.less
@@ -55,6 +57,8 @@ const App = () => {
 					<ScrollToTopRoute component={Terms} path="/terms" exact />
 					<ScrollToTopRoute component={Postpage} path="/postpage/:id" exact />
 					<ScrollToTopRoute component={Four04} path="/404" exact />
+					<ScrollToTopRoute component={Thankyou} path="/thank-you" exact />
+
 					{/* <Route component={Four04} /> */}
 				</div>
 				</Switch>

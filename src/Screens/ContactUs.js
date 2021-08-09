@@ -2,16 +2,28 @@ import React , { useState } from 'react'
 import Nav1 from "../Components/Nav1.js"
 import Nav2 from "../Components/Nav2"
 import Footer from "../Components/Footer"
+import GoogleMapReact from 'google-map-react'
 import emailjs from 'emailjs-com';
 import { message } from 'antd';
-
+import { EnvironmentOutlined } from "@ant-design/icons";
+import './map.css'
 const ContactUs = () => {
     const [fullName, setFullname] = useState("");
 	const [email, setEmail] = useState("");
 	const [phone, setPhone] = useState("");
 	const [message1, setMessage] = useState("");
 	const [error, setError] = useState("");
-
+    const location = {
+        address: '1600 Amphitheatre Parkway, Mountain View, california.',
+        lat: 37.42216,
+        lng: -122.08427,
+      }
+    const LocationPin = ({ text }) => (
+        <div className="pin">
+          <EnvironmentOutlined className="pin-icon" />
+          <p className="pin-text">{text}</p>
+        </div>
+      )
     const handleContact = async () => {
 		if(fullName === "" ||email === ""|| phone=== ""||message1 === ""){
                  setError("*All fields are required.")
@@ -109,6 +121,23 @@ const ContactUs = () => {
                             Singapore 069414</p>
                         <p><i className="fas fa-phone-alt fs-3 my-3"></i> +65 7865 7679</p>
                         <p><i className="fas fa-envelope fs-3 my-3"></i> info@weawines.com.sg</p>
+                    </div>
+                </div>
+                <div className="map">
+                    <h2 className="map-h2">Come Visit Us At Our Campus</h2>
+
+                    <div className="google-map">
+                    <GoogleMapReact
+                        bootstrapURLKeys={{ key: '' }}
+                        defaultCenter={location}
+                        defaultZoom='17'
+                    >
+                        <LocationPin
+                        lat={location.lat}
+                        lng={location.lng}
+                        text={location.address}
+                        />
+                    </GoogleMapReact>
                     </div>
                 </div>
             </section>

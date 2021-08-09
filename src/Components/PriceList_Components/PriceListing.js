@@ -13,14 +13,31 @@ import {
 	Space,
 	Drawer,
 	InputNumber,
+	notification
 } from "antd";
 import "antd/dist/antd.css";
 import axios from "axios";
 import { message } from "antd";
-import Login from "../Login";
+import Login2 from "./Login2";
 var FormData = require("form-data");
 var quant = [];
 const token = localStorage.getItem("token");
+
+const openNotification = type => {
+	const btn = (
+		<Button  type="link" href='/cart'><i class="fa fa-shopping-cart" aria-hidden="true"></i> &nbsp;&nbsp;View Cart
+		</Button>
+	  );
+	notification[type] ({
+		message: 'Added to Cart',
+		description:'The item is successfully added to cart.',
+		duration: 5,
+		btn,
+		// placement: 'bottomRight',
+		// onClick: Gocart.goC(),
+	  });
+}
+
 const handleCart = async (value) => {
 	// var data = new FormData();
 	// data.append("product_id", value[1]);
@@ -59,13 +76,7 @@ const handleCart = async (value) => {
 
 	if (result.status === true) {
 		quant = 0;
-		message.success({
-			content: `Item added to cart!`,
-			className: "custom-class",
-			style: {
-				marginTop: "5vh",
-			},
-		});
+		openNotification('success');
 	}
 	if (result.status === false) {
 		message.error({
@@ -171,31 +182,49 @@ class PriceListing extends React.Component {
 		}
 		// console.log(list);
 		// this.setState({ wine: list });
-		Object.keys(list).map(function (object) {
-			list[object]["quantity"] = (
-				<InputNumber
-					size="small"
-					min={0}
-					defaultValue={0}
-					onChange={(value) => (quant = [value, list[object]["key"]])}
-				/>
-			);
-			list[object]["cart"] = (
-				<Button
-					type="link"
-					onClick={() => setCart(quant)}
-					danger
-					// disabled={quant[0]===0 ? true :console.log(quant)}
-					style={{
-						color: "#9b2120",
-					}}
-				>
-					<span>
-						<ShoppingOutlined /> Add to Cart{" "}
-					</span>
-				</Button>
-			);
-		});
+		if(token===null){
+			Object.keys(list).map(function (object) {
+				list[object]["quantity"] = (
+					<InputNumber
+						size="small"
+						min={0}
+						defaultValue={0}
+						onChange={(value) => (quant = [value, list[object]["key"]])}
+					/>
+				);
+				list[object]["cart"] = (
+					<Login2/>
+				);
+			});
+		}
+		else{
+			Object.keys(list).map(function (object) {
+				list[object]["quantity"] = (
+					<InputNumber
+						size="small"
+						min={0}
+						defaultValue={0}
+						onChange={(value) => (quant = [value, list[object]["key"]])}
+					/>
+				);
+				list[object]["cart"] = (
+					<Button
+						type="link"
+						onClick={() => setCart(quant)}
+						danger
+						// disabled={quant[0]===0 ? true :console.log(quant)}
+						style={{
+							color: "#9b2120",
+						}}
+					>
+						<span>
+							<ShoppingOutlined /> Add to Cart{" "}
+						</span>
+					</Button>
+				);
+			});
+		}
+		
 		// console.log(list);
 		this.setState({
 			wine: list,

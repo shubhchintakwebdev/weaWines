@@ -4,11 +4,14 @@ import Nav1 from "../Components/Nav1.js";
 import Nav2 from "../Components/Nav2";
 import Footer from "../Components/Footer";
 import axios from "axios";
-
+import Empty_cart from '../Images/cart_empty.png';
+var emp;
 const Cart = () => {
 	const token = localStorage.getItem("token");
 	const [cart, setCart] = useState([]);
 	const [notAllowed,setnotAllowed] = useState(true);
+	const [emptyCart, setEmptyCart] = useState(true);
+	const [cartValue, setCartValue] = useState(true);
 
 	const handleFetch = async () => {
 		var config = {
@@ -34,6 +37,7 @@ const Cart = () => {
 		const cartjson = await res.json();
 		if(cartjson.status === false){
 			setnotAllowed(false)
+			setEmptyCart(false)
 		}
 		if (cartjson.data == undefined) return;
 		// console.log(cartjson.data.cart_items);
@@ -54,6 +58,7 @@ const Cart = () => {
 		if(token==null){
 			setnotAllowed(false)
 		}
+		
 	}, []);
 
 	const handleIncrement = async (Item) => {
@@ -89,6 +94,7 @@ const Cart = () => {
 
 		const response = await res.json();
 		console.log(response);
+		EmpCart()
 
 	};
 
@@ -114,7 +120,11 @@ const Cart = () => {
 		});
 
 		const response = await res.json();
-		// console.log(response);
+		console.log(response.data.cart_item_count);
+		
+		if(response.data.cart_item_count===0){
+				emp=0
+		}
 		const newCart = cart.map((item) => {
 			if (item.product_id == id) {
 				return {
@@ -126,9 +136,11 @@ const Cart = () => {
 			}
 			return item;
 		});
+		console.log(newCart)
 		setCart(newCart);
-	};
+		EmpCart()
 
+	};
 	const handleRemoveFromCart = async (Item) => {
 		const id = Item.product_id;
 		const item_key = Item.key;
@@ -148,7 +160,15 @@ const Cart = () => {
 
 		const newCart = cart.filter((item) => item.product_id !== id);
 		setCart(newCart);
+		if(newCart.length===0){
+			setEmptyCart(false)
+		}
+		EmpCart()
 	};
+
+	const EmpCart = () =>{
+		console.log(cart)
+ 	} 
 
 	return (
 		<>
@@ -166,6 +186,21 @@ const Cart = () => {
 				<h3 className="text-danger fwl py-4">
 					Cart Items ({cart ? cart.length : 0})
 				</h3>
+				{!emptyCart ? (
+				<div style={{textAlign:'center'}}>
+				<img height="200px" className="emptycart" src={Empty_cart} alt="empty_cart"></img>
+				<br/><br/>
+				<Link to={"/pricelist"}>
+						<button
+							type="button"
+							className="btn btn-secondary my-4"
+							style={{ borderRadius: "25px", width: "200px", margin: "20px" }}
+						>
+							Continue Shopping
+						</button>
+				 </Link>
+				</div>):(
+					<>
 				<div className="row">
 					<div className="col-4">
 						<p>Item and Details</p>
@@ -238,13 +273,14 @@ const Cart = () => {
 				<hr />
 				<div className="row">
 					<div className="col-12 d-flex justify-content-end">
+					<Link to={"/pricelist"}>
 						<button
 							type="button"
 							className="btn btn-secondary my-4"
 							style={{ borderRadius: "25px", width: "200px", margin: "20px" }}
 						>
 							Continue Shopping
-						</button>
+						</button> </Link>
 					{notAllowed &&
 						<Link to="/checkout">
 							<button
@@ -267,8 +303,10 @@ const Cart = () => {
 							</button>
 					 }
 					</div>
-				</div>
-			</section>
+				</div></>
+			
+				)}
+ 			</section>
 			<Footer />
 		</>
 	);
