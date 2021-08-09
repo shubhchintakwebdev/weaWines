@@ -88,6 +88,28 @@ const NewsPage = ({location}) => {
     const createMarkup = () =>{
         return {__html: news.content.rendered};
       }
+    const [name, setName] = useState("");
+	const [email, setEmail] = useState("");
+    const username='developer1';
+    const password="Develop@1234";
+
+	const handleSubmit = async () => {
+        let headers= new Headers();
+        headers.set('Authorization', 'Basic ' + btoa(`${username}:${password}`));
+
+		const res = await fetch(
+			`/wp-json/jet-cct/mailing_list?subsciber_name=${name}&email=${email}`,
+			{
+				method: "post",
+                headers: headers
+			}
+		);
+
+		const data = await res.json();
+		console.log(data);
+		setName("");
+		setEmail("");
+	};
 
     return (
         <>
@@ -105,8 +127,8 @@ const NewsPage = ({location}) => {
                         <div className="my-4 fs-4" >Share <i className="fab fa-facebook-square" style={{color:"#3b5998",marginLeft:"30px"}}></i> <i className="fab fa-twitter" style={{color:"#1DA1F2"}}></i> <i className="fab fa-linkedin-in" style={{color:"#0e76a8"}}></i></div>
                         <hr />
                         <div className="d-flex justify-content-between my-3 mt-5" >
-                            {newsArray.length>0&&(location.state!==0)&&<Link to={{pathname:`/news/${newsArray[location.state-1].id}`,state:location.state-1}} style={{textDecoration:'none',color:"#9B2120"}}><h6><i className="fas fa-arrow-left"></i> {newsArray[location.state-1].title.rendered}</h6></Link>}
-                            {newsArray.length>0&&(location.state!==newsArray.length-1)&&<Link to={{pathname:`/news/${newsArray[location.state+1].id}`,state:location.state+1}} style={{textDecoration:'none',color:"#9B2120"}}><h6>{newsArray[location.state+1].title.rendered}  <i className="fas fa-arrow-right"></i></h6></Link>}
+                        {newsArray.length>0&&(location.state!==0)&&(location.state!==undefined)&&<Link to={{pathname:`/news/${newsArray[location.state-1].id}`,state:location.state-1}} style={{textDecoration:'none',color:"#9B2120"}}><h6><i className="fas fa-arrow-left"></i> {newsArray[location.state-1].title.rendered}</h6></Link>}
+                            {newsArray.length>0&&(location.state!==newsArray.length-1)&&(location.state!==undefined)&&<Link to={{pathname:`/news/${newsArray[location.state+1].id}`,state:location.state+1}} style={{textDecoration:'none',color:"#9B2120"}}><h6>{newsArray[location.state+1].title.rendered}  <i className="fas fa-arrow-right"></i></h6></Link>}
                         </div>
                         
                     </div>
@@ -134,15 +156,15 @@ const NewsPage = ({location}) => {
                             <div className="input-group mb-3" style={{maxWidth:"500px"}}>
                                 <span className="input-group-text" id="basic-addon1"><i
                                         className="fas fa-user"></i></span>
-                                <input type="text" className="form-control" placeholder="Full Name" />
+                                <input type="text" className="form-control" placeholder="Full Name" value={name} onChange={(e)=>{setName(e.target.value)}} />
                             </div>
                             <div className="input-group mb-3" style={{maxWidth:"500px"}}>
                                 <span className="input-group-text" id="basic-addon1"><i
                                         className="fas fa-envelope"></i></span>
-                                <input type="text" className="form-control" placeholder="E-Mail Address" />
+                                <input type="text" className="form-control" placeholder="E-Mail Address" value={email} onChange={(e)=>{setEmail(e.target.value)}} />
                             </div>
                             <button type="button" className="btn btn-danger my-3"
-                                style={{borderRadius:"25px",width:"300px"}}>Subscribe</button>
+                                style={{borderRadius:"25px",width:"300px"}} onClick={handleSubmit}>Subscribe</button>
                             <p style={{fontSize:"15px",textAlign:"center"}}>By clicking on "SUBSCRIBE" , you agree to
                                 WEA wines's <span style={{textDecoration:"underline"}}>Terms of Use</span> and <span
                                     style={{textDecoration:"underline"}}>Privacy Policy</span></p>

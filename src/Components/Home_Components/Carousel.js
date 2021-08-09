@@ -44,7 +44,7 @@ const Carousel = () => {
 										{banner.banner_title}
 									</h2>
 									<p className="myfs2">{banner.banner_description}</p>
-									<a href={banner.button_link}>
+									<Link to={{pathname:banner.button_link}}>
 										<button
 											type="button"
 											className="btn btn-light text-danger d-md-inline "
@@ -52,7 +52,7 @@ const Carousel = () => {
 										>
 											Explore <i className="fas fa-arrow-right"></i>
 										</button>
-									</a>
+									</Link>
 								</div>
 							</div>
 						);
