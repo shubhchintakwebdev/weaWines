@@ -168,6 +168,8 @@ class PriceListing extends React.Component {
 
 		const res = await fetch(url);
 		const data = await res.json();
+		// console.log(data);
+
 		const list = [];
 		for (let i = 0; i < data.data.products.length; i++) {
 			const name = data.data.products[i].name.split("--");
@@ -180,32 +182,52 @@ class PriceListing extends React.Component {
 				price: data.data.products[i].price,
 				// vintage: data.data.products[i].type,
 				vintage,
+				status: data.data.products[i].stock_status,
 			});
 		}
-		// console.log(list);
+		console.log(list);
 		// this.setState({ wine: list });
 		if (token === null) {
 			Object.keys(list).map(function (object) {
-				list[object]["quantity"] = (
-					<InputNumber
-						size="small"
-						min={0}
-						defaultValue={0}
-						onChange={(value) => (quant = [value, list[object]["key"]])}
-					/>
-				);
+				if (list[object]["status"] == "instock")
+					list[object]["quantity"] = (
+						<InputNumber
+							size="small"
+							min={0}
+							defaultValue={0}
+							onChange={(value) => (quant = [value, list[object]["key"]])}
+						/>
+					);
+				else
+					list[object]["quantity"] = (
+						<InputNumber
+							size="small"
+							disabled={true}
+							defaultValue={"SOLD OUT"}
+						/>
+					);
 				list[object]["cart"] = <Login2 />;
 			});
 		} else {
 			Object.keys(list).map(function (object) {
-				list[object]["quantity"] = (
-					<InputNumber
-						size="small"
-						min={0}
-						defaultValue={0}
-						onChange={(value) => (quant = [value, list[object]["key"]])}
-					/>
-				);
+				if (list[object]["status"] == "instock")
+					list[object]["quantity"] = (
+						<InputNumber
+							size="small"
+							min={0}
+							defaultValue={0}
+							onChange={(value) => (quant = [value, list[object]["key"]])}
+						/>
+					);
+				else
+					list[object]["quantity"] = (
+						<InputNumber
+							size="small"
+							disabled={true}
+							defaultValue={"SOLD OUT"}
+						/>
+					);
+
 				list[object]["cart"] = (
 					<Button
 						type="link"
