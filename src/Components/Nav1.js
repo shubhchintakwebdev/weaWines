@@ -3,7 +3,7 @@ import { UserContext } from "./UserContext";
 import { Link, useHistory } from "react-router-dom";
 import Modal from "react-modal";
 import Login from "../Components/Login.js";
-import CartItem from '../Components/Cart_Components/items'
+import CartItem from "../Components/Cart_Components/items";
 const customStyles = {
 	content: {
 		top: "50%",
@@ -53,9 +53,9 @@ const Nav1 = () => {
 			}
 		);
 		const data = await res.json();
+		console.log(data.message);
 		setForgotPasswordModalIsOpen(false);
 		console.log(forgotPasswordModalIsOpen);
-		console.log(data);
 		if (data.status) {
 			localStorage.setItem("userdetails", JSON.stringify(data.user));
 			localStorage.setItem("user", data.user.display_name);
@@ -69,7 +69,6 @@ const Nav1 = () => {
 		localStorage.removeItem("user");
 		localStorage.removeItem("userdetails");
 		localStorage.removeItem("token");
-		localStorage.removeItem("filters");
 		history.push("/");
 		window.location.reload();
 	};
@@ -110,13 +109,14 @@ const Nav1 = () => {
 					<div className="col-6 text-end">
 						{state ? (
 							<p>
-							<i className="fas fa-user"></i>{" "}{" "}
+								<i className="fas fa-user"></i>{" "}
 								<Link to="/myaccount" className="nav-links2">
 									{state}
 								</Link>{" "}
 								|{" "}
 								<Link to="/cart" className="nav-links2">
-									<i className="fas fa-shopping-cart"></i> Cart Items (<CartItem/>)
+									<i className="fas fa-shopping-cart"></i> Cart Items (
+									<CartItem />)
 								</Link>{" "}
 								|
 								<button
@@ -139,9 +139,7 @@ const Nav1 = () => {
 									Register
 								</Link>
 								/
-								<Login />
-								{" "}
-								|{" "}
+								<Login /> |{" "}
 								<Link to="/cart" className="nav-links2">
 									<i className="fas fa-shopping-cart"></i> Cart Items (0)
 								</Link>

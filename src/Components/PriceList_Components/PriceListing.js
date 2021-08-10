@@ -13,7 +13,7 @@ import {
 	Space,
 	Drawer,
 	InputNumber,
-	notification
+	notification,
 } from "antd";
 import "antd/dist/antd.css";
 import axios from "axios";
@@ -23,20 +23,22 @@ var FormData = require("form-data");
 var quant = [];
 const token = localStorage.getItem("token");
 
-const openNotification = type => {
+const openNotification = (type) => {
 	const btn = (
-		<Button  type="link" href='/cart'><i class="fa fa-shopping-cart" aria-hidden="true"></i> &nbsp;&nbsp;View Cart
+		<Button type="link" href="/cart">
+			<i class="fa fa-shopping-cart" aria-hidden="true"></i> &nbsp;&nbsp;View
+			Cart
 		</Button>
-	  );
-	notification[type] ({
-		message: 'Added to Cart',
-		description:'The item is successfully added to cart.',
+	);
+	notification[type]({
+		message: "Added to Cart",
+		description: "The item is successfully added to cart.",
 		duration: 5,
 		btn,
 		// placement: 'bottomRight',
 		// onClick: Gocart.goC(),
-	  });
-}
+	});
+};
 
 const handleCart = async (value) => {
 	// var data = new FormData();
@@ -76,7 +78,7 @@ const handleCart = async (value) => {
 
 	if (result.status === true) {
 		quant = 0;
-		openNotification('success');
+		openNotification("success");
 	}
 	if (result.status === false) {
 		message.error({
@@ -137,8 +139,8 @@ class PriceListing extends React.Component {
 	};
 
 	handleFilter = (filter) => {
-		let newFilter = localStorage.getItem("filters");
-		if (newFilter == ",") newFilter = "";
+		let newFilter = sessionStorage.getItem("filters");
+		if (newFilter == "," || newFilter == null) newFilter = "";
 		if (newFilter.includes("," + filter)) {
 			newFilter = newFilter.replace("," + filter, "");
 		} else if (newFilter.includes(filter)) {
@@ -151,15 +153,15 @@ class PriceListing extends React.Component {
 			}
 		}
 		if (newFilter == ",") newFilter = "";
-		localStorage.setItem("filters", newFilter);
+		sessionStorage.setItem("filters", newFilter);
 		this.handleItems(newFilter);
 	};
 
 	handleItems = async () => {
-		const filter = localStorage.getItem("filters");
+		const filter = sessionStorage.getItem("filters");
 		let url = "https://weawines.shubhchintak.co/wp-json/letscms/v1/products";
 
-		if (filter !== undefined && filter.length) {
+		if (filter !== null && filter.length) {
 			const newUrl = `https://weawines.shubhchintak.co/wp-json/letscms/v1/products?categories="${filter}"`;
 			url = newUrl;
 		}
@@ -182,7 +184,7 @@ class PriceListing extends React.Component {
 		}
 		// console.log(list);
 		// this.setState({ wine: list });
-		if(token===null){
+		if (token === null) {
 			Object.keys(list).map(function (object) {
 				list[object]["quantity"] = (
 					<InputNumber
@@ -192,12 +194,9 @@ class PriceListing extends React.Component {
 						onChange={(value) => (quant = [value, list[object]["key"]])}
 					/>
 				);
-				list[object]["cart"] = (
-					<Login2/>
-				);
+				list[object]["cart"] = <Login2 />;
 			});
-		}
-		else{
+		} else {
 			Object.keys(list).map(function (object) {
 				list[object]["quantity"] = (
 					<InputNumber
@@ -224,7 +223,7 @@ class PriceListing extends React.Component {
 				);
 			});
 		}
-		
+
 		// console.log(list);
 		this.setState({
 			wine: list,
@@ -502,9 +501,12 @@ class PriceListing extends React.Component {
 														return (
 															<div key={i}>
 																<Checkbox
-																	checked={localStorage
-																		.getItem("filters")
-																		.includes(item.name)}
+																	checked={
+																		sessionStorage.getItem("filters") != null &&
+																		sessionStorage
+																			.getItem("filters")
+																			.includes(item.name)
+																	}
 																	onChange={() => this.handleFilter(item.name)}
 																>
 																	{" "}
@@ -553,9 +555,10 @@ class PriceListing extends React.Component {
 									return (
 										<div key={ind}>
 											<Checkbox
-												checked={localStorage
-													.getItem("filters")
-													.includes(vin.name)}
+												checked={
+													sessionStorage.getItem("filters") != null &&
+													sessionStorage.getItem("filters").includes(vin.name)
+												}
 												onChange={() => this.handleFilter(vin.name)}
 											>
 												{vin.name}

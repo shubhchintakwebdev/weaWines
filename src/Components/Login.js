@@ -35,6 +35,8 @@ const Login = () => {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const [forgotPasswordEmail, setForgotPasswordEmail] = useState("");
+	const [error, setError] = useState(null);
+	const [fpError, setFpError] = useState(null);
 
 	const handleLogin = async () => {
 		const res = await fetch(
@@ -51,19 +53,20 @@ const Login = () => {
 			}
 		);
 		const data = await res.json();
+		console.log(data);
+		if (!data.status) setError(data.message);
+
 		setForgotPasswordModalIsOpen(false);
 		console.log(forgotPasswordModalIsOpen);
-		console.log(data);
 		if (data.status) {
 			localStorage.setItem("userdetails", JSON.stringify(data.user));
 			localStorage.setItem("user", data.user.display_name);
 			localStorage.setItem("token", data.letscms_token);
-			localStorage.setItem('filters',"");
+			localStorage.setItem("filters", "");
 			history.push("/");
 			window.location.reload();
 		}
 	};
- 
 
 	const handleForgotPassword = async () => {
 		const res = await fetch(
@@ -77,6 +80,7 @@ const Login = () => {
 			}
 		);
 		const data = await res.json();
+		if (!data.status) setFpError(data.message);
 		if (data.status) setForgotPasswordModalIsOpen(false);
 	};
 
@@ -90,11 +94,9 @@ const Login = () => {
 
 	return (
 		<>
-		 
-								<span onClick={openModal} className="cp">
-									Login
-								</span>{" "}
-				 
+			<span onClick={openModal} className="cp">
+				Login
+			</span>{" "}
 			<Modal
 				isOpen={modalIsOpen}
 				onRequestClose={closeModal}
@@ -118,6 +120,7 @@ const Login = () => {
 							style={{ borderStyle: "none" }}
 							value={email}
 							onChange={(e) => setEmail(e.target.value)}
+							onFocus={() => setError(null)}
 						/>
 						<div className="input-group-append">
 							<button
@@ -145,6 +148,7 @@ const Login = () => {
 							style={{ borderStyle: "none" }}
 							value={password}
 							onChange={(e) => setPassword(e.target.value)}
+							onFocus={() => setError(null)}
 						/>
 						<div className="input-group-append">
 							<button
@@ -160,12 +164,17 @@ const Login = () => {
 							</button>
 						</div>
 					</div>
+					{error != null && (
+						<div style={{ width: "100%" }}>
+							<p className="text-danger text-center cp">{error}</p>
+						</div>
+					)}
 					<div style={{ width: "100%" }}>
 						<p
 							className="text-danger text-end cp"
 							onClick={openForgotPasswordModal}
 						>
-							Forget Password?
+							Forgot Password?
 						</p>
 					</div>
 					<button
@@ -201,7 +210,6 @@ const Login = () => {
 					</p>
 				</div>
 			</Modal>
-
 			<Modal
 				isOpen={forgotPasswordModalIsOpen}
 				onRequestClose={closeForgotPasswordModal}
@@ -225,6 +233,7 @@ const Login = () => {
 							style={{ borderStyle: "none" }}
 							value={forgotPasswordEmail}
 							onChange={(e) => setForgotPasswordEmail(e.target.value)}
+							onFocus={() => setFpError(null)}
 						/>
 						<div className="input-group-append">
 							<button
@@ -242,6 +251,11 @@ const Login = () => {
 							</button>
 						</div>
 					</div>
+					{fpError != null && (
+						<div style={{ width: "100%" }}>
+							<p className="text-danger text-center cp">{fpError}</p>
+						</div>
+					)}
 				</div>
 			</Modal>
 		</>
