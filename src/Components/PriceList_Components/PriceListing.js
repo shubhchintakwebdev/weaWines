@@ -189,7 +189,7 @@ class PriceListing extends React.Component {
 		// this.setState({ wine: list });
 		if (token === null) {
 			Object.keys(list).map(function (object) {
-				if (list[object]["status"] == "instock")
+				if (list[object]["status"] == "instock") {
 					list[object]["quantity"] = (
 						<InputNumber
 							size="small"
@@ -198,7 +198,8 @@ class PriceListing extends React.Component {
 							onChange={(value) => (quant = [value, list[object]["key"]])}
 						/>
 					);
-				else
+					list[object]["cart"] = <Login2 />;
+				} else {
 					list[object]["quantity"] = (
 						<InputNumber
 							size="small"
@@ -206,11 +207,24 @@ class PriceListing extends React.Component {
 							defaultValue={"SOLD OUT"}
 						/>
 					);
-				list[object]["cart"] = <Login2 />;
+					list[object]["cart"] = (
+						<Button
+							type="link"
+							disabled={true}
+							style={{
+								color: "#9b2120",
+							}}
+						>
+							<span>
+								<ShoppingOutlined /> Add to Cart{" "}
+							</span>
+						</Button>
+					);
+				}
 			});
 		} else {
 			Object.keys(list).map(function (object) {
-				if (list[object]["status"] == "instock")
+				if (list[object]["status"] == "instock") {
 					list[object]["quantity"] = (
 						<InputNumber
 							size="small"
@@ -219,7 +233,22 @@ class PriceListing extends React.Component {
 							onChange={(value) => (quant = [value, list[object]["key"]])}
 						/>
 					);
-				else
+					list[object]["cart"] = (
+						<Button
+							type="link"
+							onClick={() => setCart(quant)}
+							danger
+							// disabled={quant[0]===0 ? true :console.log(quant)}
+							style={{
+								color: "#9b2120",
+							}}
+						>
+							<span>
+								<ShoppingOutlined /> Add to Cart{" "}
+							</span>
+						</Button>
+					);
+				} else {
 					list[object]["quantity"] = (
 						<InputNumber
 							size="small"
@@ -227,22 +256,21 @@ class PriceListing extends React.Component {
 							defaultValue={"SOLD OUT"}
 						/>
 					);
-
-				list[object]["cart"] = (
-					<Button
-						type="link"
-						onClick={() => setCart(quant)}
-						danger
-						// disabled={quant[0]===0 ? true :console.log(quant)}
-						style={{
-							color: "#9b2120",
-						}}
-					>
-						<span>
-							<ShoppingOutlined /> Add to Cart{" "}
-						</span>
-					</Button>
-				);
+					list[object]["cart"] = (
+						<Button
+							type="link"
+							danger
+							disabled={true}
+							style={{
+								color: "#9b2120",
+							}}
+						>
+							<span>
+								<ShoppingOutlined /> Add to Cart{" "}
+							</span>
+						</Button>
+					);
+				}
 			});
 		}
 
