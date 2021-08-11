@@ -185,7 +185,7 @@ class PriceListing extends React.Component {
 				status: data.data.products[i].stock_status,
 			});
 		}
-		console.log(list);
+		// console.log(list);
 		// this.setState({ wine: list });
 		if (token === null) {
 			Object.keys(list).map(function (object) {
@@ -286,9 +286,9 @@ class PriceListing extends React.Component {
 		// console.log(Vintage);
 		// this.setState({ vintage: Vintage });
 
-		const resCategories = await fetch("/wp-json/wp/v2/product_cat");
+		const resCategories = await fetch("/wp-json/wp/v2/product_cat?per_page=100");
 		const categories = await resCategories.json();
-		// console.log(categories);
+		console.log(categories);
 
 		const newCategoriesMap = new Map();
 		const newName_idMap = new Map();
@@ -296,7 +296,7 @@ class PriceListing extends React.Component {
 		categories.forEach((category) => {
 			newName_idMap.set(category.id, category);
 		});
-		// console.log(newName_idMap);
+		console.log(newName_idMap);
 
 		categories.forEach((category) => {
 			if (
@@ -307,7 +307,7 @@ class PriceListing extends React.Component {
 				newCategoriesMap.set(category.id, []);
 		});
 
-		// console.log(categoriesMap);
+		console.log(newCategoriesMap);
 		let Vintage = [];
 		categories.forEach((category) => {
 			if (category.parent) {
