@@ -181,7 +181,7 @@ const Register = () => {
 							</button>
 						</div>
 						<p style={{ fontSize: "15px", textAlign: "center" }}>
-							By clicking on "SUBSCRIBE" , you agree to WEA wines's{" "}
+							By clicking on "SIGN UP" , you agree to WEA wines's{" "}
 							<span style={{ textDecoration: "underline" }}>Terms of Use</span>{" "}
 							and{" "}
 							<span style={{ textDecoration: "underline" }}>

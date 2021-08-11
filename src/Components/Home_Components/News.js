@@ -28,13 +28,13 @@ const NewsComponent=({image,title,postedBy,date,content,id,fid,index})=>{
        <>
             {index<3&&<><div className="col-md-4 my-3">
                 <img src={newsImage} alt="" className="img-fluid"
-                    style={{borderRadius:"15px" , height:"300px" , width:"300px" , objectFit:"cover"}} />
+                    style={{borderRadius:"15px" , height:"350px" , width:"350px" , objectFit:"cover"}} />
             </div>
             <div className="col-md-8 d-flex flex-column justify-content-center p-3">
-                <h4>{title}</h4>
-                <p className="fwl my-2" style={{fontSize:"15px"}}><i className="fas fa-user"></i> {postedBy} <i className="far fa-calendar"></i> {date} </p>
-                <div className="fwl my-2"><div dangerouslySetInnerHTML={createMarkup()} className="dangeroushtml2News" style={{overflowX:'hidden'}}></div></div>
-                <Link to={{pathname:`/news/${id}`,state:index}} style={{textDecoration:"none"}}><p className="text-danger mt-3" id={id}>View Details <i className="fas fa-arrow-right"></i></p></Link>
+                <h5 style={{fontWeight:"bold"}}>{title}</h5>
+                <p className="fwl my-2" style={{fontSize:"14px"}}><i className="fas fa-user"></i> {postedBy}&nbsp;&nbsp; <i className="far fa-calendar"></i> {date} </p>
+                <div className="fwl my-2" style={{fontSize:"16px"}}><div dangerouslySetInnerHTML={createMarkup()} className="dangeroushtml2News" style={{overflowX:'hidden'}}></div></div>
+                <Link to={{pathname:`/news/${id}`,state:index}} style={{textDecoration:"none",fontSize:"16px"}}><p className="text-danger mt-1" id={id}>View Details&nbsp; <i className="fas fa-arrow-right"></i></p></Link>
             </div></>}
         </>
     )

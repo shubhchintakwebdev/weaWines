@@ -29,9 +29,9 @@ const RelatedNewsComponent=({id,content,cid,fid,index})=>{
     // else{
         return (  <>
             <div className="col-4 mt-2">
-                <img src={newsImage} alt="" className="img-fluid" />
+                <img src={newsImage} width="100px" height="100px" alt="" />
             </div>
-            <div className="col-8 mt-3">
+            <div className="col-8 mt-3 my-5">
               <Link to={{pathname:`/news/${id}`,state:index}} style={{textDecoration:"none",color:"black"}}><p style={{fontSize:"14px"}}>{content.slice(0,35)}...</p></Link>
             </div>
             </>)
@@ -115,13 +115,13 @@ const NewsPage = ({location}) => {
         <>
             <Nav1 />
             <Nav2 />
-            <img className="aui0" style={{backgroundSize:'cover'}} alt="" src={newsImage}></img>
+            <img className="aui0" alt="" src={newsImage}></img>
             {!news&&<div className="spinner-border" role="status"><span className="sr-only">Loading...</span></div>}
             {news&&<section className="plr my-5">
                 <div className="row">
-                    <div className="col-md-7 col-sm-6">
-                        <h4>{news.title.rendered}</h4>
-                        <p className="fwl my-4" style={{fontSize:"15px"}}><i className="fas fa-user"></i> Admin <i
+                    <div className="col-md-8 col-sm-6">
+                        <h4 style={{fontWeight:"bold"}}>{news.title.rendered}</h4>
+                        <p className="fwl my-4" style={{fontSize:"15px"}}><i className="fas fa-user"></i> Admin&nbsp;&nbsp; <i
                                 className="far fa-calendar"></i> {formatDate(news.date.slice(0,10))} </p>
                         <div className=" " ><div dangerouslySetInnerHTML={createMarkup()} className="dangeroushtml2news" style={{overflowX:'hidden'}}></div></div>
                         <div className="my-4 fs-4" >Share <i className="fab fa-facebook-square" style={{color:"#3b5998",marginLeft:"30px"}}></i> <i className="fab fa-twitter" style={{color:"#1DA1F2"}}></i> <i className="fab fa-linkedin-in" style={{color:"#0e76a8"}}></i></div>
@@ -132,11 +132,11 @@ const NewsPage = ({location}) => {
                         </div>
                         
                     </div>
-                    <div className="col-md-5 col-sm-6">
+                    <div className="col-md-4 col-sm-6">
                         <div className="overflow-auto pt-3"
-                            style={{height:"370px",width:"100%",margin:"auto",backgroundColor:"#F3F3F3"}}>
+                            style={{height:"450px",width:"100%",margin:"auto",backgroundColor:"#F3F3F3"}}>
                             <div className="m-3 ">
-                                <h5>Related News</h5>
+                                <h5 style={{fontWeight:"bold"}}>Related News</h5>
                                 <hr />
                             </div>
                             <div className="row m-1">
@@ -145,8 +145,8 @@ const NewsPage = ({location}) => {
                         </div>
                     </div>
                     <div className="row">
-                    <div className="col-md-2"></div>
-                    <div className="col-md-8">
+                    <div className="col-md-1"></div>
+                    <div className="col-md-10   ">
                     <div style={{backgroundColor:"#eeeeee",height:"auto",width:"100%",marginTop:"90px",marginBottom:"90px"}}
                             className="p-5 d-flex flex-column justify-content-evenly align-items-center">
                             <h3 className="text-uppercase text-danger text-center my-3">Join Our Mailing List</h3>

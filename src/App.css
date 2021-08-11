@@ -121,6 +121,15 @@ label{
   display: none !important;
 }
 
+.subtotal{
+  margin-top: 15px !important;
+}
+
+.cartTotals{
+  font-size: 14px !important;
+  font-weight: bold !important;
+}
+
 @media only screen and (max-width: 768px) {
   .desktop{
     display: none !important;

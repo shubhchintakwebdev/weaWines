@@ -4,7 +4,9 @@ import Nav1 from "../Components/Nav1.js";
 import Nav2 from "../Components/Nav2";
 import Footer from "../Components/Footer";
 import axios from "axios";
+import {  Form, Input, message} from 'antd';
 import Empty_cart from '../Images/cart_empty.png';
+import '../App.css'
 var emp;
 const Cart = () => {
 	const token = localStorage.getItem("token");
@@ -12,20 +14,12 @@ const Cart = () => {
 	const [notAllowed,setnotAllowed] = useState(true);
 	const [emptyCart, setEmptyCart] = useState(true);
 	const [cartValue, setCartValue] = useState(true);
-
+	const [coupon, setCoupon] = useState("");
+	const [discount, setDiscount] = useState("");
+	const [total, setTotal] = useState("");
+	const [subtotal, setSubTotal] = useState("");
+	const [couponApplied, setcouponApplied]=useState(false);
 	const handleFetch = async () => {
-		var config = {
- 			headers: {
-			  letscms_token: token,
-			  "Content-Type": "application/json",
-		  },
- 		  };
-		axios.post( '/wp-json/letscms/v1/cart/',config)
-		.then(res => {
-			const result1 = res.data;
-			console.log(result1,"dd")
-		})
-	 
 		const res = await fetch(
 			"/wp-json/letscms/v1/cart/",
 			{
@@ -47,7 +41,12 @@ const Cart = () => {
 				total: (Number(item.product_price) * Number(item.quantity)).toString(),
 			};
 		});
-		
+		const subtotal1 = cartjson.data.cart_totals.subtotal;
+		const total1 = cartjson.data.cart_totals.total;
+		const dcount = cartjson.data.cart_totals.discount_total;
+		setDiscount(dcount)
+		setSubTotal(subtotal1)
+		setTotal(total1)
 		// setCart(cartjson.data.cart_items);
 		console.log(newCart);
 		setCart(newCart);
@@ -60,6 +59,119 @@ const Cart = () => {
 		}
 		
 	}, []);
+
+	const handleCoupon = async(couponValue) =>{
+		var co;
+		if(couponValue==='1'){
+			 co = coupon
+		}
+		else{
+			 co =""
+		}
+		const res = await fetch(
+			`/wp-json/letscms/v1/cart/?coupons[]=${co}`,
+			{
+				headers: {
+					letscms_token: token,
+				},
+			}
+		);
+		const cartjson = await res.json();
+		if(cartjson.status === false){
+			setnotAllowed(false)
+			setEmptyCart(false)
+		}
+		if (cartjson.data == undefined) return;
+		const validCoupon = cartjson.coupon_status
+
+		console.log(cartjson)
+ 		if(validCoupon===false){
+			message.warning('Invalid Coupon');
+		 }
+		 else{
+			message.success('Coupon Applied');
+		 }
+		// console.log(cartjson.data.cart_items);
+		const newCart = cartjson.data.cart_items.map((item) => {
+			return {
+				...item,
+				total: (Number(item.product_price) * Number(item.quantity)).toString(),
+			};
+		});
+		const subtotal1 = cartjson.data.cart_totals.subtotal;
+		const total1 = cartjson.data.cart_totals.total;
+		const dcount = cartjson.data.cart_totals.discount_total;
+		
+		if(dcount ===0){
+			setcouponApplied(false)
+		}
+		else{
+			setcouponApplied(true)
+		}
+		setDiscount(dcount)
+		setTotal(total1)
+		setSubTotal(subtotal1)
+		// setCart(cartjson.data.cart_items);
+		console.log(cartjson);
+		setCart(newCart);
+	}
+
+	const removeCoupon = async(couponValue) =>{
+		var co;
+		if(couponValue==='1'){
+			 co = coupon
+		}
+		else{
+			 co =""
+		}
+		const res = await fetch(
+			`/wp-json/letscms/v1/cart/?coupons[]=${co}`,
+			{
+				headers: {
+					letscms_token: token,
+				},
+			}
+		);
+		const cartjson = await res.json();
+		if(cartjson.status === false){
+			setnotAllowed(false)
+			setEmptyCart(false)
+		}
+		if (cartjson.data == undefined) return;
+		const validCoupon = cartjson.coupon_status
+
+		console.log(cartjson)
+ 		if(validCoupon===false){
+			message.error('Coupon Removed');
+		 }
+		 else{
+			message.success('Coupon Applied');
+		 }
+		// console.log(cartjson.data.cart_items);
+		const newCart = cartjson.data.cart_items.map((item) => {
+			return {
+				...item,
+				total: (Number(item.product_price) * Number(item.quantity)).toString(),
+			};
+		});
+		const subtotal1 = cartjson.data.cart_totals.subtotal;
+		const total1 = cartjson.data.cart_totals.total;
+		const dcount = cartjson.data.cart_totals.discount_total;
+		
+		if(dcount ===0){
+			setcouponApplied(false)
+		}
+		else{
+			setcouponApplied(true)
+		}
+		setDiscount(dcount)
+		setTotal(total1)
+		setSubTotal(subtotal1)
+		// setCart(cartjson.data.cart_items);
+		console.log(cartjson);
+		setCart(newCart);
+	}
+
 
 	const handleIncrement = async (Item) => {
         const id = Item.product_id;
@@ -93,11 +205,19 @@ const Cart = () => {
 		});
 
 		const response = await res.json();
-		console.log(response);
+		
+		if(discount){
+			handleCoupon('1')
+		}
+		else{
+			handleCoupon('0')
+		}
+ 		console.log(response);
 		EmpCart()
 
 	};
 
+	
 	const handleDecrement = async (Item) => {
 		const id = Item.product_id;
 		const item_key = Item.key;
@@ -125,6 +245,12 @@ const Cart = () => {
 		if(response.data.cart_item_count===0){
 				emp=0
 		}
+		if(discount){
+			handleCoupon('1')
+		}
+		else{
+			handleCoupon('0')
+		}
 		const newCart = cart.map((item) => {
 			if (item.product_id == id) {
 				return {
@@ -136,6 +262,7 @@ const Cart = () => {
 			}
 			return item;
 		});
+		
 		console.log(newCart)
 		setCart(newCart);
 		EmpCart()
@@ -157,7 +284,12 @@ const Cart = () => {
 
 		const response = await res.json();
 		console.log(response);
-
+		if(discount){
+			handleCoupon('1')
+		}
+		else{
+			handleCoupon('0')
+		}
 		const newCart = cart.filter((item) => item.product_id !== id);
 		setCart(newCart);
 		if(newCart.length===0){
@@ -272,6 +404,38 @@ const Cart = () => {
 				</div>
 				<hr />
 				<div className="row">
+					<div className="col-lg-3 col-xs-6">
+							{!couponApplied &&
+                              <Form.Item 
+                                name="Coupon">
+                                <Input 
+                                defaultValue={coupon}
+                                onChange={(e) => setCoupon(e.target.value)}
+                                placeholder="Coupon" />
+                            </Form.Item>}
+							</div>
+						<div className="col-lg-3 col-xs-6">
+						{!couponApplied && <button
+							type="button"
+							className="btn btn-danger"
+							onClick={() => handleCoupon('1')}
+							style={{ borderRadius: "25px", width: "100px", margin: "0" }}
+						>
+							Apply
+						</button> }
+						</div>
+
+						<div className="col-sm-4">
+						</div>
+						<div className="col-md-2">
+							<span className="subtotal cartTotals">Subtotal - </span>${subtotal} <br/>
+							<span className="cartTotals">Discount -</span> ${discount} <br/>
+							<span className="text-danger cp">
+										{couponApplied &&	<u 	onClick={() => removeCoupon('0')}>Remove Coupon</u>}
+										</span> <br/>
+						<span className="cartTotals">	Total -</span> ${total}
+						</div>
+					</div>
 					<div className="col-12 d-flex justify-content-end">
 					<Link to={"/pricelist"}>
 						<button
@@ -281,8 +445,12 @@ const Cart = () => {
 						>
 							Continue Shopping
 						</button> </Link>
-					{notAllowed &&
-						<Link to="/checkout">
+						{/* <div  className="hideBr"> */}
+						<br/>
+						{/* </div> */}
+					{coupon==="" ? (
+					
+						<Link to={`/checkout/0`}>
 							<button
 								type="button"
 								className="btn btn-danger my-4"
@@ -290,20 +458,20 @@ const Cart = () => {
 							>
 								Proceed To Checkout
 							</button>
-						</Link>
-					 }
-					 {!notAllowed &&
+						</Link> ) :(
+							<Link to={`/checkout/${coupon}`}>
 							<button
 								type="button"
-								disabled
 								className="btn btn-danger my-4"
 								style={{ borderRadius: "25px", width: "200px", margin: "20px" }}
 							>
 								Proceed To Checkout
 							</button>
-					 }
+						</Link>		
+						)}
+				 
 					</div>
-				</div></>
+				</>
 			
 				)}
  			</section>

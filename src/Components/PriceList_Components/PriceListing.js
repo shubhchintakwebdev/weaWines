@@ -451,6 +451,10 @@ class PriceListing extends React.Component {
 	render() {
 		const { visible } = this.state;
 		const { Panel } = Collapse;
+	 	const pagination= [{
+			current: 1,
+			pageSize: 5,
+		  }];
 		const columns = [
 			{
 				title: "Vintage",
@@ -728,6 +732,7 @@ class PriceListing extends React.Component {
 						<Table
 							className="Pricelist"
 							columns={columns}
+ 							pagination={{pageSize:10, pageSizeOptions: ['5', '20', '30', '40'] }} 
 							dataSource={this.state.wine}
 						/>
 					</Col>

@@ -47,7 +47,7 @@ const App = () => {
 					<ScrollToTopRoute component={MailingList} path="/mailinglist" exact />
 					<ScrollToTopRoute component={ContactUs} path="/contactus" exact />
 					<ScrollToTopRoute component={Cart} path="/cart" exact />
-					<ScrollToTopRoute component={Checkout} path="/checkout" exact />
+					<ScrollToTopRoute component={Checkout} path="/checkout/:id" exact />
 					<ScrollToTopRoute component={Register} path="/register" exact />
 					<ScrollToTopRoute component={NewsPage} path={["/news"]}  exact />
 					<ScrollToTopRoute component={News} path={["/news/:id"]}  exact />
