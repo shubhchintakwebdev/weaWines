@@ -69,6 +69,8 @@ const Nav1 = () => {
 		localStorage.removeItem("user");
 		localStorage.removeItem("userdetails");
 		localStorage.removeItem("token");
+		if (sessionStorage.getItem("filters") != null)
+			sessionStorage.removeItem("filters");
 		history.push("/");
 		window.location.reload();
 	};

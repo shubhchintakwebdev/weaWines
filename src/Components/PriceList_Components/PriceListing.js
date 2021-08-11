@@ -636,7 +636,37 @@ class PriceListing extends React.Component {
 						>
 							<h6 style={{ fontFamily: "Jost", fontWeight: 400 }}>Wines</h6>
 							<Collapse bordered={false} accordion>
-								<Panel header="Burgundy" key="1">
+								{this.state.categoriesMap &&
+									Array.from(this.state.categoriesMap).map(
+										([key, value], ind) => {
+											return (
+												<Panel
+													header={this.state.name_idMap.get(key).name}
+													key={ind}
+												>
+													{value.map((item, i) => {
+														return (
+															<div key={i}>
+																<Checkbox
+																	checked={
+																		sessionStorage.getItem("filters") != null &&
+																		sessionStorage
+																			.getItem("filters")
+																			.includes(item.name)
+																	}
+																	onChange={() => this.handleFilter(item.name)}
+																>
+																	{" "}
+																	{item.name}
+																</Checkbox>
+															</div>
+														);
+													})}
+												</Panel>
+											);
+										}
+									)}
+								{/* <Panel header="Burgundy" key="1">
 									<Checkbox> Antoine Jobard</Checkbox>
 									<br />
 									<Checkbox> Bachelet-Monnot </Checkbox>
@@ -655,7 +685,7 @@ class PriceListing extends React.Component {
 								<Panel header="Beaujolais" key="3"></Panel>
 								<Panel header="Loirze" key="4"></Panel>
 								<Panel header="Rhone" key="5"></Panel>
-								<Panel header="The New Spain" key="6"></Panel>
+								<Panel header="The New Spain" key="6"></Panel> */}
 							</Collapse>
 							<h6
 								style={{
@@ -666,7 +696,24 @@ class PriceListing extends React.Component {
 							>
 								Vintage
 							</h6>
-							<Checkbox>2015</Checkbox>
+							{this.state.vintage &&
+								this.state.vintage.map((vin, ind) => {
+									return (
+										<div key={ind}>
+											<Checkbox
+												checked={
+													sessionStorage.getItem("filters") != null &&
+													sessionStorage.getItem("filters").includes(vin.name)
+												}
+												onChange={() => this.handleFilter(vin.name)}
+											>
+												{vin.name}
+											</Checkbox>
+											<br />
+										</div>
+									);
+								})}
+							{/* <Checkbox>2015</Checkbox>
 							<br />
 							<Checkbox>2016</Checkbox>
 							<br />
@@ -674,7 +721,7 @@ class PriceListing extends React.Component {
 							<br />
 							<Checkbox>2018</Checkbox>
 							<br />
-							<Checkbox>2019</Checkbox>
+							<Checkbox>2019</Checkbox> */}
 						</Drawer>
 					</Col>
 					<Col xs={24} lg={14}>
