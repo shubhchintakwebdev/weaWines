@@ -58,6 +58,9 @@ const MailingList = () => {
 						vel perferendis sapiente similique omnis consequuntur aperiam
 						voluptatem officiis sit repudiandae!
 					</p>
+					<div id="mc_embed_signup">
+					<form action="https://yahoo.us5.list-manage.com/subscribe/post?u=0a1e7e2fd5de57a26a233c6d9&amp;id=d14e763f47" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate> 
+					<div id="mc_embed_signup_scroll">
 					<div className="input-group mb-3" style={{ maxWidth: "300px" }}>
 						<span className="input-group-text" id="basic-addon1">
 							<i className="fas fa-user"></i>
@@ -82,6 +85,19 @@ const MailingList = () => {
 							onChange={(e) => setEmail(e.target.value)}
 						/>
 					</div>
+					<div className="mc-field-group">
+					<label for="mce-FNAME">Full Name  <span className="asterisk">*</span>
+				</label>
+					<input type="text" value="" name="FNAME" className="required" id="mce-FNAME"/>
+				</div>
+				<div className="mc-field-group">
+					<label for="mce-EMAIL">Email Address  <span className="asterisk">*</span>
+				</label>
+					<input type="email" value="" name="EMAIL" className="required email" id="mce-EMAIL"/>
+				</div>
+				<div  aria-hidden="true"><input type="text" name="b_0a1e7e2fd5de57a26a233c6d9_d14e763f47" tabindex="-1" value=""/></div>
+    <div class="clear"><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" className="button"/></div>  
+				
 					<button
 						type="button"
 						className="btn btn-danger my-3"
@@ -90,12 +106,44 @@ const MailingList = () => {
 					>
 						Subscribe
 					</button>
+					</div>
+					</form>
+					</div>
 					<p style={{ fontSize: "15px", textAlign: "center" }}>
 						By clicking on "SUBSCRIBE" , you agree to WEA wines's{" "}
 						<span style={{ textDecoration: "underline" }}>Terms of Use</span>{" "}
 						and{" "}
 						<span style={{ textDecoration: "underline" }}>Privacy Policy</span>
 					</p>
+
+
+{/* 					
+ 
+<div id="mc_embed_signup">
+<form action="https://yahoo.us5.list-manage.com/subscribe/post?u=0a1e7e2fd5de57a26a233c6d9&amp;id=d14e763f47" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+    <div id="mc_embed_signup_scroll">
+	<h2>Subscribe</h2>
+<div class="indicates-required"><span class="asterisk">*</span> indicates required</div>
+<div class="mc-field-group">
+	<label for="mce-FNAME">Full Name  <span class="asterisk">*</span>
+</label>
+	<input type="text" value="" name="FNAME" class="required" id="mce-FNAME"/>
+</div>
+<div class="mc-field-group">
+	<label for="mce-EMAIL">Email Address  <span class="asterisk">*</span>
+</label>
+	<input type="email" value="" name="EMAIL" class="required email" id="mce-EMAIL"/>
+</div>
+	<div id="mce-responses" class="clear">
+		<div class="response" id="mce-error-response" style="display:none"></div>
+		<div class="response" id="mce-success-response" style="display:none"></div>
+	</div>    
+    <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_0a1e7e2fd5de57a26a233c6d9_d14e763f47" tabindex="-1" value=""/></div>
+    <div class="clear"><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button"/></div>
+    </div>
+</form>
+</div> */}
+
 				</div>
 			</section>
 			<Footer />

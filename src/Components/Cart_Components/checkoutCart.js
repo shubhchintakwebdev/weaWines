@@ -31,6 +31,7 @@ export default class CheckOutCart extends Component {
   }
  
   retrieveOrders = async () => {
+    coupons = couponCode[2]
     const res = await fetch(
         `/wp-json/letscms/v1/cart?coupons[]=${coupons}`,
         {

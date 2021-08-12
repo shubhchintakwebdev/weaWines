@@ -63,7 +63,7 @@ const ViewStarter = (ids) => {
                     </List.Item>
                 )}
                 />
-                <p>But WAIT, what if you are more committed?<a className="text-danger" href="mailto:info@weawines.com.sg?Subject=Enquiry for Starter Tier"> Sign up</a> for a <a style={{fontWeight:'bold', padding:'0', margin:'0'}}>6 month</a> subs instead and get a further:</p>
+                <p>But WAIT, what if you are more committed?<a className="text-danger" href="mailto:info@weawines.com.sg?Subject=Enquiry for Starter Tier"  target="_blank"> Sign up</a> for a <a style={{fontWeight:'bold', padding:'0', margin:'0'}}>6 month</a> subs instead and get a further:</p>
                 <List
                  dataSource={data1}
                  size="small"
@@ -73,7 +73,7 @@ const ViewStarter = (ids) => {
                     </List.Item>
                 )}
                 />
-                     <a href="mailto:info@weawines.com.sg?Subject=Enquiry for Starter Tier" className="btn btn-danger my-2 mx-3" style={{minWidth:"300px",borderRadius:"25px"}}>Subscribe Now</a>
+                     <a href="mailto:info@weawines.com.sg?Subject=Enquiry for Starter Tier"  target="_blank" className="btn btn-danger my-2 mx-3" style={{minWidth:"300px",borderRadius:"25px"}}>Subscribe Now</a>
                  </div>
 			</Modal>
 

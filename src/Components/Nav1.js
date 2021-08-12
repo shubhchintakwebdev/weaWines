@@ -106,7 +106,7 @@ const Nav1 = () => {
 			>
 				<div className="row fwl">
 					<div className="col-6">
-						<p>Free Delivery for $300 and above, till 13th July 2021 only</p>
+						<p style={{paddingTop:'4px'}}>Free Delivery for $300 and above, till 13th July 2021 only</p>
 					</div>
 					<div className="col-6 text-end">
 						{state ? (

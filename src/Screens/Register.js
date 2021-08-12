@@ -115,29 +115,7 @@ const Register = () => {
 								</div>
 							</div>
 							<div className="col-md-6">
-								<div class="form-group my-3">
-									<label for="exampleInputEmail1">Email</label>
-									<input
-										type="email"
-										className="form-control"
-										value={email}
-										onChange={(e) => setEmail(e.target.value)}
-									/>
-								</div>
-							</div>
-							<div className="col-md-6">
-								<div class="form-group my-3">
-									<label for="exampleInputEmail1">Password</label>
-									<input
-										type="password"
-										className="form-control"
-										value={password}
-										onChange={(e) => setPassword(e.target.value)}
-									/>
-								</div>
-							</div>
-							<div className="col-md-6">
-								<div class="form-group my-3">
+							<div class="form-group my-3">
 									<label for="exampleInputEmail1">Last Name</label>
 									<input
 										type="text"
@@ -148,13 +126,35 @@ const Register = () => {
 								</div>
 							</div>
 							<div className="col-md-6">
-								<div class="form-group my-3">
+							<div class="form-group my-3">
+									<label for="exampleInputEmail1">Email</label>
+									<input
+										type="email"
+										className="form-control"
+										value={email}
+										onChange={(e) => setEmail(e.target.value)}
+									/>
+								</div>
+							</div>
+							<div className="col-md-6">
+							<div class="form-group my-3">
 									<label for="exampleInputEmail1">Username</label>
 									<input
 										type="text"
 										className="form-control"
 										value={username}
 										onChange={(e) => setUsername(e.target.value)}
+									/>
+								</div>
+							</div>
+							<div className="col-md-6">
+							<div class="form-group my-3">
+									<label for="exampleInputEmail1">Password</label>
+									<input
+										type="password"
+										className="form-control"
+										value={password}
+										onChange={(e) => setPassword(e.target.value)}
 									/>
 								</div>
 							</div>

@@ -5,12 +5,13 @@ import 'antd/dist/antd.css';
 import "../../App.css"
 import CheckOutCart from '../Cart_Components/checkoutCart'
 import { message } from 'antd';
+import Countries from './countries.json'
 import Autocomplete, { usePlacesWidget } from "react-google-autocomplete";
+import { CountryDropdown, RegionDropdown, CountryRegionData } from 'react-country-region-selector';
 
 import { Link, useHistory } from "react-router-dom";
 const { TextArea } = Input;
- 
-
+     
         const { Option } = Select;
         const CheckoutScreen = () => {
             const history = useHistory();
@@ -33,6 +34,10 @@ const { TextArea } = Input;
             const [sCountry, setSCountry] = useState("Country");
             const [sZip, setSZip] = useState("");
             const [billing, setBilling] = useState(false);
+
+            
+   
+
             const handleCheckout = async () => {
                 const res = await fetch(
                     "/wp-json/letscms/v1/order/create",
@@ -214,20 +219,20 @@ const { TextArea } = Input;
                                 placeholder="State" />
                             </Form.Item>
                         </div>
-                
+                   
+                  
                         <div className="col-md-3">
                             <Form.Item
                                 name="country"
                                 label="Country"
                                 hasFeedback
                             >
-                                <Select
-                                defaultValue={sCountry}
-                                onChange={(value) => setSCountry(value)}
-                                placeholder="Country">
-                                    <Option value="china">China</Option>
-                                    <Option value="usa">U.S.A</Option>
-                                </Select>
+                          <CountryDropdown
+                            value={sCountry}
+                            className="countryDrop"
+                            style={{width:'105%', padding:'3px'}}
+                            onChange={(value) => setSCountry(value)}
+                            placeholder="Country"/>
                             </Form.Item>
                         </div>
                         <div className="col-md-3">
