@@ -5,7 +5,6 @@ import 'antd/dist/antd.css';
 import "../../App.css"
 import CheckOutCart from '../Cart_Components/checkoutCart'
 import { message } from 'antd';
-import Countries from './countries.json'
 import Autocomplete, { usePlacesWidget } from "react-google-autocomplete";
 import { CountryDropdown, RegionDropdown, CountryRegionData } from 'react-country-region-selector';
 

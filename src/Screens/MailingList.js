@@ -85,19 +85,19 @@ const MailingList = () => {
 							onChange={(e) => setEmail(e.target.value)}
 						/>
 					</div>
-					<div className="mc-field-group">
+					{/* <div className="mc-field-group">
 					<label for="mce-FNAME">Full Name  <span className="asterisk">*</span>
 				</label>
 					<input type="text" value="" name="FNAME" className="required" id="mce-FNAME"/>
-				</div>
-				<div className="mc-field-group">
+				</div> */}
+				{/* <div className="mc-field-group">
 					<label for="mce-EMAIL">Email Address  <span className="asterisk">*</span>
 				</label>
 					<input type="email" value="" name="EMAIL" className="required email" id="mce-EMAIL"/>
 				</div>
 				<div  aria-hidden="true"><input type="text" name="b_0a1e7e2fd5de57a26a233c6d9_d14e763f47" tabindex="-1" value=""/></div>
-    <div class="clear"><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" className="button"/></div>  
-				
+    				<div class="clear"><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" className="button"/></div>  
+				 */}
 					<button
 						type="button"
 						className="btn btn-danger my-3"
