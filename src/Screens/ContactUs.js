@@ -123,7 +123,7 @@ const ContactUs = () => {
                         <p><i className="fas fa-envelope fs-3 my-3"></i> info@weawines.com.sg</p>
                     </div>
                 </div>
-                <div className="map">
+                {/* <div className="map">
                     <h2 className="map-h2">Come Visit Us At Our Campus</h2>
 
                     <div className="google-map">
@@ -139,7 +139,7 @@ const ContactUs = () => {
                         />
                     </GoogleMapReact>
                     </div>
-                </div>
+                </div> */}
             </section>
             <Footer/>
         </>

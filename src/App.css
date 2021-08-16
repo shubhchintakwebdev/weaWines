@@ -186,3 +186,6 @@ label{
   transition: all 0.3s !important;
   
 }
+h1{
+  z-index: 0;
+}
