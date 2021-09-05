@@ -245,12 +245,14 @@ const Cart = () => {
 		if(response.data.cart_item_count===0){
 				emp=0
 		}
+		if(coupon !== ""){
 		if(discount){
 			handleCoupon('1')
 		}
 		else{
 			handleCoupon('0')
 		}
+	}
 		const newCart = cart.map((item) => {
 			if (item.product_id == id) {
 				return {
@@ -284,12 +286,15 @@ const Cart = () => {
 
 		const response = await res.json();
 		console.log(response);
+		if(coupon !== ""){
+
 		if(discount){
 			handleCoupon('1')
 		}
 		else{
 			handleCoupon('0')
 		}
+	}
 		const newCart = cart.filter((item) => item.product_id !== id);
 		setCart(newCart);
 		if(newCart.length===0){

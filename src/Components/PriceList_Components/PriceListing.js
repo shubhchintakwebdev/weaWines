@@ -14,6 +14,7 @@ import {
 	Drawer,
 	InputNumber,
 	notification,
+	Spin,
 } from "antd";
 import "antd/dist/antd.css";
 import axios from "axios";
@@ -41,19 +42,9 @@ const openNotification = (type) => {
 };
 
 const handleCart = async (value) => {
-	// var data = new FormData();
-	// data.append("product_id", value[1]);
-	// data.append("quantity", value[0]);
-	// console.log(data);
-	// var config = {
-	//   method: 'post',
-	//   url: '/wp-json/letscms/v1/cart/add-item',
-	//   headers: {
-	// 	letscms_token: token,
-	// 	"Content-Type": "application/json",
-	// },
-	//   data : data
-	// };
+	console.log(value)
+	var setQuantity = value[0];
+	if(value[0]===0){
 	const res = await fetch(
 		"/wp-json/letscms/v1/cart/add-item/?product_id=" +
 			value[1] +
@@ -67,7 +58,7 @@ const handleCart = async (value) => {
 			},
 			body: JSON.stringify({
 				product_id: value[1],
-				quantity: value[0],
+				quantity: 1,
 			}),
 		}
 	);
@@ -89,10 +80,48 @@ const handleCart = async (value) => {
 			},
 		});
 	}
+}
+else{
+	const res = await fetch(
+		"/wp-json/letscms/v1/cart/add-item/?product_id=" +
+			value[1] +
+			"&quantity=" +
+			value[0],
+		{
+			method: "post",
+			headers: {
+				"Content-Type": "application/json",
+				letscms_token: token,
+			},
+			body: JSON.stringify({
+				product_id: value[1],
+				quantity: setQuantity,
+			}),
+		}
+	);
+	const data = await res.json();
+
+	const result = data;
+	console.log(result);
+
+	if (result.status === true) {
+		quant = 0;
+		openNotification("success");
+	}
+	if (result.status === false) {
+		message.error({
+			content: `Add Quantity!`,
+			className: "custom-class",
+			style: {
+				marginTop: "5vh",
+			},
+		});
+	}
+}
 };
 
 const setCart = (value) => {
-	console.log(value);
+	console.log(value, "ss");
 	if (token === null) {
 		message.error({
 			content: `Please Login!`,
@@ -114,6 +143,7 @@ class PriceListing extends React.Component {
 			wine: [],
 			value: 0,
 			setLogin: true,
+			loading:false,
 			visible: false,
 			setVisible: false,
 			categoriesMap: new Map(),
@@ -158,6 +188,9 @@ class PriceListing extends React.Component {
 	};
 
 	handleItems = async () => {
+		this.setState({
+ 			loading:true
+		});
 		const filter = sessionStorage.getItem("filters");
 		let url = "https://weawines.shubhchintak.co/wp-json/letscms/v1/products";
 
@@ -194,7 +227,7 @@ class PriceListing extends React.Component {
 						<InputNumber
 							size="small"
 							min={0}
-							defaultValue={0}
+							defaultValue={1}
 							onChange={(value) => (quant = [value, list[object]["key"]])}
 						/>
 					);
@@ -222,24 +255,28 @@ class PriceListing extends React.Component {
 					);
 				}
 			});
-		} else {
+		}  
+		
+		else {
 			Object.keys(list).map(function (object) {
 				if (list[object]["status"] == "instock") {
 					list[object]["quantity"] = (
 						<InputNumber
 							size="small"
 							min={0}
-							defaultValue={0}
-							onChange={(value) => (quant = [value, list[object]["key"]])}
+							defaultValue={1}
+							onChange={(value) => (list[object]["key1"]  = [value, list[object]["key"]])}
 						/>
 					);
+					
 					list[object]["cart"] = (
 						<Button
 							type="link"
-							onClick={() => setCart(quant)}
+							onClick={() =>{
+								list[object]["key1"]  === undefined ? setCart([1,list[object]["key"]]) : setCart(list[object]["key1"])
+							} }
 							danger
-							// disabled={quant[0]===0 ? true :console.log(quant)}
-							style={{
+ 							style={{
 								color: "#9b2120",
 							}}
 						>
@@ -277,6 +314,7 @@ class PriceListing extends React.Component {
 		// console.log(list);
 		this.setState({
 			wine: list,
+			loading:false
 		});
 	};
 
@@ -730,9 +768,10 @@ class PriceListing extends React.Component {
 					</Col>
 					<Col xs={24} lg={14}>
 						<Table
+							 loading={ this.state.loading ? <Spin size="lg" style={{fontSize:50,flex:1, alignItems:'center', justifyContent:'center'}} /> : false }
 							className="Pricelist"
 							columns={columns}
- 							pagination={{pageSize:10, pageSizeOptions: ['5', '20', '30', '40'] }} 
+							pagination={{ defaultPageSize: 10, showSizeChanger: true, pageSizeOptions: ['10','20','50', '100', '1000']}}
 							dataSource={this.state.wine}
 						/>
 					</Col>
