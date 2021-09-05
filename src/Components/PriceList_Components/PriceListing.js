@@ -59,7 +59,7 @@ const handleCart = async (value) => {
 			body: JSON.stringify({
 				product_id: value[1],
 				quantity: 1,
-			}),
+			})
 		}
 	);
 	const data = await res.json();
@@ -96,7 +96,7 @@ else{
 			body: JSON.stringify({
 				product_id: value[1],
 				quantity: setQuantity,
-			}),
+			})
 		}
 	);
 	const data = await res.json();
