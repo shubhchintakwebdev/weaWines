@@ -46,7 +46,7 @@ const handleCart = async (value) => {
 	var setQuantity = value[0];
 	if(value[0]===0){
 	const res = await fetch(
-		"https://weawines.shubhchintak.co/wp-json/letscms/v1/cart/add-item/?product_id=" +
+		"/wp-json/letscms/v1/cart/add-item/?product_id=" +
 			value[1] +
 			"&quantity=" +
 			value[0],
@@ -83,7 +83,7 @@ const handleCart = async (value) => {
 }
 else{
 	const res = await fetch(
-		"https://weawines.shubhchintak.co/wp-json/letscms/v1/cart/add-item/?product_id=" +
+		"/wp-json/letscms/v1/cart/add-item/?product_id=" +
 			value[1] +
 			"&quantity=" +
 			value[0],
@@ -192,10 +192,10 @@ class PriceListing extends React.Component {
  			loading:true
 		});
 		const filter = sessionStorage.getItem("filters");
-		let url = "https://weawines.shubhchintak.co/wp-json/letscms/v1/products";
+		let url = "/wp-json/letscms/v1/products";
 
 		if (filter !== null && filter.length) {
-			const newUrl = `https://weawines.shubhchintak.co/wp-json/letscms/v1/products?categories="${filter}"`;
+			const newUrl = `/wp-json/letscms/v1/products?categories="${filter}"`;
 			url = newUrl;
 		}
 
@@ -324,7 +324,7 @@ class PriceListing extends React.Component {
 		// console.log(Vintage);
 		// this.setState({ vintage: Vintage });
 
-		const resCategories = await fetch("https://weawines.shubhchintak.co/wp-json/wp/v2/product_cat?per_page=100");
+		const resCategories = await fetch("/wp-json/wp/v2/product_cat?per_page=100");
 		const categories = await resCategories.json();
 		console.log(categories);
 
@@ -384,7 +384,7 @@ class PriceListing extends React.Component {
 
 		this.handleItems();
 		this.handleCategories();
-		axios.get("https://weawines.shubhchintak.co/wp-json/letscms/v1/products").then((response) => {
+		axios.get("/wp-json/letscms/v1/products").then((response) => {
 			//   console.log(list);
 			// console.log(this.state.wine);
 		});
