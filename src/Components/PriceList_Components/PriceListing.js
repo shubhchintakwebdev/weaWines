@@ -52,6 +52,7 @@ const handleCart = async (value) => {
 			value[0],
 		{
 			method: "post",
+			mode: "no-cors", 
 			headers: {
 				"Content-Type": "application/json",
 				letscms_token: token,
@@ -89,6 +90,7 @@ else{
 			value[0],
 		{
 			method: "post",
+			mode: "no-cors",
 			headers: {
 				"Content-Type": "application/json",
 				letscms_token: token,
