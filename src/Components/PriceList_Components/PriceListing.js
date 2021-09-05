@@ -192,10 +192,10 @@ class PriceListing extends React.Component {
  			loading:true
 		});
 		const filter = sessionStorage.getItem("filters");
-		let url = "/wp-json/letscms/v1/products";
+		let url = "https://weawines.shubhchintak.co/wp-json/letscms/v1/products";
 
 		if (filter !== null && filter.length) {
-			const newUrl = `/wp-json/letscms/v1/products?categories="${filter}"`;
+			const newUrl = `https://weawines.shubhchintak.co/wp-json/letscms/v1/products?categories="${filter}"`;
 			url = newUrl;
 		}
 
