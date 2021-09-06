@@ -54,9 +54,8 @@ const MailingList = () => {
 						Join Our Mailing List
 					</h3>
 					<p className="text-center my-3">
-						Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloribus
-						vel perferendis sapiente similique omnis consequuntur aperiam
-						voluptatem officiis sit repudiandae!
+					Register your interest to receive our tri-weekly special offers.
+
 					</p>
 					<div id="mc_embed_signup">
 					<form action="https://yahoo.us5.list-manage.com/subscribe/post?u=0a1e7e2fd5de57a26a233c6d9&amp;id=d14e763f47" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate> 

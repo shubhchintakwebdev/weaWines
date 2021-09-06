@@ -25,10 +25,10 @@ const Footer = () => {
 						<h4 className="mb-4" style={{ color: "white" }}>
 							Quick Links
 						</h4>
-						<Link to=""><p style={{ color: "white" }}>My Acccount</p></Link>
-						<Link to=""><p style={{ color: "white" }}>My Rewards</p></Link>
-						<Link to=""><p style={{ color: "white" }}>My Orders</p></Link>
-						<Link to=""><p style={{ color: "white" }}>Contact Us</p></Link>
+						<Link to="/myaccount"><p style={{ color: "white" }}>My Acccount</p></Link>
+						{/* <Link to=""><p style={{ color: "white" }}>My Rewards</p></Link> */}
+						<Link to="/myaccount"><p style={{ color: "white" }}>My Orders</p></Link>
+						<Link to="/contactus"><p style={{ color: "white" }}>Contact Us</p></Link>
 					</div>
 					<div className="col-md-3">
 						<h4 className="mb-4" style={{ color: "white" }}>

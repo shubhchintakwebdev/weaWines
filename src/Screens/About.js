@@ -24,12 +24,12 @@ const About = () => {
                     </div>
                     <div className="col-md-8 fwl d-flex flex-column justify-content-center">
                         <p>WEA Wines is a fine wine merchant started by wine lovers for wine lovers. We dedicate ourselves in wines from various regions in France. We make it our mission to bring you wines which are authentic and with the utmost quality – made by real people not anonymous corporations. ALL the wines we offer are wines which we are happy to drink ourselves, hence our motto: <b>Wines we love to drink!</b></p>
-                        <p className="text-danger" style={{fontStyle:"italic"}}>Lorem ipsum dolor sit amet consectetur
-                            adipisicing elit. Illo, ad.</p>
+                        {/* <p className="text-danger" style={{fontStyle:"italic"}}>Lorem ipsum dolor sit amet consectetur
+                            adipisicing elit. Illo, ad.</p> */}
                     </div>
                 </div>
             </section>
-            <section className="plr my-5 fwl">
+            {/* <section className="plr my-5 fwl">
                 <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci, ut debitis culpa non provident
                     illo ea recusandae itaque voluptates, molestiae ipsam quo alias mollitia eius quis? Ipsam, id
                     repudiandae nobis accusantium quis aut cumque dolores quae qui. Repellendus dicta ipsum deserunt,
@@ -51,7 +51,7 @@ const About = () => {
                     doloremque veniam neque ut facere a laudantium ipsa debitis repudiandae quas aut quos odio rem
                     natus, possimus praesentium quasi modi consequatur! Odio iure cum, doloribus esse blanditiis ullam
                     asperiores debitis delectus nihil doloremque ex repudiandae a enim nobis.</p>
-            </section>
+            </section> */}
             <Footer/>
         </>
     )

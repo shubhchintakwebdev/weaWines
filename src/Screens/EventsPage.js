@@ -85,8 +85,7 @@ const EventsPage = ({location}) => {
                             className="p-5 d-flex flex-column justify-content-evenly align-items-center">
                             <h3 className="text-uppercase text-danger text-center my-3">Join Our Mailing List</h3>
                             <p className="text-center my-3">Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                                Doloribus vel perferendis sapiente
-                                similique omnis consequuntur aperiam voluptatem officiis sit repudiandae!</p>
+                            Register your interest to receive our tri-weekly special offers.</p>
                             <div className="input-group mb-3" style={{maxWidth:"500px"}}>
                                 <span className="input-group-text" id="basic-addon1"><i
                                         className="fas fa-user"></i></span>
