@@ -117,9 +117,8 @@ const ContactUs = () => {
                          	onClick={handleContact} style={{borderRadius:"25px",width:"40%"}}>Send</button>
                     </div>
                     <div className="col-md-6 fwl p-5">
-                        <p><i className="fas fa-map-marker-alt fs-3 my-3"></i> Blk 341, Le Bon Funk, 29 Club Street
-                            Singapore 069414</p>
-                        <p><i className="fas fa-phone-alt fs-3 my-3"></i> +65 7865 7679</p>
+                        <p><i className="fas fa-map-marker-alt fs-3 my-3"></i> 5 Shenton Way, 10-01 UIC Building. Singapore 068808.</p>
+                        <p><i className="fas fa-phone-alt fs-3 my-3"></i> +65 69116641</p>
                         <p><i className="fas fa-envelope fs-3 my-3"></i> info@weawines.com.sg</p>
                     </div>
                 </div>
