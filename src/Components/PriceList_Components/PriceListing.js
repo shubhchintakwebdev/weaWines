@@ -90,7 +90,7 @@ else{
 			value[0],
 		{
 			method: "post",
-			mode: "no-cors",
+			//mode: "no-cors",
 			headers: {
 				"Content-Type": "application/json",
 				letscms_token: token,
@@ -265,7 +265,7 @@ class PriceListing extends React.Component {
 					list[object]["quantity"] = (
 						<InputNumber
 							size="small"
-							min={0}
+							min={1}
 							defaultValue={1}
 							onChange={(value) => (list[object]["key1"]  = [value, list[object]["key"]])}
 						/>
